@@ -17,8 +17,4 @@ export default {
 };
 </script>
 
-<style>
-.Topnav {
-  border: 1px solid red;
-}
-</style>
+<style></style>

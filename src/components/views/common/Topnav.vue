@@ -16,9 +16,9 @@ export default {
 
 <style lang="scss" scoped>
 .Topnav {
-  border: 1px solid red;
   display: flex;
   justify-content: space-between;
+  background: #f2f2f2;
   align-items: center;
   .logo {
     margin: 10px;

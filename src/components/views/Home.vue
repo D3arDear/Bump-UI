@@ -21,4 +21,28 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.banner {
+  background: #f2f2f2;
+  padding: 80px 20px;
+  h1 {
+    margin: 0;
+  }
+  .actions {
+    margin-top: 30px;
+    a {
+      text-align: center;
+      font-size: 16px;
+      margin: 20px;
+      text-decoration: none;
+      color: #666;
+      background: #f2f2f2;
+      padding: 10px 20px;
+      height: 2em;
+      border-radius: 1em;
+      box-shadow: -2px -2px 3px rgba($color: #ffffff, $alpha: 0.5),
+        2px 2px 3px rgba($color: #000000, $alpha: 0.2);
+    }
+  }
+}
+</style>

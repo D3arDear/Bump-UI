@@ -1,13 +1,5 @@
 <template>
-  <header>
-    <router-link to="/">home</router-link>
-    <router-link to="/button">button</router-link>
-  </header>
-  <hr />
-  <main>
-    <router-view />
-  </main>
-  <footer></footer>
+  <router-view />
 </template>
 
 <script>

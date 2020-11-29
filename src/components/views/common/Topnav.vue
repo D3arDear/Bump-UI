@@ -13,12 +13,9 @@ import { inject, Ref } from "vue";
 export default {
   name: "Topnav",
   setup() {
-    const asideVisible = inject<Ref<boolean>>("xxx");
-    console.log("topnav 获取到 asideVisible 为: " + asideVisible.value);
+    const asideVisible = inject<Ref<boolean>>("asideVisible");
     const toggleMenu = () => {
-      console.log("点击了");
       asideVisible.value = !asideVisible.value;
-      console.log(asideVisible.value);
     };
     return { toggleMenu, asideVisible };
   },

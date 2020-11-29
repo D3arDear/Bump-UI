@@ -22,7 +22,7 @@ import Topnav from "./common/Topnav.vue";
 export default {
   components: { Topnav },
   setup() {
-    const asideVisible = inject<Ref<boolean>>("xxx");
+    const asideVisible = inject<Ref<boolean>>("asideVisible");
     console.log("doc 获取到 asideVisible 为: " + asideVisible.value);
     return { asideVisible };
   },
@@ -66,7 +66,8 @@ export default {
         border-top-right-radius: 1em;
         border-bottom-right-radius: 1em;
         background: #f8f8f8;
-        box-shadow: -2px -2px 4px rgba($color: #ffffff, $alpha: 0.5), 2px 2px 4px rgba($color: #000000, $alpha: 0.2);
+        box-shadow: -2px -2px 4px rgba($color: #ffffff, $alpha: 0.5),
+          2px 2px 4px rgba($color: #000000, $alpha: 0.2);
       }
     }
   }

@@ -42,7 +42,8 @@ export default {
       border-radius: 1em;
       border-top: 0.25px solid rgba($color: #ffffff, $alpha: 0.5);
       border-left: 0.25px solid rgba($color: #ffffff, $alpha: 0.5);
-      box-shadow: -2px -2px 3px rgba($color: #ffffff, $alpha: 0.5), 2px 2px 3px rgba($color: #000000, $alpha: 0.2);
+      box-shadow: -2px -2px 3px rgba($color: #ffffff, $alpha: 0.5),
+        2px 2px 3px rgba($color: #000000, $alpha: 0.2);
     }
   }
 }

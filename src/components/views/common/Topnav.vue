@@ -18,8 +18,9 @@ export default {
 .Topnav {
   display: flex;
   justify-content: space-between;
-  background: #f2f2f2;
+  background: #f8f8f8;
   align-items: center;
+  height: 50px;
   .logo {
     margin: 10px;
   }

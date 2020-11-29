@@ -40,8 +40,9 @@ export default {
       padding: 10px 20px;
       height: 2em;
       border-radius: 1em;
-      box-shadow: -2px -2px 3px rgba($color: #ffffff, $alpha: 0.5),
-        2px 2px 3px rgba($color: #000000, $alpha: 0.2);
+      border-top: 0.25px solid rgba($color: #ffffff, $alpha: 0.5);
+      border-left: 0.25px solid rgba($color: #ffffff, $alpha: 0.5);
+      box-shadow: -2px -2px 3px rgba($color: #ffffff, $alpha: 0.5), 2px 2px 3px rgba($color: #000000, $alpha: 0.2);
     }
   }
 }

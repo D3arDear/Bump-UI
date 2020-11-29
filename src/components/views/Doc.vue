@@ -4,13 +4,21 @@
     <div class="content">
       <aside v-if="asideVisible">
         <ul>
-          <li>Switch 组件</li>
-          <li>Button 组件</li>
-          <li>Dialog 组件</li>
-          <li>Tabs 组件</li>
+          <li>
+            <router-link to="/doc/switch"> Switch 组件 </router-link>
+          </li>
+          <li>
+            <router-link to="/doc/button"> Button 组件 </router-link>
+          </li>
+          <li>
+            <router-link to="/doc/dialog"> Dialog 组件 </router-link>
+          </li>
+          <li>
+            <router-link to="/doc/tabs"> Tabs 组件 </router-link>
+          </li>
         </ul>
       </aside>
-      <main :class="{ asideVisible: asideVisible }">主内容</main>
+      <main :class="{ asideVisible: asideVisible }"><router-view /></main>
     </div>
   </div>
 </template>
@@ -57,6 +65,7 @@ export default {
       padding: 0;
       margin-right: 50px;
       li {
+        cursor: pointer;
         width: 8em;
         margin: 10px 30px 10px 0;
         display: flex;
@@ -66,13 +75,21 @@ export default {
         border-top-right-radius: 1em;
         border-bottom-right-radius: 1em;
         background: #f8f8f8;
-        box-shadow: -2px -2px 4px rgba($color: #ffffff, $alpha: 0.5),
-          2px 2px 4px rgba($color: #000000, $alpha: 0.2);
+        box-shadow: -2px -2px 4px rgba($color: #ffffff, $alpha: 0.5), 2px 2px 4px rgba($color: #000000, $alpha: 0.2);
+        a {
+          text-decoration: none;
+          color: #666;
+        }
       }
     }
   }
   main.asideVisible {
     margin-left: 208px;
+  }
+  @media (max-width: 500px) {
+    main.asideVisible {
+      margin-left: 0;
+    }
   }
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
   <header class="Topnav" :class="{ asideVisible: asideVisible }">
-    <div class="logo" @click="toggleAside">LOGO</div>
+    <div class="logo">LOGO</div>
     <ul class="menu">
       <li>菜单1</li>
       <li>菜单2</li>
     </ul>
-    <span class="toggleAside"></span>
+    <span class="toggleAside" @click="toggleAside"></span>
   </header>
 </template>
 

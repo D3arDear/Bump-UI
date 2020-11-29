@@ -1,10 +1,11 @@
 <template>
   <header class="Topnav" :class="{ asideVisible: asideVisible }">
-    <div class="logo" @click="toggleMenu">LOGO</div>
+    <div class="logo" @click="toggleAside">LOGO</div>
     <ul class="menu">
       <li>菜单1</li>
       <li>菜单2</li>
     </ul>
+    <span class="toggleAside"></span>
   </header>
 </template>
 
@@ -14,16 +15,16 @@ export default {
   name: "Topnav",
   setup() {
     const asideVisible = inject<Ref<boolean>>("asideVisible");
-    const toggleMenu = () => {
+    const toggleAside = () => {
       asideVisible.value = !asideVisible.value;
     };
-    return { toggleMenu, asideVisible };
+    return { toggleAside, asideVisible };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.Topnav.asideVisible {
+.toggleAside .Topnav.asideVisible {
   padding-left: 208px;
 }
 .Topnav {
@@ -32,6 +33,24 @@ export default {
   background: #f8f8f8;
   align-items: center;
   height: 50px;
+  position: relative;
+  @media (max-width: 500px) {
+    justify-content: center;
+    align-items: center;
+  }
+  .toggleAside {
+    width: 24px;
+    height: 24px;
+    background: black;
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+    @media (max-width: 500px) {
+      display: inline-block;
+    }
+  }
   .logo {
     margin: 10px;
   }
@@ -42,6 +61,11 @@ export default {
     list-style-type: none;
     li {
       margin: 0 10px;
+    }
+  }
+  @media (max-width: 500px) {
+    .menu {
+      display: none;
     }
   }
 }

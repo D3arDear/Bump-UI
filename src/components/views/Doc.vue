@@ -3,18 +3,19 @@
     <Topnav></Topnav>
     <div class="content">
       <aside v-if="asideVisible">
+        <div class="handle"></div>
         <ul>
           <li>
-            <router-link to="/doc/switch"> Switch 组件 </router-link>
+            <router-link to="/doc/switch"> Switch </router-link>
           </li>
           <li>
-            <router-link to="/doc/button"> Button 组件 </router-link>
+            <router-link to="/doc/button"> Button </router-link>
           </li>
           <li>
-            <router-link to="/doc/dialog"> Dialog 组件 </router-link>
+            <router-link to="/doc/dialog"> Dialog </router-link>
           </li>
           <li>
-            <router-link to="/doc/tabs"> Tabs 组件 </router-link>
+            <router-link to="/doc/tabs"> Tabs </router-link>
           </li>
         </ul>
       </aside>
@@ -41,6 +42,7 @@ export default {
 <style lang="scss" scoped>
 .content {
   aside {
+    margin-top: 50px;
     position: absolute;
     top: 0;
     left: 0;
@@ -50,8 +52,18 @@ export default {
     justify-content: flex-start;
     align-items: flex-start;
     padding: 10px 0;
-    background: #f8f8f8;
-    box-shadow: 10px 10px 30px #d3d3d3, -10px -10px 30px #ffffff;
+    border-right: 1px solid #fff;
+    box-shadow: 20px 0px 20px -20px rgba($color: #000, $alpha: 0.1);
+    .handle {
+      position: absolute;
+      top: calc(50vh - 25px);
+      left: 190px;
+      height: 50px;
+      width: 6px;
+      border-radius: 2px;
+      background: #ddd;
+      box-shadow: -2px -2px 2px rgba($color: #ffffff, $alpha: 0.5), 1px 1px 2px rgba($color: #000000, $alpha: 0.2), 0 0 10px rgba($color: #000000, $alpha: 0.1);
+    }
     h2 {
       margin: 0;
       margin-left: 10px;
@@ -77,8 +89,6 @@ export default {
           padding: 0.5em 16px;
           border-top-right-radius: 1em;
           border-bottom-right-radius: 1em;
-          background: #f8f8f8;
-          box-shadow: -2px -2px 4px rgba($color: #ffffff, $alpha: 0.5), 2px 2px 4px rgba($color: #000000, $alpha: 0.2);
         }
       }
     }

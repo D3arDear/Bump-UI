@@ -65,20 +65,20 @@ export default {
       padding: 0;
       margin-right: 50px;
       li {
-        cursor: pointer;
-        width: 8em;
-        margin: 10px 30px 10px 0;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        padding: 0.5em 16px;
-        border-top-right-radius: 1em;
-        border-bottom-right-radius: 1em;
-        background: #f8f8f8;
-        box-shadow: -2px -2px 4px rgba($color: #ffffff, $alpha: 0.5), 2px 2px 4px rgba($color: #000000, $alpha: 0.2);
         a {
           text-decoration: none;
           color: #666;
+          cursor: pointer;
+          width: 8em;
+          margin: 10px 30px 10px 0;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          padding: 0.5em 16px;
+          border-top-right-radius: 1em;
+          border-bottom-right-radius: 1em;
+          background: #f8f8f8;
+          box-shadow: -2px -2px 4px rgba($color: #ffffff, $alpha: 0.5), 2px 2px 4px rgba($color: #000000, $alpha: 0.2);
         }
       }
     }

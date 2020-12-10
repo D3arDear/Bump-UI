@@ -1,8 +1,8 @@
 import { createWebHashHistory, createRouter } from "vue-router";
 import Home from "./components/views/Home.vue";
 import Doc from "./components/views/Doc.vue";
-import SwitchDemo from "./components/Switch.Demo.vue";
-import ButtonDemo from "./components/Button.Demo.vue";
+import SwitchDemo from "./components/Switch.demo.vue";
+import ButtonDemo from "./components/Button.demo.vue";
 import DocDemo from "./components/Doc.demo.vue";
 import DialogDemo from "./components/Dialog.demo.vue";
 import TabsDemo from "./components/Tabs.demo.vue";

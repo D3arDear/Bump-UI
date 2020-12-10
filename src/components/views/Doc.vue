@@ -74,21 +74,22 @@ export default {
       justify-content: flex-start;
       align-items: flex-start;
       list-style-type: none;
-      padding: 0;
-      margin-right: 50px;
+      padding: 0 10px;
       li {
+        width: 100%;
+        margin: 10px 40px 10px 20px;
         a {
           text-decoration: none;
           color: #666;
           cursor: pointer;
           width: 8em;
-          margin: 10px 30px 10px 0;
           display: flex;
           justify-content: flex-start;
           align-items: center;
           padding: 0.5em 16px;
-          border-top-right-radius: 1em;
-          border-bottom-right-radius: 1em;
+          // border-top-right-radius: 1em;
+          // border-bottom-right-radius: 1em;
+          box-shadow: 4px 5px 5px -5px rgba($color: #000, $alpha: 0.1);
         }
       }
     }

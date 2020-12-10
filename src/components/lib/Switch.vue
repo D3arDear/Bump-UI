@@ -1,6 +1,5 @@
 <template>
   <button @click="toggle" :class="{ checked: value }"><span></span></button>
-  <div>{{ value }}</div>
 </template>
 
 <script lang="ts">

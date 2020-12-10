@@ -1,5 +1,7 @@
 <template>
-  <button @click="toggle" :class="{ checked: value }"><span></span></button>
+  <button @click="toggle" :class="{ checked: value, flat: flat }">
+    <span></span>
+  </button>
 </template>
 
 <script lang="ts">
@@ -8,9 +10,14 @@ export default {
   name: "Switch",
   props: {
     value: Boolean,
+    flat: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, context) {
     const toggle = () => {
+      console.log("点击", props.value);
       context.emit("update:value", !props.value);
     };
     return { toggle };
@@ -67,6 +74,9 @@ button {
     > span {
       left: calc(100% - #{$h2} - 2px);
     }
+  }
+  &.flat {
+    box-shadow: $small-shadow-inset;
   }
   &:focus {
     outline: none;

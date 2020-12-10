@@ -24,7 +24,7 @@ $h2: $h - 4px;
 $small-shadow: 2px 2px 6px
     rgba(
       $color: #000,
-      $alpha: 0.5,
+      $alpha: 0.3,
     ),
   -2px -2px 6px
     rgba(
@@ -57,31 +57,30 @@ button {
   height: $h;
   width: $h * 2;
   border: none;
-  /* background: linear-gradient(145deg, #e06a2a, #ff7e32); */
-  background: #ccc;
+  background: linear-gradient(145deg, #dfdfdf, #ffffff);
   border-radius: $h/2;
   position: relative;
   box-shadow: $small-shadow, $small-shadow-inset;
   transition: background 250ms;
-}
-span {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  height: $h2;
-  width: $h2;
-  background: linear-gradient(145deg, #ffffff, #dfdfdf);
-  border-radius: $h2/2;
-  box-shadow: $tiny-shadow;
-  transition: left 250ms;
-}
-button.checked {
-  background: linear-gradient(145deg, #e06a2a, #ff7e32);
-}
-button.checked > span {
-  left: calc(100% - #{$h2} - 2px);
-}
-button:focus {
-  outline: none;
+  &.checked {
+    background: linear-gradient(145deg, #e06a2a, #ff7e32);
+    > span {
+      left: calc(100% - #{$h2} - 2px);
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+  > span {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: $h2;
+    width: $h2;
+    background: linear-gradient(145deg, #ffffff, #dfdfdf);
+    border-radius: $h2/2;
+    box-shadow: $tiny-shadow;
+    transition: left 250ms;
+  }
 }
 </style>

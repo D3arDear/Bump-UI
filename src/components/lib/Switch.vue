@@ -17,7 +17,6 @@ export default {
   },
   setup(props, context) {
     const toggle = () => {
-      console.log("点击", props.value);
       context.emit("update:value", !props.value);
     };
     return { toggle };

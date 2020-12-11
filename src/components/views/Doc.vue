@@ -62,7 +62,9 @@ export default {
       width: 6px;
       border-radius: 2px;
       background: #ddd;
-      box-shadow: -2px -2px 2px rgba($color: #ffffff, $alpha: 0.5), 1px 1px 2px rgba($color: #000000, $alpha: 0.2), 0 0 10px rgba($color: #000000, $alpha: 0.1);
+      box-shadow: -2px -2px 2px rgba($color: #ffffff, $alpha: 0.5),
+        1px 1px 2px rgba($color: #000000, $alpha: 0.2),
+        0 0 10px rgba($color: #000000, $alpha: 0.1);
     }
     h2 {
       margin: 0;
@@ -94,8 +96,11 @@ export default {
       }
     }
   }
-  main.asideVisible {
-    margin-left: 208px;
+  main {
+    padding: 10px 20px;
+    &.asideVisible {
+      margin-left: 208px;
+    }
   }
   @media (max-width: 500px) {
     main.asideVisible {

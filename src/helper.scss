@@ -1,0 +1,41 @@
+@function surfaceShadow-concave-generator($angle, $color) {
+  @return linear-gradient($angle, darken($color, 10%), lighten($color, 10%));
+}
+
+@function surfaceShadow-convex-generator($angle, $color) {
+  @return linear-gradient($angle, lighten($color, 10%), darken($color, 10%));
+}
+
+@function shadow-light($direction, $color, $blur) {
+  @if $direction == topLeft {
+    @return (-$blur / 2) (-$blur / 2) $blur lighten($color, 13.75%);
+  } @else if $direction == topRight {
+    @return ($blur / 2) (-$blur / 2) $blur lighten($color, 13.75%);
+  } @else if $direction == bottomLeft {
+    @return (-$blur / 2) ($blur / 2) $blur lighten($color, 13.75%);
+  } @else if $direction == bottomRight {
+    @return ($blur / 2) ($blur / 2) $blur lighten($color, 13.75%);
+  }
+}
+
+@function shadow-dark($direction, $color, $blur) {
+  @if $direction == topLeft {
+    @return ($blur / 2) ($blur / 2) $blur darken($color, 13.75%);
+  } @else if $direction == topRight {
+    @return (-$blur / 2) ($blur / 2) $blur darken($color, 13.75%);
+  } @else if $direction == bottomLeft {
+    @return ($blur / 2) (-$blur / 2) $blur darken($color, 13.75%);
+  } @else if $direction == bottomRight {
+    @return (-$blur / 2) (-$blur / 2) $blur darken($color, 13.75%);
+  }
+}
+
+@function shadow-generator($direction, $color, $blur, $inset) {
+  @if $inset {
+    @return shadow-light($direction, $color, $blur) inset,
+      shadow-dark($direction, $color, $blur) inset;
+  } @else {
+    @return shadow-light($direction, $color, $blur),
+      shadow-dark($direction, $color, $blur);
+  }
+}

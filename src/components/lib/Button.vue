@@ -1,15 +1,20 @@
 <template>
   <div class="ButtonCover">
-    <div class="Button"><slot /></div>
+    <button v-bind="rest" class="Button"><slot /></button>
     <div class="ButtonShadow-cover">
       <div class="ButtonShadow"></div>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
+  inheritAttrs: false,
   name: "Button",
+  setup(props, context) {
+    const { size, level, ...rest } = context.attrs;
+    return { size, level, rest };
+  },
 };
 </script>
 
@@ -20,12 +25,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 100px;
   .Button {
     width: 100px;
     height: 100%;
     padding: 10px;
-    background: #f5f5f5;
+    background: #f8f8f8;
+    outline: none;
+    border: none;
   }
   .ButtonShadow-cover {
     position: absolute;
@@ -43,7 +49,6 @@ export default {
       bottom: 0;
       right: 0;
       left: 0;
-      padding: 20px;
       clip-path: polygon(10% 20%, 100% 0, 100% 100%, 10% 80%);
       z-index: 2;
       background-color: rgba(255, 255, 255, 1);

@@ -2,7 +2,7 @@
   <div>Button 示例</div>
   <h1>示例1</h1>
   <div><Button>纸片</Button></div>
-  <div class="test">测试背景</div>
+  <div class="test"><span>测试</span></div>
 </template>
 
 <script>
@@ -20,12 +20,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../theme.scss";
+@import "../style/theme.scss";
 .test {
+  margin: 10px;
   width: 100px;
-  height: 50px;
+  height: 40px;
   border-radius: 10px;
-  background: surfaceShadow-convex-generator(145deg, #f8f8f8);
-  box-shadow: shadow-generator(topLeft, #f8f8f8, 12px, false);
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  @include shadow(topLeft, #f8f8f8, 12px, false);
+  @include surface(topLeft, #f8f8f8, concave);
 }
 </style>

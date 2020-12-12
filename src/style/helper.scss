@@ -6,6 +6,18 @@
   @return linear-gradient($angle, lighten($color, 10%), darken($color, 10%));
 }
 
+@function directionToAngle($direction) {
+  @if $direction == topLeft {
+    @return 145deg;
+  } @else if $direction == topRight {
+    @return 225deg;
+  } @else if $direction == bottomLeft {
+    @return 45deg;
+  } @else if $direction == bottomRight {
+    @return 315deg;
+  }
+}
+
 @function shadow-light($direction, $color, $blur) {
   @if $direction == topLeft {
     @return (-$blur / 2) (-$blur / 2) $blur lighten($color, 13.75%);
@@ -37,5 +49,23 @@
   } @else {
     @return shadow-light($direction, $color, $blur),
       shadow-dark($direction, $color, $blur);
+  }
+}
+
+@mixin shadow($direction, $color, $blur, $inset) {
+  box-shadow: shadow-generator($direction, $color, $blur, $inset);
+}
+
+@mixin surface($direction, $color, $type) {
+  @if $type == concave {
+    background: surfaceShadow-concave-generator(
+      directionToAngle($direction),
+      $color
+    );
+  } @else if $type == convex {
+    background: surfaceShadow-convex-generator(
+      directionToAngle($direction),
+      $color
+    );
   }
 }

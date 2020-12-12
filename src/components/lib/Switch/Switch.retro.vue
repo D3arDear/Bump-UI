@@ -1,6 +1,6 @@
 <template>
-  <button @click="toggle" class="SwitchCover">
-    <div class="Switch" :class="{ checked: value }">
+  <button class="SwitchCover" :class="{ checked: value }">
+    <div class="Switch">
       <div class="SwitchHandle"></div>
     </div>
     <div class="SwitchShadow-cover">
@@ -15,15 +15,9 @@ export default {
   name: "SwitchRetro",
   props: {
     value: Boolean,
-    toggle: {
-      type: Function,
-    },
   },
   setup(props, context) {
-    const toggle = () => {
-      console.log("内部点击了");
-    };
-    return { toggle };
+    return {};
   },
 };
 </script>
@@ -44,19 +38,46 @@ $h2: $h - 2 * $gap;
   align-items: center;
   background: #f8f8f8;
   padding: 0;
-  z-index: -2;
-  @include shadow(topLeft, #f8f8f8, 6px, false);
+  z-index: -1;
   border-radius: $h/4;
+  border: 0;
+  @include surface(topLeft, #f8f8f8, convex);
+  @include shadow(topLeft, #f8f8f8, 6px, false);
+  transition: all 250ms;
+  cursor: pointer;
+  &:after {
+    content: "";
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: $h/4;
+    @include surface(topLeft, #ff9e5d, convex);
+    transition: all 250ms;
+  }
   .Switch {
     position: absolute;
+    z-index: 1;
     inset: $gap;
     width: 2 * ($h2 + $gap);
     outline: none;
     border: none;
-    @include surface(topRight, #f8f8f8, convex);
+    @include surface(topRight, #fff, convex);
     border-radius: $h2/4;
     padding: 0;
     transition: all 250ms;
+    &:after {
+      content: "";
+      position: absolute;
+      opacity: 0;
+      inset: 0;
+      width: 2 * ($h2 + $gap);
+      border-radius: $h2/4;
+      @include surface(bottomRight, #ddd, convex);
+      transition: all 250ms;
+    }
     .SwitchHandle {
       position: absolute;
       top: $h2/2 - $h2/4;
@@ -65,9 +86,21 @@ $h2: $h - 2 * $gap;
       width: $gap/2;
       border-radius: $gap/2;
       background: #ddd;
+      transition: all 250ms;
     }
-    &.checked {
-      @include surface(topLeft, #ff7e32, convex);
+  }
+  &.checked {
+    &:after {
+      opacity: 1;
+    }
+    .Switch {
+      &:after {
+        opacity: 1;
+      }
+      .SwitchHandle {
+        z-index: 2;
+        background: #ff9e5d;
+      }
     }
   }
   .SwitchShadow-cover {

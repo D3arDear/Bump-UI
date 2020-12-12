@@ -58,12 +58,12 @@
 
 @mixin surface($direction, $color, $type) {
   @if $type == concave {
-    background: surfaceShadow-concave-generator(
+    background-image: surfaceShadow-concave-generator(
       directionToAngle($direction),
       $color
     );
   } @else if $type == convex {
-    background: surfaceShadow-convex-generator(
+    background-image: surfaceShadow-convex-generator(
       directionToAngle($direction),
       $color
     );

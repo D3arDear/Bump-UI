@@ -61,8 +61,10 @@ $tiny-shadow: -2px -2px 4px rgba(
 
 button {
   height: $h;
+  padding: 0;
   width: $h * 2;
   border: none;
+  display: inline-flex;
   background: linear-gradient(145deg, #dfdfdf, #ffffff);
   border-radius: $h/2;
   position: relative;

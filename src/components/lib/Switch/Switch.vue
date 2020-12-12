@@ -6,12 +6,7 @@
     v-model:value="value"
     :toggle="toggle"
   />
-  <SwitchRetro
-    v-if="retro"
-    :value="value"
-    v-model:value="value"
-    :toggle="toggle"
-  />
+  <SwitchRetro v-if="retro" :value="value" v-model:value="value" :toggle="toggle" />
 </template>
 
 <script lang="ts">
@@ -34,6 +29,7 @@ export default {
   },
   setup(props, context) {
     const toggle = () => {
+      console.log("点击了");
       context.emit("update:value", !props.value);
     };
     return { toggle };

@@ -98,6 +98,10 @@ export default {
   }
   main {
     padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     &.asideVisible {
       margin-left: 208px;
     }

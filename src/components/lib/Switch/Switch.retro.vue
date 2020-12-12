@@ -1,11 +1,12 @@
 <template>
-  <div class="SwitchCover">
-    <button @click="toggle" class="Switch" :class="{ checked: value }"></button>
+  <button @click="toggle" class="SwitchCover">
+    <div class="Switch" :class="{ checked: value }">
+      <div class="SwitchHandle"></div>
+    </div>
     <div class="SwitchShadow-cover">
       <div class="SwitchShadow"></div>
     </div>
-  </div>
-  这里是retro
+  </button>
 </template>
 
 <script lang="ts">
@@ -19,7 +20,10 @@ export default {
     },
   },
   setup(props, context) {
-    return {};
+    const toggle = () => {
+      console.log("内部点击了");
+    };
+    return { toggle };
   },
 };
 </script>
@@ -27,29 +31,44 @@ export default {
 <style lang="scss" scoped>
 @import "../../../style/theme.scss";
 $h: 22px;
-$gap: 4px;
+$gap: 2px;
 $h2: $h - 2 * $gap;
 
 .SwitchCover {
   position: relative;
-  width: $h * 2;
-  height: $h;
-  display: flex;
+  min-width: $h * 2;
+  min-height: $h;
+  padding: $gap;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   background: #f8f8f8;
+  padding: 0;
   z-index: -2;
-  @include shadow(topLeft, #f8f8f8, 6px, true);
+  @include shadow(topLeft, #f8f8f8, 6px, false);
   border-radius: $h/4;
   .Switch {
-    border: 1px solid black;
-    width: $h2 * 2 + $gap;
-    height: $h2;
+    position: absolute;
+    inset: $gap;
+    width: 2 * ($h2 + $gap);
     outline: none;
     border: none;
     @include surface(topRight, #f8f8f8, convex);
     border-radius: $h2/4;
     padding: 0;
+    transition: all 250ms;
+    .SwitchHandle {
+      position: absolute;
+      top: $h2/2 - $h2/4;
+      right: 2 * $gap/3;
+      height: $h2/2;
+      width: $gap/2;
+      border-radius: $gap/2;
+      background: #ddd;
+    }
+    &.checked {
+      @include surface(topLeft, #ff7e32, convex);
+    }
   }
   .SwitchShadow-cover {
     position: absolute;

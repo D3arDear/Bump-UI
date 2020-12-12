@@ -7,19 +7,19 @@
 <script lang="ts">
 import { ref } from "vue";
 export default {
-  name: "Switch",
+  name: "SwitchNormal",
   props: {
     value: Boolean,
     flat: {
       type: Boolean,
       default: false,
     },
+    toggle: {
+      type: Function,
+    },
   },
   setup(props, context) {
-    const toggle = () => {
-      context.emit("update:value", !props.value);
-    };
-    return { toggle };
+    return {};
   },
 };
 </script>

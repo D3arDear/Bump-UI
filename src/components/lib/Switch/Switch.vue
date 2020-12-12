@@ -1,5 +1,5 @@
 <template>
-  <div @click="toggle">
+  <div class="BUI-Switch" @click="toggle">
     <SwitchNormal v-if="!retro" :flat="flat" :value="value" v-model:value="value" />
     <SwitchRetro v-if="retro" :value="value" v-model:value="value" />
   </div>
@@ -33,4 +33,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.BUI-Switch {
+  display: inline-flex;
+}
+</style>

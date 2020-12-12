@@ -1,8 +1,8 @@
 <template>
   <div>Button 示例</div>
   <h1>示例1</h1>
-  <div><Button>纸片</Button></div>
-  <div class="test"><span>测试</span></div>
+  <div><Button>默认按钮</Button></div>
+  <div><Button>默认突起按钮</Button></div>
 </template>
 
 <script>

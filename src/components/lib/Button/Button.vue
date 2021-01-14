@@ -1,6 +1,6 @@
 <template>
   <div class="buttonCover">
-    <button v-bind="rest" class="Button">
+    <button v-bind="rest" class="Button" :class="surfaceTheme ">
       <span><slot /></span>
     </button>
   </div>
@@ -10,9 +10,16 @@
 export default {
   inheritAttrs: false,
   name: "Button",
+  props: {
+    surfaceTheme: {
+      type: String,
+      default: "concave",
+    },
+  },
   setup(props, context) {
+    const { surfaceTheme } = props;
     const { size, level, ...rest } = context.attrs;
-    return { size, level, rest };
+    return { size, level, rest, surfaceTheme };
   },
 };
 </script>
@@ -20,7 +27,7 @@ export default {
 <style lang="scss" scoped>
 @import "../../../style/theme.scss";
 div.buttonCover {
-  button {
+  .Button {
     margin: 10px;
     width: 100px;
     height: 40px;
@@ -31,6 +38,9 @@ div.buttonCover {
     align-self: center;
     @include shadow(topLeft, #f8f8f8, 12px, false);
     @include surface(topLeft, #f8f8f8, concave);
+    &.convex {
+      @include surface(topLeft, #f8f8f8, convex);
+    }
     span {
       margin: auto;
     }

@@ -2,7 +2,7 @@
   <div>Button 示例</div>
   <h1>示例1</h1>
   <div><Button>默认按钮</Button></div>
-  <div><Button>默认突起按钮</Button></div>
+  <div><Button surfaceTheme="convex">默认突起按钮</Button></div>
 </template>
 
 <script>

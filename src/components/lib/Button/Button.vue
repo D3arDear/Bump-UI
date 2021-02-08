@@ -4,6 +4,7 @@
     :class="classes('', '', parsedLevel)"
     :class="themeClasses"
     :class="rounded && 'rounded'"
+    :class="size"
   >
     <span><slot /></span>
   </button>
@@ -79,12 +80,42 @@ export default {
   align-self: center;
   outline: 0px;
   cursor: pointer;
+  font-size: $--font--size--default;
   @include BUI-ButtonTheme($--color--primary);
   &.rounded {
     height: 3em;
     min-width: 3em;
-    padding: 0 1em;
     border-radius: 1.5em;
+  }
+  &.medium {
+    font-size: 13px;
+    height: 2.75em;
+    padding: 0 1em;
+    &.rounded {
+      height: 2.75em;
+      min-width: 2.75em;
+      border-radius: 1.375em;
+    }
+  }
+  &.small {
+    font-size: 12px;
+    height: 2.5em;
+    padding: 0 0.75em;
+    &.rounded {
+      height: 2.5em;
+      min-width: 2.5em;
+      border-radius: 1.25em;
+    }
+  }
+  &.mini {
+    font-size: 12px;
+    height: 2.25em;
+    padding: 0 0.75em;
+    &.rounded {
+      height: 2em;
+      min-width: 2em;
+      border-radius: 1em;
+    }
   }
   &--primary {
     @extend .BUI-Button;

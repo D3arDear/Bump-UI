@@ -88,22 +88,27 @@ export default {
   }
   &--primary {
     @extend .BUI-Button;
+    color: invert($color: $--color--primary);
     @include BUI-ButtonTheme($--color--primary);
   }
   &--success {
     @extend .BUI-Button;
+    color: white;
     @include BUI-ButtonTheme($--color--success);
   }
   &--info {
     @extend .BUI-Button;
+    color: white;
     @include BUI-ButtonTheme($--color--info);
   }
   &--warning {
     @extend .BUI-Button;
+    color: white;
     @include BUI-ButtonTheme($--color--warning);
   }
   &--danger {
     @extend .BUI-Button;
+    color: white;
     @include BUI-ButtonTheme($--color--danger);
   }
   span {

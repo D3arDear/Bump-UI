@@ -91,17 +91,19 @@ export default {
           padding: 0.5em 16px;
           // border-top-right-radius: 1em;
           // border-bottom-right-radius: 1em;
-          box-shadow: 4px 5px 5px -5px rgba($color: #000, $alpha: 0.1);
+          &.active {
+            box-shadow: 4px 5px 5px -5px rgba($color: #000, $alpha: 0.1);
+          }
         }
       }
     }
   }
   main {
-    padding: 10px 20px;
+    padding: 20px 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     &.asideVisible {
       margin-left: 208px;
     }

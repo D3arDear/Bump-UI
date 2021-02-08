@@ -1,8 +1,17 @@
 <template>
-  <div>Button 示例</div>
-  <h1>示例1</h1>
-  <div><Button>默认按钮</Button></div>
-  <div><Button surfaceTheme="convex">默认突起按钮</Button></div>
+  <div class="button-demo">
+    <h1>Button组件</h1>
+    <div><Button>默认按钮</Button></div>
+    <div>
+      <Button surfaceTheme="concave" bodyTheme="convex">表面凹陷按钮</Button>
+    </div>
+    <div>
+      <Button surfaceTheme="convex" bodyTheme="convex">表面凸起按钮</Button>
+    </div>
+    <div>
+      <Button surfaceTheme="concave" bodyTheme="concave">表面凹陷按钮</Button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -21,15 +30,11 @@ export default {
 
 <style lang="scss" scoped>
 @import "../style/theme.scss";
-.test {
-  margin: 10px;
-  width: 100px;
-  height: 40px;
-  border-radius: 10px;
+.button-demo {
+  flex: 1;
   display: flex;
-  justify-content: center;
-  align-self: center;
-  @include shadow(topLeft, #f8f8f8, 12px, false);
-  @include surface(topLeft, #f8f8f8, concave);
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 </style>

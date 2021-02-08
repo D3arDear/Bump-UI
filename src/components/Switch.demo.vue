@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>Switch组件</h1>
     <Switch v-model:value="bool1" />
     <Switch v-model:value="bool2" flat />
     <Switch v-model:value="bool3" retro />

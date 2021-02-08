@@ -1,6 +1,11 @@
 <template>
   <div class="BUI-Switch" @click="toggle">
-    <SwitchNormal v-if="!retro" :flat="flat" :value="value" v-model:value="value" />
+    <SwitchNormal
+      v-if="!retro"
+      :flat="flat"
+      :value="value"
+      v-model:value="value"
+    />
     <SwitchRetro v-if="retro" :value="value" v-model:value="value" />
   </div>
 </template>

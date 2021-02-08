@@ -36,18 +36,19 @@ div.buttonCover {
   .BUI-Button {
     margin: 10px;
     padding: 0 1em;
-    height: 40px;
+    height: 2.5em;
     border-radius: 10px;
     border: none;
     display: flex;
     justify-content: center;
     align-self: center;
     outline: 0px;
+    cursor: pointer;
     &.body-convex {
-      @include bodyShadow(false);
+      @include shadow(topLeft, #f8f8f8, 12px, false);
     }
     &.body-concave {
-      @include bodyShadow(true);
+      @include shadow(topLeft, #f8f8f8, 12px, true);
     }
     &.body-flat {
       box-shadow: none;
@@ -56,11 +57,11 @@ div.buttonCover {
       background: inherit;
     }
     &.surface-convex {
-      @include surfaceShadow(convex);
-      @include bodyShadow(false);
+      @include surface(topLeft, #f8f8f8, convex);
+      @include shadow(topLeft, #f8f8f8, 12px, false);
     }
     &.surface-concave {
-      @include surfaceShadow(concave);
+      @include surface(topLeft, #f8f8f8, concave);
     }
     span {
       margin: auto;

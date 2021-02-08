@@ -22,6 +22,42 @@
         >
       </section>
     </div>
+    <div class="button-demo__section">
+      <h2>圆角按钮</h2>
+      <section>
+        <Button class="button" rounded>默认圆角按钮</Button>
+        <Button class="button" rounded surfaceTheme="concave" bodyTheme="convex"
+          >圆角表面凹陷凸起按钮</Button
+        >
+        <Button class="button" rounded surfaceTheme="convex" bodyTheme="convex"
+          >圆角表面凹陷凸起按钮</Button
+        >
+        <Button class="button" rounded surfaceTheme="flat" bodyTheme="convex"
+          >圆角表面平整凸起按钮</Button
+        >
+        <Button class="button" rounded surfaceTheme="concave" bodyTheme="convex"
+          >圆角表面凹陷凸起按钮</Button
+        >
+        <Button
+          class="button"
+          rounded
+          surfaceTheme="concave"
+          bodyTheme="concave"
+          >圆角表面凹陷按钮</Button
+        >
+      </section>
+    </div>
+    <div class="button-demo__section">
+      <h2>按钮等级</h2>
+      <section>
+        <Button class="button">默认</Button>
+        <Button class="button" level="primary">主要</Button>
+        <Button class="button" level="success">成功</Button>
+        <Button class="button" level="info">信息</Button>
+        <Button class="button" level="warning">警告</Button>
+        <Button class="button" level="danger">危险</Button>
+      </section>
+    </div>
   </div>
 </template>
 

@@ -1,9 +1,7 @@
 <template>
-  <div class="buttonCover">
-    <button v-bind="rest" class="BUI-Button" :class="themeClasses">
-      <span><slot /></span>
-    </button>
-  </div>
+  <button v-bind="rest" class="BUI-Button" :class="themeClasses">
+    <span><slot /></span>
+  </button>
 </template>
 
 <script lang="ts">
@@ -13,7 +11,7 @@ export default {
   props: {
     surfaceTheme: {
       type: String,
-      default: "concave",
+      default: "flat",
     },
     bodyTheme: {
       type: String,
@@ -32,40 +30,37 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../../style/theme.scss";
-div.buttonCover {
-  .BUI-Button {
-    margin: 10px;
-    padding: 0 1em;
-    height: 2.5em;
-    border-radius: 10px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    outline: 0px;
-    cursor: pointer;
-    &.body-convex {
-      @include shadow(topLeft, #f8f8f8, 12px, false);
-    }
-    &.body-concave {
-      @include shadow(topLeft, #f8f8f8, 12px, true);
-    }
-    &.body-flat {
-      box-shadow: none;
-    }
-    &.surface-flat {
-      background: inherit;
-    }
-    &.surface-convex {
-      @include surface(topLeft, #f8f8f8, convex);
-      @include shadow(topLeft, #f8f8f8, 12px, false);
-    }
-    &.surface-concave {
-      @include surface(topLeft, #f8f8f8, concave);
-    }
-    span {
-      margin: auto;
-    }
+.BUI-Button {
+  padding: 0 1em;
+  height: 2.5em;
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  outline: 0px;
+  cursor: pointer;
+  &.body-convex {
+    @include shadow($light-direction, $color, $blur-range, false);
+  }
+  &.body-concave {
+    @include shadow($light-direction, $color, $blur-range, true);
+  }
+  &.body-flat {
+    box-shadow: none;
+  }
+  &.surface-flat {
+    background: inherit;
+  }
+  &.surface-convex {
+    @include surface($light-direction, $color, convex);
+    @include shadow($light-direction, $color, $blur-range, false);
+  }
+  &.surface-concave {
+    @include surface($light-direction, $color, concave);
+  }
+  span {
+    margin: auto;
   }
 }
 </style>

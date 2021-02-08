@@ -48,6 +48,7 @@ export default {
     left: 0;
     bottom: 0;
     display: flex;
+    background-color: #f8f8f8;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;

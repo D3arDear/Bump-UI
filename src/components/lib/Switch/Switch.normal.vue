@@ -66,6 +66,7 @@ button {
   display: inline-flex;
   border-radius: $h/2;
   position: relative;
+  z-index: -1;
   box-shadow: shadow-generator(topLeft, #f8f8f8, 6px, true),
     shadow-generator(topLeft, #f8f8f8, 6px, false);
   transition: background 250ms;

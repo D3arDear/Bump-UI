@@ -4,10 +4,4 @@ $light-direction: topLeft !default;
 $blur-range: 12px !default;
 $color: #f8f8f8 !default;
 
-// @mixin surfaceShadow($type) {
-//   @include surface($light-direction, $color, $type);
-// }
-
-// @mixin bodyShadow($inset) {
-//   @include shadow($light-direction, $color, $blur-range, $inset);
-// }
+$primary: #f8f8f8 !default;

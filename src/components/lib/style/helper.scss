@@ -52,20 +52,24 @@
   }
 }
 
+@function surface-generator($direction, $color, $type) {
+  @if $type == concave {
+    @return surfaceShadow-concave-generator(
+      directionToAngle($direction),
+      $color
+    );
+  } @else if $type == convex {
+    @return surfaceShadow-convex-generator(
+      directionToAngle($direction),
+      $color
+    );
+  }
+}
+
 @mixin shadow($direction, $color, $blur, $inset) {
   box-shadow: shadow-generator($direction, $color, $blur, $inset);
 }
 
 @mixin surface($direction, $color, $type) {
-  @if $type == concave {
-    background-image: surfaceShadow-concave-generator(
-      directionToAngle($direction),
-      $color
-    );
-  } @else if $type == convex {
-    background-image: surfaceShadow-convex-generator(
-      directionToAngle($direction),
-      $color
-    );
-  }
+  background-image: surface-generator($direction, $color, $type);
 }

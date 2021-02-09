@@ -4,7 +4,7 @@
     :class="[
       classes('', '', parsedLevel),
       { rounded: rounded },
-      size,
+      size && classes('', '', size),
       themeClasses,
     ]"
   >
@@ -48,104 +48,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../style/theme.scss";
-@mixin BUI-Button {
-}
-@mixin BUI-ButtonTheme($color) {
-  &.body-convex {
-    @include shadow($light-direction, $--color--background, $blur-range, false);
-  }
-  &.body-concave {
-    @include shadow($light-direction, $--color--background, $blur-range, true);
-  }
-  &.body-flat {
-    box-shadow: none;
-  }
-  &.surface-flat {
-    background: $color;
-  }
-  &.surface-convex {
-    @include surface($light-direction, $color, convex);
-    @include shadow($light-direction, $--color--background, $blur-range, false);
-  }
-  &.surface-concave {
-    @include surface($light-direction, $color, concave);
-  }
-}
-.BUI-Button {
-  padding: 0 1em;
-  height: 3em;
-  border-radius: 8px;
-  border: none;
-  display: inline-flex;
-  justify-content: center;
-  align-self: center;
-  outline: 0px;
-  cursor: pointer;
-  font-size: $--font--size--default;
-  @include BUI-ButtonTheme($--color--primary);
-  &.rounded {
-    height: 3em;
-    min-width: 3em;
-    border-radius: 1.5em;
-  }
-  &.medium {
-    font-size: 13px;
-    height: 2.75em;
-    padding: 0 1em;
-    &.rounded {
-      height: 2.75em;
-      min-width: 2.75em;
-      border-radius: 1.375em;
-    }
-  }
-  &.small {
-    font-size: 12px;
-    height: 2.5em;
-    padding: 0 0.75em;
-    &.rounded {
-      height: 2.5em;
-      min-width: 2.5em;
-      border-radius: 1.25em;
-    }
-  }
-  &.mini {
-    font-size: 12px;
-    height: 2.25em;
-    padding: 0 0.75em;
-    &.rounded {
-      height: 2em;
-      min-width: 2em;
-      border-radius: 1em;
-    }
-  }
-  &--primary {
-    @extend .BUI-Button;
-    color: invert($color: $--color--primary);
-    @include BUI-ButtonTheme($--color--primary);
-  }
-  &--success {
-    @extend .BUI-Button;
-    color: white;
-    @include BUI-ButtonTheme($--color--success);
-  }
-  &--info {
-    @extend .BUI-Button;
-    color: white;
-    @include BUI-ButtonTheme($--color--info);
-  }
-  &--warning {
-    @extend .BUI-Button;
-    color: white;
-    @include BUI-ButtonTheme($--color--warning);
-  }
-  &--danger {
-    @extend .BUI-Button;
-    color: white;
-    @include BUI-ButtonTheme($--color--danger);
-  }
-  span {
-    margin: auto;
-  }
-}
+@import "./Button.scss";
 </style>

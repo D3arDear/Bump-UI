@@ -41,12 +41,13 @@ export default {
 
 <style lang="scss" scoped>
 .content {
+  height: 100%;
   aside {
     margin-top: 50px;
     position: absolute;
+    height: 100%;
     top: 0;
     left: 0;
-    bottom: 0;
     display: flex;
     background-color: #f8f8f8;
     flex-direction: column;

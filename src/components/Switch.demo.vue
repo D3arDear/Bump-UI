@@ -1,9 +1,18 @@
 <template>
-  <div>
+  <div class="switch">
     <h1>Switch组件</h1>
-    <Switch v-model:value="bool1" />
-    <Switch v-model:value="bool2" flat />
-    <Switch v-model:value="bool3" retro />
+    <div class="switchSection">
+      <h2>默认 Switch 开关</h2>
+      <Switch v-model:value="bool1" />
+    </div>
+    <div class="switchSection">
+      <h2>扁平 Switch 开关</h2>
+      <Switch v-model:value="bool2" flat />
+    </div>
+    <div class="switchSection">
+      <h2>复古开关</h2>
+      <Switch v-model:value="bool3" retro />
+    </div>
   </div>
 </template>
 
@@ -22,4 +31,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.switch {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  .switchSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}
+</style>

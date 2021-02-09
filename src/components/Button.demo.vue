@@ -85,18 +85,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../style/theme.scss";
 .button-demo {
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  .button-demo__section {
+  &__section {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    flex-wrap: wrap;
     section {
       display: flex;
       justify-content: flex-start;

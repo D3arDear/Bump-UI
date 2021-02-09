@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../../style/theme.scss";
+@import "../style/theme.scss";
 $h: 22px;
 $h2: $h - 4px;
 $small-shadow: 2px 2px 6px

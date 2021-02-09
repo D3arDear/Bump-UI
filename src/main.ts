@@ -1,7 +1,7 @@
+import "./BUI.scss";
+import "./index.css";
 import { createApp } from "vue";
 import App from "./App.vue";
-import "./index.css";
-import "./style/theme.scss";
 import { router } from "./router";
 
 const app = createApp(App);

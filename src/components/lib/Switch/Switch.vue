@@ -1,12 +1,18 @@
 <template>
   <div class="BUI-Switch" @click="toggle">
     <SwitchNormal
+      :class="classes('', '', 'normal')"
       v-if="!retro"
       :flat="flat"
       :value="value"
       v-model:value="value"
     />
-    <SwitchRetro v-if="retro" :value="value" v-model:value="value" />
+    <SwitchRetro
+      :class="classes('', '', 'Retro')"
+      v-if="retro"
+      :value="value"
+      v-model:value="value"
+    />
   </div>
 </template>
 
@@ -14,6 +20,7 @@
 import { ref } from "vue";
 import SwitchNormal from "./Switch.normal.vue";
 import SwitchRetro from "./Switch.retro.vue";
+import { classMaker } from "../common/classMaker";
 export default {
   name: "Switch",
   components: { SwitchNormal, SwitchRetro },
@@ -33,7 +40,8 @@ export default {
       console.log("点击了");
       context.emit("update:value", !props.value);
     };
-    return { toggle };
+    const classes = classMaker("BUI-Switch");
+    return { toggle, classes };
   },
 };
 </script>

@@ -1,10 +1,12 @@
 <template>
   <button
     v-bind="rest"
-    :class="classes('', '', parsedLevel)"
-    :class="themeClasses"
-    :class="rounded && 'rounded'"
-    :class="size"
+    :class="[
+      classes('', '', parsedLevel),
+      { rounded: rounded },
+      size,
+      themeClasses,
+    ]"
   >
     <span><slot /></span>
   </button>
@@ -20,7 +22,7 @@ export default {
   props: {
     surfaceTheme: {
       type: String,
-      default: "concave",
+      default: "flat",
     },
     bodyTheme: {
       type: String,
@@ -45,8 +47,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import "../../../style/theme.scss";
+<style lang="scss">
+@import "../style/theme.scss";
 @mixin BUI-Button {
 }
 @mixin BUI-ButtonTheme($color) {
@@ -75,7 +77,7 @@ export default {
   height: 3em;
   border-radius: 8px;
   border: none;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-self: center;
   outline: 0px;

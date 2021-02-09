@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../../style/theme.scss";
+@import "../style/theme.scss";
 $h: 22px;
 $gap: 2px;
 $h2: $h - 2 * $gap;

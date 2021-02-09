@@ -79,11 +79,13 @@
 // 对比度函数
 
 @function ContrastText($originColor) {
-  @if (lightness(grayscale($originColor)) < 60%) or
-    (saturation($originColor) > 70%)
+  @if (
+      ((lightness($originColor) >= 60%)) and saturation($originColor) <= 70%
+    ) or
+    (lightness(grayscale($originColor)) >= 85%)
   {
-    @return #f8f8f8;
-  } @else {
     @return #292929;
+  } @else {
+    @return #f8f8f8;
   }
 }

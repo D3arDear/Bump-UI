@@ -34,7 +34,7 @@
   outline: 0px;
   cursor: pointer;
   font-size: $--font--size--default;
-  @include BUI-ButtonNeoTheme($--color--primary);
+  @include BUI-ButtonNeoTheme($--color--background);
   &[disabled] {
     cursor: not-allowed;
     color: lighten($--color--disabled, 20%);
@@ -47,28 +47,28 @@
   }
   &--primary {
     @extend .BUI-Button-Neo;
-    color: invert(lighten($--color--primary, 10%));
+    color: ContrastText($--color--primary);
     @include BUI-ButtonNeoTheme($--color--primary);
   }
   &--success {
     @extend .BUI-Button-Neo;
-    color: white;
+    color: ContrastText($--color--success);
     @include BUI-ButtonNeoTheme($--color--success);
   }
   &--info {
     @extend .BUI-Button-Neo;
-    color: white;
+    color: ContrastText($--color--info);
     @include BUI-ButtonNeoTheme($--color--info);
   }
   &--warning {
     @extend .BUI-Button-Neo;
-    color: white;
+    color: ContrastText($--color--warning);
     @include BUI-ButtonNeoTheme($--color--warning);
   }
   &--danger {
     @extend .BUI-Button-Neo;
+    color: ContrastText($--color--danger);
     @include BUI-ButtonNeoTheme($--color--danger);
-    color: white;
   }
   &--medium {
     @extend .BUI-Button-Neo;

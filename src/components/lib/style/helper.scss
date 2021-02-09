@@ -1,3 +1,5 @@
+// 凹凸阴影函数和mixin
+
 @function surfaceShadow-concave-generator($angle, $color) {
   @return linear-gradient($angle, darken($color, 10%), lighten($color, 10%));
 }
@@ -72,4 +74,16 @@
 
 @mixin surface($direction, $color, $type) {
   background-image: surface-generator($direction, $color, $type);
+}
+
+// 对比度函数
+
+@function ContrastText($originColor) {
+  @if (lightness(grayscale($originColor)) < 60%) or
+    (saturation($originColor) > 70%)
+  {
+    @return #f8f8f8;
+  } @else {
+    @return #292929;
+  }
 }

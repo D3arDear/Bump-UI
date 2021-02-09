@@ -2,9 +2,9 @@
   <button
     v-bind="rest"
     :class="[
-      classes('', '', parsedLevel),
+      classes(buttonTheme, '', parsedLevel),
       { rounded: rounded },
-      size && classes('', '', size),
+      size && classes(buttonTheme, '', size),
       themeClasses,
     ]"
   >
@@ -20,11 +20,11 @@ export default {
   inheritAttrs: false,
   name: "Button",
   props: {
-    surfaceTheme: {
+    surfaceStyle: {
       type: String,
       default: "flat",
     },
-    bodyTheme: {
+    bodyStyle: {
       type: String,
       default: "convex",
     },
@@ -32,17 +32,31 @@ export default {
       type: Boolean,
       default: false,
     },
+    textButton: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, context) {
     const levelList = ["primary", "success", "info", "warning", "danger"];
-    const { surfaceTheme, bodyTheme, rounded } = props;
+    const { surfaceStyle, bodyStyle, rounded, textButton } = props;
     const { size, level, ...rest } = context.attrs;
 
-    const themeClasses = `surface-${surfaceTheme} body-${bodyTheme}`;
+    const themeClasses = `surface-${surfaceStyle} body-${bodyStyle}`;
     const classes = classMaker("BUI-Button");
     const parsedLevel = levelList.indexOf(level as string) < 0 ? "" : level;
+    const buttonTheme = textButton ? "Text" : "Neo";
 
-    return { size, level, rest, themeClasses, rounded, classes, parsedLevel };
+    return {
+      size,
+      level,
+      rest,
+      themeClasses,
+      rounded,
+      classes,
+      parsedLevel,
+      buttonTheme,
+    };
   },
 };
 </script>

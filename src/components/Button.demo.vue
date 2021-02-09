@@ -67,6 +67,33 @@
         <Button class="button" size="mini">超小按钮</Button>
       </section>
     </div>
+    <div class="button-demo__section">
+      <h2>不可用</h2>
+      <section>
+        <Button class="button" disabled>不可用</Button>
+        <Button class="button" surfaceTheme="concave" disabled> 不可用</Button>
+        <Button class="button" disabled size="medium">不可用</Button>
+        <Button class="button" disabled size="small">不可用</Button>
+        <Button class="button" disabled size="mini">不可用</Button>
+      </section>
+    </div>
+    <div class="button-demo__section">
+      <h2>文字按钮</h2>
+      <section>
+        <Button class="button" textButton>默认按钮</Button>
+        <Button class="button" level="success" textButton>成功按钮</Button>
+        <Button class="button" level="info" textButton>信息按钮</Button>
+        <Button class="button" level="danger" textButton>危险按钮</Button>
+        <Button class="button" level="warning" textButton>警告按钮</Button>
+      </section>
+      <section>
+        <Button class="button" textButton>默认按钮</Button>
+        <Button class="button" size="medium" textButton>成功按钮</Button>
+        <Button class="button" size="small" textButton>信息按钮</Button>
+        <Button class="button" size="mini" textButton>危险按钮</Button>
+        <Button class="button" textButton>警告按钮</Button>
+      </section>
+    </div>
   </div>
 </template>
 

@@ -5,19 +5,19 @@
       <h2>默认样式</h2>
       <section>
         <Button class="button">默认按钮</Button>
-        <Button class="button" surfaceTheme="concave" bodyTheme="convex"
+        <Button class="button" surfaceStyle="concave" bodyStyle="convex"
           >表面凹陷凸起按钮</Button
         >
-        <Button class="button" surfaceTheme="convex" bodyTheme="convex"
+        <Button class="button" surfaceStyle="convex" bodyStyle="convex"
           >表面凹陷凸起按钮</Button
         >
-        <Button class="button" surfaceTheme="flat" bodyTheme="convex"
+        <Button class="button" surfaceStyle="flat" bodyStyle="convex"
           >表面平整凸起按钮</Button
         >
-        <Button class="button" surfaceTheme="concave" bodyTheme="convex"
+        <Button class="button" surfaceStyle="concave" bodyStyle="convex"
           >表面凹陷凸起按钮</Button
         >
-        <Button class="button" surfaceTheme="concave" bodyTheme="concave"
+        <Button class="button" surfaceStyle="concave" bodyStyle="concave"
           >表面凹陷按钮</Button
         >
       </section>
@@ -26,23 +26,23 @@
       <h2>圆角按钮</h2>
       <section>
         <Button class="button" rounded>默认圆角按钮</Button>
-        <Button class="button" rounded surfaceTheme="concave" bodyTheme="convex"
+        <Button class="button" rounded surfaceStyle="concave" bodyStyle="convex"
           >圆角表面凹陷凸起按钮</Button
         >
-        <Button class="button" rounded surfaceTheme="convex" bodyTheme="convex"
+        <Button class="button" rounded surfaceStyle="convex" bodyStyle="convex"
           >圆角表面凹陷凸起按钮</Button
         >
-        <Button class="button" rounded surfaceTheme="flat" bodyTheme="convex"
+        <Button class="button" rounded surfaceStyle="flat" bodyStyle="convex"
           >圆角表面平整凸起按钮</Button
         >
-        <Button class="button" rounded surfaceTheme="concave" bodyTheme="convex"
+        <Button class="button" rounded surfaceStyle="concave" bodyStyle="convex"
           >圆角表面凹陷凸起按钮</Button
         >
         <Button
           class="button"
           rounded
-          surfaceTheme="concave"
-          bodyTheme="concave"
+          surfaceStyle="concave"
+          bodyStyle="concave"
           >圆角表面凹陷按钮</Button
         >
       </section>
@@ -71,7 +71,7 @@
       <h2>不可用</h2>
       <section>
         <Button class="button" disabled>不可用</Button>
-        <Button class="button" surfaceTheme="concave" disabled> 不可用</Button>
+        <Button class="button" surfaceStyle="concave" disabled> 不可用</Button>
         <Button class="button" disabled size="medium">不可用</Button>
         <Button class="button" disabled size="small">不可用</Button>
         <Button class="button" disabled size="mini">不可用</Button>
@@ -88,10 +88,9 @@
       </section>
       <section>
         <Button class="button" textButton>默认按钮</Button>
-        <Button class="button" size="medium" textButton>成功按钮</Button>
-        <Button class="button" size="small" textButton>信息按钮</Button>
-        <Button class="button" size="mini" textButton>危险按钮</Button>
-        <Button class="button" textButton>警告按钮</Button>
+        <Button class="button" size="medium" textButton>中型按钮</Button>
+        <Button class="button" size="small" textButton>小型按钮</Button>
+        <Button class="button" size="mini" textButton>迷你按钮</Button>
       </section>
     </div>
   </div>

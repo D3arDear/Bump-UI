@@ -43,6 +43,7 @@ export default {
     const { size, level, ...rest } = context.attrs;
 
     const themeClasses = `surface-${surfaceStyle} body-${bodyStyle}`;
+    console.log(themeClasses);
     const classes = classMaker("BUI-Button");
     const parsedLevel = levelList.indexOf(level as string) < 0 ? "" : level;
     const buttonTheme = textButton ? "Text" : "Neo";

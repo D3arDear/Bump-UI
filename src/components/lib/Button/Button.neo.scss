@@ -3,9 +3,11 @@
     background: $color;
   }
   &.surface-convex {
+    border: 1px solid surface-generator($light-direction, $color, concave);
     background-image: surface-generator($light-direction, $color, convex);
   }
   &.surface-concave {
+    border: 1px solid surface-generator($light-direction, $color, convex);
     background-image: surface-generator($light-direction, $color, concave);
   }
   &.body-convex {
@@ -34,7 +36,8 @@
   outline: 0px;
   cursor: pointer;
   font-size: $--font--size--default;
-  @include BUI-ButtonNeoTheme($--color--background);
+  color: ContrastText($--color--default);
+  @include BUI-ButtonNeoTheme($--color--default);
   &[disabled] {
     cursor: not-allowed;
     color: lighten($--color--disabled, 20%);

@@ -42,12 +42,13 @@ export default {
 <style lang="scss" scoped>
 .content {
   height: 100%;
+  position: relative;
   aside {
-    margin-top: 50px;
     position: absolute;
     height: 100%;
     top: 0;
     left: 0;
+    bottom: 0;
     display: flex;
     background-color: #f8f8f8;
     flex-direction: column;
@@ -106,6 +107,7 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    background: #eef1f3;
     &.asideVisible {
       margin-left: 208px;
     }

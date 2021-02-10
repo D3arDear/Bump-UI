@@ -1,11 +1,25 @@
 // 凹凸阴影函数和mixin
+@function background2shadowL($color) {
+  @if lightness($color) >= 50 {
+    @return rgba(white, 70%);
+  } @else {
+    @return rgba(lighten($color, 45%), 6%);
+  }
+}
+@function background2shadowD($color) {
+  @if lightness($color) >= 50 {
+    @return rgba(darken($color, 35%), 70%);
+  } @else {
+    @return rgba(black, 70%);
+  }
+}
 
 @function surfaceShadow-concave-generator($angle, $color) {
-  @return linear-gradient($angle, darken($color, 10%), lighten($color, 10%));
+  @return linear-gradient($angle, darken($color, 6%), lighten($color, 8%));
 }
 
 @function surfaceShadow-convex-generator($angle, $color) {
-  @return linear-gradient($angle, lighten($color, 10%), darken($color, 10%));
+  @return linear-gradient($angle, lighten($color, 10%), darken($color, 12%));
 }
 
 @function directionToAngle($direction) {
@@ -22,25 +36,25 @@
 
 @function shadow-light($direction, $color, $blur) {
   @if $direction == topLeft {
-    @return (-$blur / 2) (-$blur / 2) $blur lighten($color, 13.75%);
+    @return (-$blur / 2) (-$blur / 2) $blur background2shadowL($color);
   } @else if $direction == topRight {
-    @return ($blur / 2) (-$blur / 2) $blur lighten($color, 13.75%);
+    @return ($blur / 2) (-$blur / 2) $blur background2shadowL($color);
   } @else if $direction == bottomLeft {
-    @return (-$blur / 2) ($blur / 2) $blur lighten($color, 13.75%);
+    @return (-$blur / 2) ($blur / 2) $blur background2shadowL($color);
   } @else if $direction == bottomRight {
-    @return ($blur / 2) ($blur / 2) $blur lighten($color, 13.75%);
+    @return ($blur / 2) ($blur / 2) $blur background2shadowL($color);
   }
 }
 
 @function shadow-dark($direction, $color, $blur) {
   @if $direction == topLeft {
-    @return ($blur / 2) ($blur / 2) $blur darken($color, 13.75%);
+    @return ($blur / 2) ($blur / 2) $blur background2shadowD($color);
   } @else if $direction == topRight {
-    @return (-$blur / 2) ($blur / 2) $blur darken($color, 13.75%);
+    @return (-$blur / 2) ($blur / 2) $blur background2shadowD($color);
   } @else if $direction == bottomLeft {
-    @return ($blur / 2) (-$blur / 2) $blur darken($color, 13.75%);
+    @return ($blur / 2) (-$blur / 2) $blur background2shadowD($color);
   } @else if $direction == bottomRight {
-    @return (-$blur / 2) (-$blur / 2) $blur darken($color, 13.75%);
+    @return (-$blur / 2) (-$blur / 2) $blur background2shadowD($color);
   }
 }
 
@@ -86,6 +100,6 @@
   {
     @return #292929;
   } @else {
-    @return #f8f8f8;
+    @return #eee;
   }
 }

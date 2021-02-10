@@ -1,6 +1,6 @@
 @mixin BUI-ButtonNeoTheme($color, $blur: $--blur-range) {
   &.surface-flat {
-    background: $color;
+    background-color: $color;
   }
   &.surface-convex {
     border: 1px solid surface-generator($light-direction, $color, concave);
@@ -38,6 +38,7 @@
   font-size: $--font--size--default;
   color: ContrastText($--color--default);
   @include BUI-ButtonNeoTheme($--color--default);
+  transition: all 300ms;
   &[disabled] {
     cursor: not-allowed;
     color: lighten($--color--disabled, 20%);

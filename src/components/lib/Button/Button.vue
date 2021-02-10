@@ -1,7 +1,9 @@
 <template>
   <button
     v-bind="rest"
+    v-on="{ mousedown: mouseDown, mouseup: mouseUp }"
     :class="[
+      pressed && classes(buttonTheme, '', 'clickDown'),
       classes(buttonTheme, '', parsedLevel),
       { rounded: rounded },
       size && classes(buttonTheme, '', size),
@@ -14,6 +16,7 @@
 
 
 <script lang="ts">
+import { ref } from "vue";
 import { classMaker } from "../common/classMaker";
 
 export default {
@@ -39,14 +42,26 @@ export default {
   },
   setup(props, context) {
     const levelList = ["primary", "success", "info", "warning", "danger"];
+    const pressed = ref(false);
+
     const { surfaceStyle, bodyStyle, rounded, textButton } = props;
     const { size, level, ...rest } = context.attrs;
 
     const themeClasses = `surface-${surfaceStyle} body-${bodyStyle}`;
-    console.log(themeClasses);
     const classes = classMaker("BUI-Button");
     const parsedLevel = levelList.indexOf(level as string) < 0 ? "" : level;
     const buttonTheme = textButton ? "Text" : "Neo";
+
+    const mouseDown = () => {
+      console.log("mouseDown");
+      pressed.value = true;
+      console.log(pressed.value);
+    };
+    const mouseUp = () => {
+      console.log("mouseup");
+      pressed.value = false;
+      console.log(pressed.value);
+    };
 
     return {
       size,
@@ -57,6 +72,9 @@ export default {
       classes,
       parsedLevel,
       buttonTheme,
+      pressed,
+      mouseUp,
+      mouseDown,
     };
   },
 };

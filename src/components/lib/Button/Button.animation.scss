@@ -1,0 +1,79 @@
+@mixin BUI-ButtonNeoTheme--clicked($color, $blur: $--blur-range) {
+  &.body-convex {
+    box-shadow: shadow-generator(
+        $light-direction,
+        $--color--background,
+        $blur,
+        false
+      ),
+      shadow-generator($light-direction, $color, $blur, true);
+  }
+  &.body-concave {
+    box-shadow: shadow-generator($light-direction, $color, $blur, true);
+  }
+  &.body-flat {
+    box-shadow: shadow-generator($light-direction, $color, $blur, true);
+  }
+  &.surface-flat {
+    background-image: surface-generator($light-direction, $color, concave);
+  }
+  &.surface-convex {
+    background-image: surface-generator($light-direction, $color, convex);
+  }
+  &.surface-concave {
+    background-image: surface-generator($light-direction, $color, concave);
+  }
+}
+@mixin BUI-ButtonTextTheme--clicked($color) {
+  background-image: surface-generator(
+    $light-direction,
+    rgba(lighten($color, 10%), 0.3),
+    concave
+  );
+  box-shadow: shadow-generator($light-direction, $color, $--blur-range-3, true);
+}
+.BUI-Button-Neo {
+  &--clickDown {
+    @include BUI-ButtonNeoTheme--clicked($--color--default, $--blur-range-3);
+  }
+  &--primary.BUI-Button-Neo--clickDown {
+    color: ContrastText($--color--primary);
+    @include BUI-ButtonNeoTheme--clicked($--color--primary, $--blur-range-3);
+  }
+  &--success.BUI-Button-Neo--clickDown {
+    color: ContrastText($--color--success);
+    @include BUI-ButtonNeoTheme--clicked($--color--success, $--blur-range-3);
+  }
+  &--info.BUI-Button-Neo--clickDown {
+    color: ContrastText($--color--info);
+    @include BUI-ButtonNeoTheme--clicked($--color--info, $--blur-range-3);
+  }
+  &--warning.BUI-Button-Neo--clickDown {
+    color: ContrastText($--color--warning);
+    @include BUI-ButtonNeoTheme--clicked($--color--warning, $--blur-range-3);
+  }
+  &--danger.BUI-Button-Neo--clickDown {
+    color: ContrastText($--color--danger);
+    @include BUI-ButtonNeoTheme--clicked($--color--danger, $--blur-range-3);
+  }
+}
+.BUI-Button-Text {
+  &--clickDown {
+    @include BUI-ButtonTextTheme--clicked($--color--default);
+  }
+  &--primary.BUI-Button-Text--clickDown {
+    @include BUI-ButtonTextTheme--clicked($--color--primary);
+  }
+  &--success.BUI-Button-Text--clickDown {
+    @include BUI-ButtonTextTheme--clicked($--color--success);
+  }
+  &--info.BUI-Button-Text--clickDown {
+    @include BUI-ButtonTextTheme--clicked($--color--info);
+  }
+  &--warning.BUI-Button-Text--clickDown {
+    @include BUI-ButtonTextTheme--clicked($--color--warning);
+  }
+  &--danger.BUI-Button-Text--clickDown {
+    @include BUI-ButtonTextTheme--clicked($--color--danger);
+  }
+}

@@ -18,6 +18,7 @@
   font-size: $--font--size--default;
   transition: background 0.3s;
   background: rgba(lighten($--color--background, 20%), 0);
+  transition: all 300ms;
   &:hover {
     background: rgba(lighten($--color--background, 20%), 0.5);
   }

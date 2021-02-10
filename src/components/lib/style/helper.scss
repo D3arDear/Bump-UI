@@ -19,7 +19,7 @@
 }
 
 @function surfaceShadow-convex-generator($angle, $color) {
-  @return linear-gradient($angle, lighten($color, 10%), darken($color, 12%));
+  @return linear-gradient($angle, lighten($color, 20%), darken($color, 12%));
 }
 
 @function directionToAngle($direction) {

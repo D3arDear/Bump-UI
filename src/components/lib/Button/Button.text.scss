@@ -2,7 +2,18 @@
   color: darken($background, 20%);
   background: rgba(lighten($background, 20%), 0);
   &:hover {
-    background: rgba(lighten($background, 20%), 0.3);
+    background-image: surface-generator(
+      $light-direction,
+      rgba(lighten($background, 10%), 0.3),
+      convex
+    );
+  }
+}
+@function confirmTextColorByBG($textColor) {
+  @if lightness($--color--background) >= 50% {
+    @return $--color--text--black;
+  } @else {
+    @return $--color--text--white;
   }
 }
 .BUI-Button-Text {
@@ -15,14 +26,12 @@
   align-self: center;
   outline: 0px;
   cursor: pointer;
-  color: $--color--text--black;
   font-size: $--font--size--default;
   transition: background 0.3s;
   background: rgba(lighten($--color--background, 20%), 0);
   transition: all 300ms;
-  &:hover {
-    background: rgba(lighten($--color--background, 20%), 0.5);
-  }
+  @include levelHover-andColor($--color--background);
+  color: confirmTextColorByBG($--color--background);
   span {
     color: inherit;
     margin: auto;
@@ -30,28 +39,23 @@
   }
   &--primary {
     @extend .BUI-Button-Text;
-    color: invert($color: $--color--primary);
-    @include levelHover-andColor(invert($--color--primary));
+    @include levelHover-andColor($--color--primary);
   }
   &--success {
     @extend .BUI-Button-Text;
-    color: $--color--success;
     @include levelHover-andColor($--color--success);
   }
   &--info {
     @extend .BUI-Button-Text;
-    color: $--color--info;
     @include levelHover-andColor($--color--info);
   }
   &--warning {
     @extend .BUI-Button-Text;
     color: white;
-    color: $--color--warning;
     @include levelHover-andColor($--color--warning);
   }
   &--danger {
     @extend .BUI-Button-Text;
-    color: $--color--danger;
     @include levelHover-andColor($--color--danger);
   }
   &--medium {

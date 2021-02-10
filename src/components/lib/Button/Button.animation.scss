@@ -27,10 +27,10 @@
 @mixin BUI-ButtonTextTheme--clicked($color) {
   background-image: surface-generator(
     $light-direction,
-    rgba(lighten($color, 20%), 0.3),
+    rgba(lighten($color, 10%), 0.3),
     concave
   );
-  box-shadow: shadow-generator($light-direction, $color, $--blur-range-3, true);
+  box-shadow: shadow-generator($light-direction, $color, $--blur-range-2, true);
 }
 .BUI-Button-Neo {
   &--clickDown {

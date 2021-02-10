@@ -51,6 +51,7 @@ export default {
     left: 0;
     bottom: 0;
     display: flex;
+    z-index: 1;
     background-color: #f8f8f8;
     flex-direction: column;
     justify-content: flex-start;

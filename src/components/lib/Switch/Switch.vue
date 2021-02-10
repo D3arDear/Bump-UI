@@ -46,8 +46,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .BUI-Switch {
+  z-index: 0;
   display: inline-flex;
 }
 </style>

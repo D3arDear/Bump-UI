@@ -41,6 +41,7 @@ $h2: $h - 2 * $gap;
   z-index: -1;
   border-radius: $h/4;
   border: 0;
+  outline: 0px;
   cursor: pointer;
   @include surface(topLeft, #f8f8f8, convex);
   @include shadow(topLeft, #f8f8f8, 6px, false);

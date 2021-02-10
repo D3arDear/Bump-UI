@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" scoped>
 import { ref } from "vue";
 import Switch from "./lib/Switch/Switch.vue";
 export default {

@@ -15,6 +15,7 @@
   align-self: center;
   outline: 0px;
   cursor: pointer;
+  color: $--color--text--black;
   font-size: $--font--size--default;
   transition: background 0.3s;
   background: rgba(lighten($--color--background, 20%), 0);

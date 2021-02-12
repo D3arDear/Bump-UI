@@ -38,11 +38,13 @@
   font-size: $--font--size--default;
   color: ContrastText($--color--default);
   @include BUI-ButtonNeoTheme($--color--default);
+  @include loadingIndicator($--color--default, $--blur-range-4);
   transition: all 300ms;
   &[disabled] {
     cursor: not-allowed;
     color: lighten($--color--disabled, 20%);
     @include BUI-ButtonNeoTheme($--color--disabled);
+    @include loadingIndicator($--color--disabled, $--blur-range-4);
   }
   &.rounded {
     height: 3em;
@@ -53,26 +55,31 @@
     @extend .BUI-Button-Neo;
     color: ContrastText($--color--primary);
     @include BUI-ButtonNeoTheme($--color--primary);
+    @include loadingIndicator($--color--primary, $--blur-range-4);
   }
   &--success {
     @extend .BUI-Button-Neo;
     color: ContrastText($--color--success);
     @include BUI-ButtonNeoTheme($--color--success);
+    @include loadingIndicator($--color--success, $--blur-range-4);
   }
   &--info {
     @extend .BUI-Button-Neo;
     color: ContrastText($--color--info);
     @include BUI-ButtonNeoTheme($--color--info);
+    @include loadingIndicator($--color--info, $--blur-range-4);
   }
   &--warning {
     @extend .BUI-Button-Neo;
     color: ContrastText($--color--warning);
     @include BUI-ButtonNeoTheme($--color--warning);
+    @include loadingIndicator($--color--warning, $--blur-range-4);
   }
   &--danger {
     @extend .BUI-Button-Neo;
     color: ContrastText($--color--danger);
     @include BUI-ButtonNeoTheme($--color--danger);
+    @include loadingIndicator($--color--danger, $--blur-range-4);
   }
   &--medium {
     @extend .BUI-Button-Neo;
@@ -107,7 +114,7 @@
       border-radius: 1em;
     }
   }
-  span {
+  .BUI-Button-Neo__content {
     margin: auto;
   }
 }

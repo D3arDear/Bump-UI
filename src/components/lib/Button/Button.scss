@@ -1,5 +1,53 @@
 @import "../style/theme.scss";
 
+@mixin loadingIndicator($color, $blur: $--blur-range-4, $textTheme: false) {
+  .BUI-Button-Neo,
+  .BUI-Button-Text {
+    @if ($textTheme) {
+    }
+    &__loadingIndicator {
+      height: 1em;
+      width: 1em;
+      display: inline-flex;
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: auto;
+      margin-right: 0.5em;
+      position: relative;
+      border-radius: 50%;
+      background: linear-gradient(
+        directionToAngle($light-direction),
+        darken($color, 30%) 30%,
+        lighten($color, 30%) 90%
+      );
+      animation: BUI-animation__pop 1000ms linear infinite;
+      box-shadow: 0 0 ($blur / 2) rgba(lighten($color, 30%), 0.3);
+      &-space {
+        position: absolute;
+        top: 2px;
+        bottom: 2px;
+        right: 2px;
+        left: 2px;
+        border-radius: 50%;
+        z-index: 1;
+        box-shadow: 0 0 ($blur / 2) rgba(lighten($color, 30%), 0.3) inset;
+        background: $color;
+      }
+    }
+    @if ($textTheme) {
+      &__loadingIndicator {
+        background: none;
+        border-color: $color $color $color transparent;
+        border-width: 2px;
+        border-style: solid;
+        &-space {
+          background: none;
+        }
+      }
+    }
+  }
+}
+
 @import "./Button.neo.scss";
 @import "./Button.text.scss";
 @import "./Button.animation.scss";

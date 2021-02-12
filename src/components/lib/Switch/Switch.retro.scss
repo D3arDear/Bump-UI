@@ -23,7 +23,7 @@ $h2: $h - 2 * $gap;
   @include shadow($light-direction, $--color--background, 6px, false);
   transition: all 250ms;
   cursor: pointer;
-  &:after {
+  &::after {
     content: "";
     opacity: 0;
     position: absolute;
@@ -46,7 +46,7 @@ $h2: $h - 2 * $gap;
     border-radius: $h2/4;
     padding: 0;
     transition: all 250ms;
-    &:after {
+    &::after {
       content: "";
       position: absolute;
       opacity: 0;
@@ -68,11 +68,11 @@ $h2: $h - 2 * $gap;
     }
   }
   &.checked {
-    &:after {
+    &::after {
       opacity: 1;
     }
     .BUI-Switch-Retro__handle {
-      &:after {
+      &::after {
         opacity: 1;
       }
       &-item {

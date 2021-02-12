@@ -10,7 +10,10 @@
       themeClasses,
     ]"
   >
-    <span><slot /></span>
+    <span v-if="loading" :class="classes(buttonTheme, 'loadingIndicator', '')">
+      <span :class="classes(buttonTheme, 'loadingIndicator-space', '')"></span>
+    </span>
+    <span :class="classes(buttonTheme, 'content', '')"><slot /></span>
   </button>
 </template>
 
@@ -39,12 +42,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, context) {
     const levelList = ["primary", "success", "info", "warning", "danger"];
     const pressed = ref(false);
 
-    const { surfaceStyle, bodyStyle, rounded, textButton } = props;
+    const { surfaceStyle, bodyStyle, rounded, textButton, loading } = props;
     const { size, level, ...rest } = context.attrs;
 
     const themeClasses = `surface-${surfaceStyle} body-${bodyStyle}`;
@@ -75,6 +82,7 @@ export default {
       pressed,
       mouseUp,
       mouseDown,
+      loading,
     };
   },
 };

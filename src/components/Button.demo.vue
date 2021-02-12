@@ -75,6 +75,7 @@
         <Button class="button" disabled size="medium">不可用</Button>
         <Button class="button" disabled size="small">不可用</Button>
         <Button class="button" disabled size="mini">不可用</Button>
+        <Button class="button" disabled size="mini" textButton>不可用</Button>
       </section>
     </div>
     <div class="button-demo__section">

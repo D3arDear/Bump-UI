@@ -4,19 +4,30 @@
     <div class="dialog-demo__section">
       <h2>默认</h2>
       <section>
-        <Dialog></Dialog>
+        <Button level="primary" textButton @click="toggle">Toggle</Button>
+        <Dialog :visible="v1"></Dialog>
       </section>
     </div>
   </div>
 </template>
 
-<script>
-import Dialog from '../components/lib/Dialog/Dialog.vue'
+<script lang="ts">
+import Dialog from "../components/lib/Dialog/Dialog.vue";
+import Button from "../components/lib/Button/Button.vue";
+import { ref } from "vue";
 export default {
   name: "DialogDemo",
-  components:{
-    Dialog
-  }
+  components: {
+    Dialog,
+    Button,
+  },
+  setup() {
+    const v1 = ref(false);
+    const toggle = () => {
+      v1.value = !v1.value;
+    };
+    return { v1, toggle };
+  },
 };
 </script>
 

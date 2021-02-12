@@ -37,6 +37,7 @@
   cursor: pointer;
   font-size: $--font--size--default;
   transition: all 300ms;
+  border: 1px solid rgba(darken($--color--background, 20%), 0.1);
   @include levelHover-andColor($--color--background, true);
   @include loadingIndicator($--color--background, $--blur-range-4, true);
   &[disabled] {

@@ -1,0 +1,99 @@
+@import "../style/theme.scss";
+
+$h: 22px;
+$gap: 2px;
+$h2: $h - 2 * $gap;
+
+.BUI-Switch-Retro {
+  position: relative;
+  min-width: $h * 2;
+  min-height: $h;
+  padding: $gap;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: $--color--background;
+  padding: 0;
+  z-index: -1;
+  border-radius: $h/4;
+  border: 0;
+  outline: 0px;
+  cursor: pointer;
+  @include surface($light-direction, $--color--background, convex);
+  @include shadow($light-direction, $--color--background, 6px, false);
+  transition: all 250ms;
+  cursor: pointer;
+  &:after {
+    content: "";
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: $h/4;
+    @include surface($light-direction, $--color--checked, convex);
+    transition: all 250ms;
+  }
+  &__handle {
+    position: absolute;
+    z-index: 1;
+    inset: $gap;
+    width: 2 * ($h2 + $gap);
+    outline: none;
+    border: none;
+    @include surface(topRight, $--color--background, convex);
+    border-radius: $h2/4;
+    padding: 0;
+    transition: all 250ms;
+    &:after {
+      content: "";
+      position: absolute;
+      opacity: 0;
+      inset: 0;
+      width: 2 * ($h2 + $gap);
+      border-radius: $h2/4;
+      @include surface(bottomRight, darken($--color--background, 10%), convex);
+      transition: all 250ms;
+    }
+    &-item {
+      position: absolute;
+      top: $h2/2 - $h2/4;
+      right: 2 * $gap/3;
+      height: $h2/2;
+      width: $gap/2;
+      border-radius: $gap/2;
+      background: darken($--color--background, 10%);
+      transition: all 250ms;
+    }
+  }
+  &.checked {
+    &:after {
+      opacity: 1;
+    }
+    .BUI-Switch-Retro__handle {
+      &:after {
+        opacity: 1;
+      }
+      &-item {
+        z-index: 2;
+        background: $--color--checked;
+      }
+    }
+  }
+  .BUI-Switch-Retro__shadow-cover {
+    position: absolute;
+    inset: $gap;
+    z-index: -1;
+    filter: drop-shadow(4px 4px 3px rgba($color: #000000, $alpha: 0.2))
+      drop-shadow(-2px -4px 3px rgba($color: rgb(255, 255, 255), $alpha: 0.8));
+    .BUI-Switch-Retro__shadow {
+      z-index: -1;
+      position: absolute;
+      inset: $gap;
+      clip-path: polygon(10% 20%, 100% 0, 100% 100%, 10% 80%);
+      z-index: 2;
+      background-color: rgba(255, 255, 255, 1);
+    }
+  }
+}

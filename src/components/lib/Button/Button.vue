@@ -60,14 +60,10 @@ export default {
     const buttonTheme = textButton ? "Text" : "Neo";
 
     const mouseDown = () => {
-      console.log("mouseDown");
       pressed.value = true;
-      console.log(pressed.value);
     };
     const mouseUp = () => {
-      console.log("mouseup");
       pressed.value = false;
-      console.log(pressed.value);
     };
 
     return {

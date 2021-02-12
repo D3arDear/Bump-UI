@@ -42,7 +42,7 @@ export default {
 <style lang="scss" scoped>
 .content {
   height: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 50px);
   position: relative;
   aside {
     position: absolute;

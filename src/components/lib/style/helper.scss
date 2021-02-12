@@ -98,7 +98,7 @@
   @return shadow-generator(reverseDirection($direction), $color, $blur, true);
 }
 
-@mixin shadow($direction, $color, $blur, $inset) {
+@mixin shadow($direction, $color, $blur, $inset: false) {
   box-shadow: shadow-generator($direction, $color, $blur, $inset);
 }
 

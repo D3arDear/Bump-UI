@@ -34,6 +34,18 @@
   }
 }
 
+@function reverseDirection($direction) {
+  @if $direction == topLeft {
+    @return bottomRight;
+  } @else if $direction == topRight {
+    @return bottomLeft;
+  } @else if $direction == bottomLeft {
+    @return topRight;
+  } @else if $direction == bottomRight {
+    @return topLeft;
+  }
+}
+
 @function shadow-light($direction, $color, $blur) {
   @if $direction == topLeft {
     @return (-$blur / 2) (-$blur / 2) $blur background2shadowL($color);
@@ -80,6 +92,10 @@
       $color
     );
   }
+}
+
+@function surface-shadow-generator($direction, $color, $blur) {
+  @return shadow-generator(reverseDirection($direction), $color, $blur, true);
 }
 
 @mixin shadow($direction, $color, $blur, $inset) {

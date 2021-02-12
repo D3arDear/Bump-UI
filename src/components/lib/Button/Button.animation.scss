@@ -58,6 +58,9 @@
   }
 }
 .BUI-Button-Text {
+  &--clickDown:hover {
+    @include BUI-ButtonTextTheme--clicked($--color--default);
+  }
   &--clickDown {
     @include BUI-ButtonTextTheme--clicked($--color--default);
   }

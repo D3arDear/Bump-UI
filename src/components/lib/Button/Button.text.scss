@@ -1,19 +1,28 @@
-@mixin levelHover-andColor($background) {
-  color: darken($background, 20%);
-  background: rgba(lighten($background, 20%), 0);
+@mixin levelHover-andColor($background, $default: false) {
+  color: confirmTextColorByBG($background, $default);
+  background: rgba(lighten($background, 10%), 0);
   &:hover {
-    background-image: surface-generator(
+    background: rgba(lighten($background, 10%), 0.25);
+    box-shadow: surface-shadow-generator(
       $light-direction,
-      rgba(lighten($background, 10%), 0.3),
-      convex
+      desaturate(lighten($background, 50%), 50%),
+      $--blur-range-1
     );
   }
 }
-@function confirmTextColorByBG($textColor) {
+@function confirmTextColorByBG($textColor, $default) {
   @if lightness($--color--background) >= 50% {
-    @return $--color--text--black;
+    @if $default {
+      @return $--color--text--black;
+    } @else {
+      @return darken($textColor, 20%);
+    }
   } @else {
-    @return $--color--text--white;
+    @if $default {
+      @return $--color--text--white;
+    } @else {
+      @return lighten($textColor, 20%);
+    }
   }
 }
 .BUI-Button-Text {
@@ -27,11 +36,8 @@
   outline: 0px;
   cursor: pointer;
   font-size: $--font--size--default;
-  transition: background 0.3s;
-  background: rgba(lighten($--color--background, 20%), 0);
   transition: all 300ms;
-  @include levelHover-andColor($--color--background);
-  color: confirmTextColorByBG($--color--background);
+  @include levelHover-andColor($--color--background, true);
   span {
     color: inherit;
     margin: auto;
@@ -51,7 +57,6 @@
   }
   &--warning {
     @extend .BUI-Button-Text;
-    color: white;
     @include levelHover-andColor($--color--warning);
   }
   &--danger {

@@ -17,12 +17,11 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
 import SwitchNormal from "./Switch.normal.vue";
 import SwitchRetro from "./Switch.retro.vue";
 import { classMaker } from "../common/classMaker";
 export default {
-  name: "Switch",
+  name: "BUI-Switch",
   components: { SwitchNormal, SwitchRetro },
   props: {
     value: Boolean,

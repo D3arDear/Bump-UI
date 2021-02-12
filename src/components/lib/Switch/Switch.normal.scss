@@ -3,7 +3,7 @@
 $h: 22px;
 $h2: $h - 4px;
 
-.BUI-Switch {
+.BUI-Switch--normal {
   position: relative;
   height: $h;
   padding: 0;
@@ -41,23 +41,6 @@ $h2: $h - 4px;
     @include shadow($light-direction, $--color--checked, $--blur-range-4, true);
     @include surface($light-direction, $--color--checked, concave);
   }
-  &.checked {
-    &:after {
-      opacity: 1;
-    }
-    > span {
-      left: calc(100% - #{$h2} - 2px);
-    }
-  }
-  &--flat {
-    @extend .BUI-Switch;
-    @include shadow(
-      $light-direction,
-      $--color--background,
-      $--blur-range-4,
-      true
-    );
-  }
   &:focus {
     outline: none;
   }
@@ -78,4 +61,21 @@ $h2: $h - 4px;
       false
     );
   }
+  &.checked {
+    &:after {
+      opacity: 1;
+    }
+    > span {
+      left: calc(100% - #{$h2} - 2px);
+    }
+  }
+}
+.BUI-Switch--flat {
+  @extend .BUI-Switch--normal;
+  @include shadow(
+    $light-direction,
+    $--color--background,
+    $--blur-range-4,
+    true
+  );
 }

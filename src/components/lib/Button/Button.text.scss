@@ -40,6 +40,11 @@
   border: 1px solid rgba(darken($--color--background, 20%), 0.1);
   @include levelHover-andColor($--color--background, true);
   @include loadingIndicator($--color--background, $--blur-range-4, true);
+  &.rounded {
+    height: 3em;
+    min-width: 3em;
+    border-radius: 1.5em;
+  }
   &[disabled] {
     cursor: not-allowed;
     color: lighten($--color--disabled, 30%);

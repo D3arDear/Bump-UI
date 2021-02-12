@@ -5,7 +5,19 @@
       <h2>默认</h2>
       <section>
         <Button level="primary" textButton @click="toggle">Toggle</Button>
-        <Dialog :visible="v1"></Dialog>
+        <Dialog v-model:visible="v1"></Dialog>
+      </section>
+      <h2>传入函数及点击浮层关闭</h2>
+      <section>
+        <Button level="success" textButton @click="toggle2"
+          >Passing Function</Button
+        >
+        <Dialog
+          v-model:visible="v2"
+          closeOnClickOverlay
+          :ok="f1"
+          :cancel="f2"
+        ></Dialog>
       </section>
     </div>
   </div>
@@ -23,10 +35,18 @@ export default {
   },
   setup() {
     const v1 = ref(false);
+    const v2 = ref(false);
     const toggle = () => {
       v1.value = !v1.value;
     };
-    return { v1, toggle };
+    const toggle2 = () => {
+      v2.value = !v2.value;
+    };
+    const f1 = () => {
+      return false;
+    };
+    const f2 = () => {};
+    return { v1, v2, toggle, toggle2, f1, f2 };
   },
 };
 </script>

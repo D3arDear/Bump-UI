@@ -5,6 +5,7 @@
         <div :class="[classes('modal-content', '', '')]">
           <header :class="[classes('modal-content', 'header', '')]">
             标题
+            <Button @click="close" level="primary" textButton rounded>X</Button>
           </header>
           <main :class="[classes('modal-content', 'main', '')]">
             <p>第一行字</p>
@@ -14,14 +15,18 @@
             <Button
               :class="[classes('modal-content', 'footer-action', '')]"
               level="primary"
+              @click="ok"
               >OK</Button
             >
-            <Button :class="[classes('modal-content', 'footer-action', '')]"
+            <Button
+              :class="[classes('modal-content', 'footer-action', '')]"
+              @click="cancel"
               >Cancel</Button
             >
           </footer>
         </div>
       </div>
+      <div :class="[classes('overlay', '', '')]" @click="onClickOverlay"></div>
     </div>
   </template>
 </template>
@@ -39,10 +44,37 @@ export default {
       type: Boolean,
       default: false,
     },
+    closeOnClickOverlay: {
+      type: Boolean,
+      default: false,
+    },
+    ok: {
+      type: Function,
+    },
+    cancel: {
+      type: Function,
+    },
   },
   setup(props, context) {
+    const { closeOnClickOverlay } = props;
+
     const classes = classMaker("BUI-Dialog");
-    return { classes };
+    const close = () => {
+      context.emit("update:visible", false);
+    };
+    const onClickOverlay = () => {
+      closeOnClickOverlay && close();
+    };
+    const ok = () => {
+      if (props.ok?.() !== false) {
+        close();
+      }
+    };
+    const cancel = () => {
+      context.emit("cancel");
+      close();
+    };
+    return { classes, close, onClickOverlay, cancel, ok };
   },
 };
 </script>

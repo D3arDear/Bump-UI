@@ -1,0 +1,58 @@
+@import "../style/theme.scss";
+
+@function navOneSideShadow($color) {
+  @if $light-direction == topLeft {
+    @return shadowD-oneWay(right, $--color--background, $--blur-range-2);
+  } @else if $light-direction == topRight {
+    @return shadowD-oneWay(left, $--color--background, $--blur-range-2);
+  } @else if $light-direction == bottomRight {
+    @return shadowD-oneWay(right, $--color--background, $--blur-range-2, light);
+  } @else if $light-direction == bottomLeft {
+    @return shadowD-oneWay(left, $--color--background, $--blur-range-2, light);
+  }
+}
+
+.BUI-Tabs {
+  width: 100%;
+  &-nav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    &__item {
+      display: inline-flex;
+      padding: 16px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      // & + & {
+      //   margin-left: 1em;
+      // }
+      &--selected {
+        @extend .BUI-Tabs-nav__item;
+        color: $--color--checked;
+        background: $--color--background;
+        box-shadow: shadow-light(
+            $light-direction,
+            $--color--background,
+            $--blur-range-0
+          ),
+          navOneSideShadow($--color--background);
+      }
+    }
+  }
+  &-content {
+    @include shadow($light-direction, $--color--background, $--blur-range-0);
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    padding: 16px;
+    &__item {
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      display: none;
+    }
+    &--selected {
+      @extend .BUI-Tabs-content__item;
+      display: flex;
+    }
+  }
+}

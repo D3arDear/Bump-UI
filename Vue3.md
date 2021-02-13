@@ -111,3 +111,9 @@ setup(props, context) {
 - props 不包含事件，attrs 包含
 - props 没有声明的属性，会包含在 attrs 里
 - props 支持 string 以外的类型 (比如 bool)，attrs 只有 string 属性 (attrs 会把标签里的 disabled 认为是空字符串)
+
+# 如何用 JS 获取插槽的内容
+
+```ts
+const defaults = context.slots.default();
+```

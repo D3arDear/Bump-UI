@@ -4,7 +4,7 @@
     <div class="Tabs-demo__section">
       <h2>基本用法</h2>
       <section>
-        <Tabs v-model:selected="x">
+        <Tabs v-model:selected="tabsValue">
           <Tab title="导航1">
             <div>
               这这里有很长一段内容这里有很长一段内容这里有很长一段内容这里有很长一段内容里有很长一段内容
@@ -13,6 +13,12 @@
               这里有很长的正文这里有很长的正文这里有很长的正文这里有很长的正文这里有很长的正文这里有很长的正文这里有很长的正文这里有很长的正文这里有很长的正文
             </p>
             <div>内容1</div>
+          </Tab>
+          <Tab title="不可用" disabled>
+            <div>内容2</div>
+            <div>内容2</div>
+            <div>内容2</div>
+            <div>内容2</div>
           </Tab>
           <Tab title="导航2">
             <div>内容2</div>
@@ -29,7 +35,7 @@
 <script>
 import Tabs from '../components/lib/Tabs/Tabs.vue'
 import Tab from '../components/lib/Tabs/Tab.vue'
-import { reactive, ref, watchEffect } from 'vue';
+import { ref } from 'vue';
 export default {
   name: "TabsDemo",
   components:{
@@ -37,9 +43,8 @@ export default {
     Tab
   },
   setup(){
-    const x = ref('导航1')
-    watchEffect(() => console.log(x.value))
-    return {x}
+    const tabsValue = ref('导航1')
+    return {tabsValue}
   }
 };
 </script>

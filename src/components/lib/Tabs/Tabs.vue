@@ -1,14 +1,20 @@
 <template>
-  <div>Tabs 组件</div>
+  <div><slot></slot></div>
 </template>
 
 <script lang="ts">
 import { classMaker } from "../common/classMaker";
 export default {
   name: "BUI-Tabs",
-  setup() {
+  setup(props, context) {
+    const defaults = context.slots.default();
+    defaults.forEach((tag) => {
+      if (tag.type !== Tab) {
+        throw new Error("Tabs 的子标签必须是 Tab");
+      }
+    });
     const classes = classMaker("BUI-Tabs");
-    return { classes };
+    return { classes, defaults };
   },
 };
 </script>

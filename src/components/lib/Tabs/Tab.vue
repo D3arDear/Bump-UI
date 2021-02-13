@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes('', '', '')"><slot /></div>
+  <div><slot /></div>
 </template>
 
 <script lang="ts">

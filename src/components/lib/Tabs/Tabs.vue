@@ -44,6 +44,9 @@ export default {
     },
   },
   setup(props, context) {
+    const classes = classMaker("BUI-Tabs");
+    const selectedClass = (t) => (t === props.selected ? "selected" : "");
+
     const selectedItem = ref<HTMLDivElement>(null);
     const indicator = ref<HTMLDivElement>(null);
     const container = ref<HTMLDivElement>(null);
@@ -65,18 +68,14 @@ export default {
         throw new Error("Tabs 的子标签必须是 Tab");
       }
     });
-    const classes = classMaker("BUI-Tabs");
-
     const disabledList = defaults.map((el) =>
       el.props.disabled !== undefined ? true : false
     );
-    console.log(disabledList);
+    const current = computed(() => {
+      return defaults.find((tag) => tag.props.title === props.selected);
+    });
     const titles = defaults.map((element) => element.props.title);
-
-    const selectedClass = (t) => (t === props.selected ? "selected" : "");
-
     const select = (title: string) => {
-      console.log(title);
       context.emit("update:selected", title);
     };
 
@@ -90,6 +89,7 @@ export default {
       indicator,
       container,
       selectedClass,
+      current,
     };
   },
 };

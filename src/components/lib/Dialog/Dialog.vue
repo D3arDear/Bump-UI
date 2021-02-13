@@ -4,12 +4,11 @@
       <div :class="[classes('modal', '', '')]">
         <div :class="[classes('modal-content', '', '')]">
           <header :class="[classes('modal-content', 'header', '')]">
-            标题
+            <slot name="title"></slot>
             <Button @click="close" level="primary" textButton rounded>X</Button>
           </header>
           <main :class="[classes('modal-content', 'main', '')]">
-            <p>第一行字</p>
-            <p>第二行字</p>
+            <slot name="content"></slot>
           </main>
           <footer :class="[classes('modal-content', 'footer', '')]">
             <Button
@@ -40,6 +39,10 @@ export default {
     Button,
   },
   props: {
+    title: {
+      type: String,
+      default: "提示",
+    },
     visible: {
       type: Boolean,
       default: false,

@@ -81,7 +81,7 @@ export default {
       }
     };
     const cancel = () => {
-      context.emit("cancel");
+      props.cancel?.();
       close();
     };
     return { classes, close, onClickOverlay, cancel, ok };

@@ -2,27 +2,10 @@
   <div class="dialog-demo">
     <h1>Dialog 组件</h1>
     <div class="dialog-demo__section">
-      <h2>默认</h2>
-      <section>
-        <Button level="primary" textButton @click="toggle">Toggle</Button>
-        <Dialog v-model:visible="v1"></Dialog>
-      </section>
-      <h2>传入函数及点击浮层关闭</h2>
-      <section>
-        <Button level="success" textButton @click="toggle2"
-          >Passing Function</Button
-        >
-        <Dialog
-          v-model:visible="v2"
-          closeOnClickOverlay
-          :ok="f1"
-          :cancel="f2"
-        ></Dialog>
-      </section>
       <h2>slot 传入内容</h2>
       <section>
-        <Button level="success" textButton @click="toggle3">slot</Button>
-        <Dialog v-model:visible="v3" closeOnClickOverlay :ok="f1" :cancel="f3">
+        <Button level="success" textButton @click="toggle">slot</Button>
+        <Dialog v-model:visible="v1" closeOnClickOverlay :ok="f1" :cancel="f2">
           <template v-slot:title>
             <h1>这里是标题</h1>
           </template>
@@ -32,6 +15,12 @@
           </template>
         </Dialog>
       </section>
+      <h2>一行代码 show Dialog</h2>
+      <section>
+        <Button level="primary" textButton @click="showDialog"
+          >One Button Show Dialog.</Button
+        >
+      </section>
     </div>
   </div>
 </template>
@@ -39,6 +28,7 @@
 <script lang="ts">
 import Dialog from "../components/lib/Dialog/Dialog.vue";
 import Button from "../components/lib/Button/Button.vue";
+import { openDialog } from "../components/lib/Dialog/openDialog";
 import { ref } from "vue";
 export default {
   name: "DialogDemo",
@@ -48,22 +38,27 @@ export default {
   },
   setup() {
     const v1 = ref(false);
-    const v2 = ref(false);
-    const v3 = ref(false);
     const toggle = () => {
       v1.value = !v1.value;
-    };
-    const toggle2 = () => {
-      v2.value = !v2.value;
-    };
-    const toggle3 = () => {
-      v3.value = !v3.value;
     };
     const f1 = () => {
       return false;
     };
     const f2 = () => {};
-    return { v1, v2, v3, toggle, toggle2, toggle3, f1, f2 };
+    const showDialog = () => {
+      openDialog({
+        title: "标题",
+        content: "你好",
+        closeOnClickOverlay: true,
+        ok: () => {
+          console.log("ok");
+        },
+        cancel: () => {
+          console.log("cancel");
+        },
+      });
+    };
+    return { v1, toggle, f1, f2, showDialog };
   },
 };
 </script>

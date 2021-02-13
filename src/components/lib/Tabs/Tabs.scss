@@ -25,6 +25,8 @@
       border-top-right-radius: 8px;
       cursor: pointer;
       user-select: none;
+      border-bottom: 1px solid $--color--background;
+      transition: all 300ms;
       // & + & {
       //   margin-left: 1em;
       // }
@@ -32,6 +34,7 @@
         @extend .BUI-Tabs-nav__item;
         color: $--color--checked;
         background: $--color--background;
+        border-bottom: 1px solid darken($--color--background, 10%);
         box-shadow: shadow-light(
             $light-direction,
             $--color--background,

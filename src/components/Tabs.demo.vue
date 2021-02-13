@@ -4,7 +4,7 @@
     <div class="Tabs-demo__section">
       <h2>基本用法</h2>
       <section>
-        <Tabs selected="导航1">
+        <Tabs v-model:selected="x">
           <Tab title="导航1">
             <div>
               这这里有很长一段内容这里有很长一段内容这里有很长一段内容这里有很长一段内容里有很长一段内容
@@ -29,11 +29,17 @@
 <script>
 import Tabs from '../components/lib/Tabs/Tabs.vue'
 import Tab from '../components/lib/Tabs/Tab.vue'
+import { reactive, ref, watchEffect } from 'vue';
 export default {
   name: "TabsDemo",
   components:{
     Tabs,
     Tab
+  },
+  setup(){
+    const x = ref('导航1')
+    watchEffect(() => console.log(x.value))
+    return {x}
   }
 };
 </script>

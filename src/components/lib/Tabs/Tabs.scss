@@ -23,6 +23,8 @@
       padding: 16px;
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
+      cursor: pointer;
+      user-select: none;
       // & + & {
       //   margin-left: 1em;
       // }

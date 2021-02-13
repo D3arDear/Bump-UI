@@ -5,7 +5,6 @@
       <h2>基本用法</h2>
       <section>
         <Tabs>
-          <div>内容1</div>
           <Tab title="导航1">内容1</Tab>
           <Tab title="导航2">内容2</Tab>
         </Tabs>

@@ -1,9 +1,12 @@
 <template>
-  <div><slot></slot></div>
+  <div>
+    <component v-for="c in defaults" :is="c" />
+  </div>
 </template>
 
 <script lang="ts">
 import { classMaker } from "../common/classMaker";
+import Tab from "./Tab.vue";
 export default {
   name: "BUI-Tabs",
   setup(props, context) {

@@ -59,6 +59,7 @@
     color: inherit;
     margin: auto;
     font-size: inherit;
+    user-select: none;
   }
   &--primary {
     @extend .BUI-Button-Text;

@@ -43,6 +43,9 @@ export default {
 .contentWrapper {
   background: $--color--background;
 }
+.router-link-active {
+  color: $--color-checked;
+}
 .content {
   height: 100%;
   min-height: calc(100vh - 50px);

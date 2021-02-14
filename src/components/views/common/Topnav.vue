@@ -38,7 +38,7 @@ export default {
   box-shadow: shadowD-oneWay(
     bottom,
     $--color--background,
-    $--blur-range-5,
+    $--blur-range-4,
     dark
   );
   @media (max-width: 500px) {

@@ -62,12 +62,12 @@ export default {
     align-items: flex-start;
     padding: 10px 0;
     border-right: 1px solid lighten($--color--background, 10%);
-    box-shadow: shadowD-oneWay(
+    /* box-shadow: shadowD-oneWay(
       right,
       $--color--background,
-      $--blur-range-5,
+      $--blur-range-4,
       dark
-    );
+    ); */
     .handle {
       position: absolute;
       top: calc(50vh - 25px);

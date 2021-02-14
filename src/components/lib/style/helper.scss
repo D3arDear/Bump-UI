@@ -8,7 +8,7 @@
 }
 @function background2shadowD($color) {
   @if lightness($color) >= 50 {
-    @return rgba(darken($color, 35%), 70%);
+    @return rgba(darken($color, 35%), 50%);
   } @else {
     @return rgba(black, 70%);
   }

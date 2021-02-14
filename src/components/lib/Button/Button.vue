@@ -1,7 +1,12 @@
 <template>
   <button
     v-bind="rest"
-    v-on="{ mousedown: mouseDown, mouseup: mouseUp }"
+    v-on="{
+      mousedown: mouseDown,
+      mouseup: mouseUp,
+      touchstart: mouseDown,
+      touchend: mouseUp,
+    }"
     :class="[
       pressed && classes(buttonTheme, '', 'clickDown'),
       classes(buttonTheme, '', parsedLevel),

@@ -2,10 +2,11 @@
 
 请先[安装](#/doc/install)本组件库。
 
-然后在你的代码中写入下面的代码
+引入我的 UI 及样式文件
 
-```
-import {Button, Tabs, Tab, Switch, Dialog, openDialog} from "gulu-ui-1"
+```js
+import { Button, Tabs, Tab, Switch, Dialog, openDialog } from "bump-ui";
+import { theme } from "bump-ui";
 ```
 
 就可以使用我提供的组件了。
@@ -14,7 +15,7 @@ import {Button, Tabs, Tab, Switch, Dialog, openDialog} from "gulu-ui-1"
 
 代码示例：
 
-```
+```xml
 <template>
   <div>
     <Button>按钮</Button>

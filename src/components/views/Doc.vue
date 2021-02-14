@@ -4,6 +4,19 @@
     <div class="content">
       <aside v-if="asideVisible">
         <div class="handle"></div>
+        <h2>文档</h2>
+        <ul>
+          <li>
+            <router-link to="/doc/intro">介绍</router-link>
+          </li>
+          <li>
+            <router-link to="/doc/install">安装</router-link>
+          </li>
+          <li>
+            <router-link to="/doc/get-started">开始使用</router-link>
+          </li>
+        </ul>
+        <h2>组件列表</h2>
         <ul>
           <li>
             <router-link to="/doc/switch"> Switch </router-link>
@@ -42,9 +55,6 @@ export default {
 @import "../../components/lib/style/theme.scss";
 .contentWrapper {
   background: $--color--background;
-}
-.router-link-active {
-  color: $--color-checked;
 }
 .content {
   height: 100%;
@@ -86,8 +96,7 @@ export default {
       );
     }
     h2 {
-      margin: 0;
-      margin-left: 10px;
+      margin: 10px 25px;
     }
     ul {
       display: flex;
@@ -96,9 +105,10 @@ export default {
       align-items: flex-start;
       list-style-type: none;
       padding: 0 10px;
+      width: 208px;
       li {
         width: 100%;
-        margin: 10px 40px 10px 20px;
+        margin: 10px 0px;
         a {
           text-decoration: none;
           color: ContrastText($--color--background);
@@ -107,12 +117,15 @@ export default {
           display: flex;
           justify-content: flex-start;
           align-items: center;
-          padding: 0.5em 16px;
+          padding: 0.5em 1em;
           // border-top-right-radius: 1em;
           // border-bottom-right-radius: 1em;
           &.active {
             box-shadow: 4px 5px 5px -5px rgba($color: #000, $alpha: 0.1);
           }
+        }
+        a.router-link-active {
+          color: $--color--checked;
         }
       }
     }

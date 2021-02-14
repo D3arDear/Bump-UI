@@ -33,10 +33,12 @@ export default {
   align-items: center;
   height: 50px;
   position: relative;
+  z-index: 20;
+  border-bottom: 1px solid lighten($--color--background, 10%);
   box-shadow: shadowD-oneWay(
     bottom,
     $--color--background,
-    $--blur-range-1,
+    $--blur-range-5,
     dark
   );
   @media (max-width: 500px) {

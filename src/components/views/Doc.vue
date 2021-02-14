@@ -118,14 +118,30 @@ export default {
           justify-content: flex-start;
           align-items: center;
           padding: 0.5em 1em;
+          height: 3em;
           // border-top-right-radius: 1em;
           // border-bottom-right-radius: 1em;
+          transition: all 300ms;
+          &:hover {
+            box-shadow: shadowD-oneWay(
+              bottom,
+              $--color--checked,
+              $--blur-range-0,
+              light
+            );
+          }
           &.active {
             box-shadow: 4px 5px 5px -5px rgba($color: #000, $alpha: 0.1);
           }
         }
         a.router-link-active {
           color: $--color--checked;
+          box-shadow: shadowD-oneWay(
+            bottom,
+            $--color--checked,
+            $--blur-range-4,
+            light
+          );
         }
       }
     }

@@ -51,7 +51,11 @@ $h2: $h - 4px;
     left: 2px;
     height: $h2;
     width: $h2;
-    background: linear-gradient(145deg, #ffffff, #dfdfdf);
+    background: surface-generator(
+      $light-direction,
+      lighten($--color--background, 10%),
+      concave
+    );
     border-radius: $h2/2;
     transition: left 250ms;
     @include shadow(

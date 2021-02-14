@@ -12,13 +12,13 @@ $--blur-range-3: 6px !default;
 $--blur-range-4: 4px !default;
 $--blur-range-5: 2px !default;
 
-$--color--background: #eef1f3 !default;
+$--color--background: darken(#eef1f3, 5%) !default;
 $--font--size--default: 14px !default;
 
 $--color--text--black: #292929 !default;
 $--color--text--white: #eee !default;
 
-$--color--default: #eef1f3 !default;
+$--color--default: $--color--background !default;
 // $--color--primary: #5e5e5e !default;
 $--color--primary: #ff9e5d !default;
 $--color--secondary: #ffd6f3 !default;

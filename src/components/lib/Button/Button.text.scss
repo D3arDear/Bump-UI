@@ -12,13 +12,13 @@
 }
 @function confirmTextColorByBG($textColor, $default) {
   @if lightness($--color--background) >= 50% {
-    @if $default {
+    @if $default == true {
       @return $--color--text--black;
     } @else {
       @return darken($textColor, 20%);
     }
   } @else {
-    @if $default {
+    @if $default == true {
       @return $--color--text--white;
     } @else {
       @return lighten($textColor, 20%);

@@ -97,7 +97,7 @@
   }
 }
 
-@function shadow-generator($direction, $color, $blur, $inset) {
+@function shadow-generator($direction, $color, $blur, $inset: false) {
   @if $inset {
     @return shadow-light($direction, $color, $blur) inset,
       shadow-dark($direction, $color, $blur) inset;

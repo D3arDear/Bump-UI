@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="contentWrapper">
     <Topnav></Topnav>
     <div class="content">
       <aside v-if="asideVisible">
@@ -32,7 +32,6 @@ export default {
   components: { Topnav },
   setup() {
     const asideVisible = inject<Ref<boolean>>("asideVisible");
-    console.log("doc 获取到 asideVisible 为: " + asideVisible.value);
     return { asideVisible };
   },
   name: "Doc",
@@ -40,10 +39,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../components/lib/style/theme.scss";
+.contentWrapper {
+  background: $--color--background;
+}
 .content {
   height: 100%;
   min-height: calc(100vh - 50px);
   position: relative;
+  background: $--color--background;
   aside {
     position: absolute;
     height: 100%;
@@ -52,12 +56,12 @@ export default {
     bottom: 0;
     display: flex;
     z-index: 1;
-    background-color: #f8f8f8;
+    background-color: $--color--background;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     padding: 10px 0;
-    border-right: 1px solid #fff;
+    border-right: 1px solid lighten($--color--background, 10%);
     box-shadow: 20px 0px 20px -20px rgba($color: #000, $alpha: 0.1);
     .handle {
       position: absolute;
@@ -66,10 +70,12 @@ export default {
       height: 50px;
       width: 6px;
       border-radius: 2px;
-      background: #ddd;
-      box-shadow: -2px -2px 2px rgba($color: #ffffff, $alpha: 0.5),
-        1px 1px 2px rgba($color: #000000, $alpha: 0.2),
-        0 0 10px rgba($color: #000000, $alpha: 0.1);
+      background: lighten($--color--background, 10%);
+      box-shadow: shadow-generator(
+        $light-direction,
+        $--color--background,
+        $--blur-range-3
+      );
     }
     h2 {
       margin: 0;
@@ -87,7 +93,7 @@ export default {
         margin: 10px 40px 10px 20px;
         a {
           text-decoration: none;
-          color: #666;
+          color: ContrastText($--color--background);
           cursor: pointer;
           width: 8em;
           display: flex;
@@ -109,7 +115,7 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    background: #eef1f3;
+    background: $--color--background;
     &.asideVisible {
       margin-left: 208px;
     }

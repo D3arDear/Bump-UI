@@ -24,16 +24,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.toggleAside .Topnav.asideVisible {
-  padding-left: 208px;
-}
-.Topnav {
+@import "../../../components/lib/style/theme.scss";
+.Topnav,
+.TopNav.asideVisible {
   display: flex;
   justify-content: space-between;
-  background: #f8f8f8;
+  background: $--color--background;
   align-items: center;
   height: 50px;
   position: relative;
+  box-shadow: shadowD-oneWay(
+    bottom,
+    $--color--background,
+    $--blur-range-1,
+    dark
+  );
   @media (max-width: 500px) {
     justify-content: center;
     align-items: center;
@@ -49,6 +54,9 @@ export default {
     display: none;
     @media (max-width: 500px) {
       display: inline-block;
+    }
+    &.asideVisible .toggleAside {
+      padding-left: 208px;
     }
   }
   .logo {

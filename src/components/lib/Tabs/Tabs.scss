@@ -68,6 +68,7 @@
   }
   &-content {
     @include shadow($light-direction, $--color--background, $--blur-range-0);
+    background: $--color--background;
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
     padding: 16px;

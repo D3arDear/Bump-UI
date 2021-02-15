@@ -54,4 +54,7 @@ export default {
 code {
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
+.demo {
+  width: 100%;
+}
 </style>

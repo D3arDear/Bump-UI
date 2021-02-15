@@ -117,3 +117,59 @@ setup(props, context) {
 ```ts
 const defaults = context.slots.default();
 ```
+
+# 是不是偶尔想在给 props 一个 interface
+
+我都用上了 ts 了，不能给 props 定义接口是不是太奇怪了
+
+```html
+<template>
+  <!-- ... -->
+</template>
+<script lang="ts">
+  import { PropType } from "vue";
+  import { hex2rgb, rgb2hsl } from "../common/colorSwitch";
+  interface ILinearColor {
+    colors: string[];
+    angle: number;
+  }
+
+  export default {
+    inheritAttrs: false,
+    props: {
+      linearColor: {
+        type: Object as PropType<ILinearColor>,
+        required: false,
+      },
+    },
+  };
+</script>
+```
+
+```ts
+Object as PropType<InterfaceYouWant>;
+```
+
+# setup() 是蛮不错的，但是我居然要 return 那么多东西
+
+```html
+
+```
+
+# watchEffect 中更新的后没有继续监听怎么办
+
+```ts
+// 在组件更新后触发，这样你就可以访问更新的 DOM。
+// 注意：这也将推迟副作用的初始运行，直到组件的首次渲染完成。
+watchEffect(
+  () => {
+    /* ... */
+  },
+  {
+    flush: "post",
+  }
+);
+```
+
+- 如果需要在组件更新后重新运行侦听器副作用，我们可以传递带有 `flush` 选项的附加 `options` 对象 (默认为 'pre')：
+- `flush` 选项还接受 `sync`，这将强制效果始终同步触发。然而，这是低效的，应该很少需要。

@@ -22,6 +22,7 @@
     </span>
     <span :class="classes(buttonTheme, 'content', '')"><slot /></span>
   </button>
+  <!-- ... -->
 </template>
 
 

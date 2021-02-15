@@ -5,6 +5,15 @@
   <div class="icon-demo__section">
     <section>
       <Icon name="down" />
+      <Icon name="setting" />
+      <Icon name="up" />
+      <Icon name="doubleRight" />
+      <Icon name="doubleLeft" />
+      <Icon name="dots" />
+      <Icon name="info" />
+      <Icon name="error" />
+      <Icon name="thumbs-up" />
+      <Icon name="download" />
     </section>
   </div>
 </template>

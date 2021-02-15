@@ -12,11 +12,11 @@
         两个颜色决定渐变颜色，angle:number (required) 决定渐变角度
       </p>
     </Demo>
-    <Demo :component="ButtonDemo2_1">
-      <p>可以传入一个 Icon 组件，作为一个图标按钮</p>
-    </Demo>
     <Demo :component="ButtonDemo3">
       <p>接受一个 rounded 属性，让 Button 应用圆角样式</p>
+    </Demo>
+    <Demo :component="ButtonDemo2_1">
+      <p>接受一个 icon 对象，渲染一个图标按钮组合或图标按钮</p>
     </Demo>
     <Demo :component="ButtonDemo4">
       <p>

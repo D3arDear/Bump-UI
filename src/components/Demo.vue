@@ -6,18 +6,40 @@
       <component :is="component" />
     </div>
     <div class="demo-actions">
-      <Button textButton level="primary" @click="hideCode" v-if="codeVisible">
-        &gt; &lt; 隐藏代码
+      <Button
+        @click="hideCode"
+        v-if="codeVisible"
+        size="mini"
+        class="button"
+        :linearColor="{
+          colors: ['#FE6B8B', '#FF8E53'],
+          angle: '45',
+        }"
+        :icon="{ name: 'down', right: false }"
+      >
+        隐藏代码
       </Button>
-      <Button textButton level="primary" @click="showCode" v-else>
-        &lt; &gt; 查看代码
+      <Button
+        @click="showCode"
+        v-else
+        size="mini"
+        class="button"
+        :linearColor="{
+          colors: ['#FE6B8B', '#FF8E53'],
+          angle: '45',
+        }"
+        :icon="{ name: 'right', right: false }"
+      >
+        查看代码
       </Button>
     </div>
-    <div class="demo-code" v-if="codeVisible">
-      <pre v-highlightjs="html">
+    <transition name="animation--slide-fade" mode="out-in">
+      <div class="demo-code" v-if="codeVisible">
+        <pre v-highlightjs="html">
         <code class="vue"></code>
       </pre>
-    </div>
+      </div>
+    </transition>
   </div>
 </template>
   
@@ -59,12 +81,33 @@ code {
 }
 .demo {
   width: 100%;
+  &-code {
+    max-width: calc(100vw - 30px);
+  }
   &-component {
     margin-top: 10px;
     margin-bottom: 5px;
   }
+  &-actions {
+    padding-top: 10px;
+    border-top: 1px dotted #bbb;
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 h2 {
   margin: 40px 0 20px 0;
+}
+.animation--slide-fade {
+  &-enter-active,
+  &-leave-active {
+    transition: all 300ms ease;
+    transform: translateY(0);
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(-2%);
+  }
 }
 </style>

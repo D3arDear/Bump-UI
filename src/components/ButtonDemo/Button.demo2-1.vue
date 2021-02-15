@@ -21,37 +21,35 @@
           angle: '45',
         }"
         :icon="{ name: 'setting', right: false }"
-      >
+      />
+      <Button class="button" :icon="{ name: 'down', right: false }" rounded />
+      <Button class="button" :icon="{ name: 'setting', right: true }" rounded>
+        设置
       </Button>
-      <Button
-        class="button"
-        :icon="{ name: 'down', right: false }"
-        rounded
-      ></Button>
-      <Button class="button" :icon="{ name: 'setting', right: true }" rounded
-        >设置</Button
-      >
       <Button
         class="button"
         size="medium"
         :icon="{ name: 'setting', right: false }"
         rounded
-        >设置</Button
       >
+        设置
+      </Button>
       <Button
         class="button"
         size="small"
         :icon="{ name: 'setting', right: true }"
         rounded
-        >设置</Button
       >
+        设置
+      </Button>
       <Button
         class="button"
         size="mini"
         :icon="{ name: 'setting', right: false }"
         rounded
-        >设置</Button
       >
+        设置
+      </Button>
     </section>
   </div>
 </template>

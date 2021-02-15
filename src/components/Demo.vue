@@ -5,8 +5,12 @@
       <component :is="component" />
     </div>
     <div class="demo-actions">
-      <Button @click="hideCode" v-if="codeVisible">隐藏代码</Button>
-      <Button @click="showCode" v-else>查看代码</Button>
+      <Button textButton level="primary" @click="hideCode" v-if="codeVisible"
+        >隐藏代码</Button
+      >
+      <Button textButton level="primary" @click="showCode" v-else
+        >查看代码</Button
+      >
     </div>
     <div class="demo-code" v-if="codeVisible">
       <pre class="language-html" v-html="html" />
@@ -22,6 +26,9 @@ import "highlight.js/styles/atom-one-dark.css";
 import { onMounted, ref } from "vue";
 
 export default {
+  components: {
+    Button,
+  },
   props: {
     component: {
       type: Object,

@@ -26,9 +26,9 @@
 </template>
 
 <script lang="ts">
-import Dialog from "../components/lib/Dialog/Dialog.vue";
-import Button from "../components/lib/Button/Button.vue";
-import { openDialog } from "../components/lib/Dialog/openDialog";
+import Dialog from "..//lib/Dialog/Dialog.vue";
+import Button from "../lib/Button/Button.vue";
+import { openDialog } from "../lib/Dialog/openDialog";
 import { ref } from "vue";
 export default {
   name: "DialogDemo",

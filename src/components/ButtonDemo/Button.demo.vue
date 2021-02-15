@@ -23,6 +23,7 @@
       </section>
     </div>
     <div class="button-demo__section">
+      <h2>渐变背景</h2>
       <section>
         <Button
           class="button"
@@ -128,7 +129,7 @@
 </template>
 
 <script>
-import Button from "./lib/Button/Button.vue";
+import Button from "../lib/Button/Button.vue";
 export default {
   name: "ButtonDemo",
   components: { Button },

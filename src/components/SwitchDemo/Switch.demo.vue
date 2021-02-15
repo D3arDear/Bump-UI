@@ -18,7 +18,7 @@
 
 <script lang="ts" scoped>
 import { ref } from "vue";
-import Switch from "./lib/Switch/Switch.vue";
+import Switch from "../lib/Switch/Switch.vue";
 export default {
   name: "SwitchDemo",
   components: { Switch },

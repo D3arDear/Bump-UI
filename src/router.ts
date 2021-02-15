@@ -5,6 +5,7 @@ import SwitchDemo from "./components/SwitchDemo/Switch.demo.vue";
 import ButtonDemo from "./components/ButtonDemo/Button.demo.vue";
 import DialogDemo from "./components/DialogDemo/Dialog.demo.vue";
 import TabsDemo from "./components/TabsDemo/Tabs.demo.vue";
+import IconDemo from "./components/IconDemo/Icon.demo.vue";
 
 import { h } from "vue";
 import Markdown from "./components/Markdown.vue";
@@ -36,6 +37,7 @@ export const router = createRouter({
         { path: "button", component: ButtonDemo },
         { path: "dialog", component: DialogDemo },
         { path: "tabs", component: TabsDemo },
+        { path: "icon", component: IconDemo },
       ],
     },
   ],

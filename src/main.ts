@@ -2,7 +2,7 @@ import "./index.css";
 import { createApp } from "vue";
 import App from "./App.vue";
 import { router } from "./router";
-import "./assets/svg.js";
+import "./components/lib/svg.js";
 import Markdown from "./components/Markdown.vue";
 import "github-markdown-css";
 import VueHighlightJS from "vue3-highlightjs";

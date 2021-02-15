@@ -7,10 +7,10 @@
     </div>
     <div class="demo-actions">
       <Button textButton level="primary" @click="hideCode" v-if="codeVisible">
-        &gt; &lt;
+        &gt; &lt; 隐藏代码
       </Button>
       <Button textButton level="primary" @click="showCode" v-else>
-        &lt; &gt;
+        &lt; &gt; 查看代码
       </Button>
     </div>
     <div class="demo-code" v-if="codeVisible">
@@ -24,7 +24,7 @@
 <script lang="ts">
 import Button from "./lib/Button/Button.vue";
 import "highlight.js/styles/atom-one-dark.css";
-import { computed, ref } from "vue";
+import { Component, computed, PropType, ref } from "vue";
 
 export default {
   components: {
@@ -32,11 +32,12 @@ export default {
   },
   props: {
     component: {
-      type: Object,
+      type: Object as PropType<Component>,
       required: true,
     },
   },
   setup(props) {
+    console.log(props.component)
     const codeVisible = ref(false);
     const html = computed(() => props.component.__sourceCode);
     const showCode = () => (codeVisible.value = true);
@@ -65,6 +66,6 @@ code {
   }
 }
 h2 {
-  margin: 20px 0;
+  margin: 40px 0 20px 0;
 }
 </style>

@@ -30,10 +30,19 @@
           <li>
             <router-link to="/doc/tabs"> Tabs </router-link>
           </li>
+          <li>
+            <router-link to="/doc/icon"> Icon </router-link>
+          </li>
         </ul>
       </aside>
       <main :class="{ asideVisible: asideVisible }">
-        <div class="main-content"><router-view /></div>
+        <div class="main-content">
+          <router-view v-slot="{ Component }">
+            <transition name="animation--slide-fade" mode="out-in">
+              <component :is="Component" />
+            </transition>
+          </router-view>
+        </div>
       </main>
     </div>
   </div>
@@ -181,6 +190,18 @@ export default {
     main.asideVisible {
       margin-left: 0;
     }
+  }
+}
+.animation--slide-fade {
+  &-enter-active,
+  &-leave-active {
+    transition: all 300ms ease;
+    transform: translateY(0);
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(-2%);
   }
 }
 </style>

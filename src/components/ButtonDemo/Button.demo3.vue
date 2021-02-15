@@ -6,19 +6,19 @@
     <section>
       <Button class="button" rounded>默认圆角按钮</Button>
       <Button class="button" rounded surfaceStyle="concave" bodyStyle="convex"
-        >圆角表面凹陷凸起按钮</Button
+        >圆角表面凹陷凸起</Button
       >
       <Button class="button" rounded surfaceStyle="convex" bodyStyle="convex"
-        >圆角表面凹陷凸起按钮</Button
+        >圆角表面凹陷凸起</Button
       >
       <Button class="button" rounded surfaceStyle="flat" bodyStyle="convex"
-        >圆角表面平整凸起按钮</Button
+        >圆角表面平整凸起</Button
       >
       <Button class="button" rounded surfaceStyle="concave" bodyStyle="convex"
-        >圆角表面凹陷凸起按钮</Button
+        >圆角表面凹陷凸起</Button
       >
       <Button class="button" rounded surfaceStyle="concave" bodyStyle="concave"
-        >圆角表面凹陷按钮</Button
+        >圆角表面凹陷</Button
       >
     </section>
   </div>

@@ -14,3 +14,7 @@ export default {
   },
 };
 </script>
+
+<style>
+@import "highlight.js/styles/atom-one-dark-reasonable.css";
+</style>

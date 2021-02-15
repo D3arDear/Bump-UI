@@ -5,12 +5,10 @@
       <component :is="component" />
     </div>
     <div class="demo-actions">
-      <Button textButton level="primary" @click="hideCode" v-if="codeVisible"
-        >隐藏代码</Button
-      >
-      <Button textButton level="primary" @click="showCode" v-else
-        >查看代码</Button
-      >
+      <Button textButton level="primary" @click="hideCode" v-if="codeVisible">
+        > <
+      </Button>
+      <Button textButton level="primary" @click="showCode" v-else>< ></Button>
     </div>
     <div class="demo-code" v-if="codeVisible">
       <pre v-highlightjs="html">

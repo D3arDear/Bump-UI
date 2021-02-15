@@ -3,6 +3,7 @@
     v-on="{
       mousedown: mouseDown,
       mouseup: mouseUp,
+      mouseleave: mouseUp,
       touchstart: mouseDown,
       touchend: mouseUp,
     }"

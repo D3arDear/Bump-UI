@@ -6,7 +6,7 @@ import "./assets/svg.js";
 import Markdown from "./components/Markdown.vue";
 import "github-markdown-css";
 import VueHighlightJS from "vue3-highlightjs";
-import "highlight.js/styles/atom-one-dark.css";
+import "highlight.js/styles/atom-one-dark-reasonable.css";
 
 const app = createApp(App);
 

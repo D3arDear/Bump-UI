@@ -50,5 +50,8 @@ export default {
 };
 </script>
   
-  <style scoped>
+<style scoped>
+code {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
 </style>

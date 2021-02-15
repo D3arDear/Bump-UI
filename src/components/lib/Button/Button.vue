@@ -20,13 +20,35 @@
     <span v-if="loading" :class="classes(buttonTheme, 'loadingIndicator', '')">
       <span :class="classes(buttonTheme, 'loadingIndicator-space', '')"></span>
     </span>
-    <span :class="classes(buttonTheme, 'content', '')"><slot /></span>
+    <span :class="classes(buttonTheme, 'content', '')">
+      <template v-if="icon">
+        <template v-if="icon.right !== true">
+          <Icon :name="icon.name" />
+          <div
+            :class="`parting${size ? '--' + size : ''}`"
+            v-if="(icon && context.slots.default) || buttonTheme === 'Text'"
+          ></div>
+        </template>
+        <slot />
+        <template v-if="icon.right === true">
+          <div
+            :class="`parting${size ? '--' + size : ''}`"
+            v-if="(icon && context.slots.default) || buttonTheme === 'Text'"
+          ></div>
+          <Icon :name="icon.name" />
+        </template>
+      </template>
+      <template v-else>
+        <slot />
+      </template>
+    </span>
   </button>
   <!-- ... -->
 </template>
 
 
 <script lang="ts">
+import Icon from '../Icon.vue'
 import { computed, PropType, ref } from "vue";
 import { classMaker } from "../common/classMaker";
 import { hex2rgb, rgb2hsl } from "../common/colorSwitch";
@@ -34,10 +56,17 @@ interface ILinearColor {
   colors: string[];
   angle: number;
 }
+interface IIcon {
+  name: String;
+  right: Boolean;
+}
 
 export default {
   inheritAttrs: false,
   name: "Button",
+  components: {
+    Icon
+  },
   props: {
     surfaceStyle: {
       type: String,
@@ -58,6 +87,10 @@ export default {
     loading: {
       type: Boolean,
       default: false,
+    },
+    icon: {
+      type: Object as PropType<IIcon>,
+      require: false,
     },
     linearColor: {
       type: Object as PropType<ILinearColor>,
@@ -133,6 +166,7 @@ export default {
       mouseDown,
       loading,
       linearBG,
+      context
     };
   },
 };

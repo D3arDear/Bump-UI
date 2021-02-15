@@ -37,7 +37,6 @@ export default {
     },
   },
   setup(props) {
-    console.log(props.component)
     const codeVisible = ref(false);
     const html = computed(() => props.component.__sourceCode);
     const showCode = () => (codeVisible.value = true);

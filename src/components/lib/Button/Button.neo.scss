@@ -115,13 +115,43 @@
     height: 2.25em;
     padding: 0 0.75em;
     &.rounded {
-      height: 2em;
-      min-width: 2em;
-      border-radius: 1em;
+      height: 2.25em;
+      min-width: 2.25em;
+      border-radius: 1.125em;
     }
   }
   .BUI-Button-Neo__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     user-select: none;
     margin: auto;
+    .parting {
+      display: inline-flex;
+      height: 3em;
+      width: 1px;
+      margin: 0 0.75em;
+      background: none;
+      box-shadow: surface-shadow-generator($light-direction, $--color--background, $--blur-range-5);
+      &--big {
+        @extend .parting;
+        height: 3em;
+      }
+      &--medium {
+        @extend .parting;
+        margin: 0 0.625em;
+        height: 2.75em;
+      }
+      &--small {
+        @extend .parting;
+        margin: 0 0.5em;
+        height: 2.5em;
+      }
+      &--mini {
+        @extend .parting;
+        margin: 0 0.325em;
+        height: 2.25em;
+      }
+    }
   }
 }

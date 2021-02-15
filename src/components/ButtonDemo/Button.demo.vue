@@ -12,6 +12,9 @@
         两个颜色决定渐变颜色，angle:number (required) 决定渐变角度
       </p>
     </Demo>
+    <Demo :component="ButtonDemo2_1">
+      <p>可以传入一个 Icon 组件，作为一个图标按钮</p>
+    </Demo>
     <Demo :component="ButtonDemo3">
       <p>接受一个 rounded 属性，让 Button 应用圆角样式</p>
     </Demo>
@@ -44,6 +47,7 @@
 import Demo from "../Demo.vue";
 import ButtonDemo1 from "./Button.demo1.vue";
 import ButtonDemo2 from "./Button.demo2.vue";
+import ButtonDemo2_1 from "./Button.demo2-1.vue";
 import ButtonDemo3 from "./Button.demo3.vue";
 import ButtonDemo4 from "./Button.demo4.vue";
 import ButtonDemo5 from "./Button.demo5.vue";
@@ -57,6 +61,7 @@ export default {
     return {
       ButtonDemo1,
       ButtonDemo2,
+      ButtonDemo2_1,
       ButtonDemo3,
       ButtonDemo4,
       ButtonDemo5,

@@ -10,11 +10,12 @@
 </template>
 
 <script lang="ts">
+import Demo from '../Demo.vue'
 import IconDemo1 from './Icon.demo1.vue'
 export default {
   name: 'IconDemo',
   setup() {
-    return { IconDemo1 }
+    return { IconDemo1, Demo }
   }
 }
 </script>

@@ -2,13 +2,15 @@
 
 打开终端运行下列命令：
 
-```
+npm:
+
+```bash
 npm install bump-ui
 ```
 
-或
+yarn:
 
-```
+```bash
 yarn add bump-ui
 ```
 

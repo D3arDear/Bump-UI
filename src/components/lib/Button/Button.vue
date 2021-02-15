@@ -103,8 +103,7 @@ export default {
         const color1 = linearColor.colors[0];
         const color2 = linearColor.colors[1];
         return {
-          background: `linear-gradient(${linearColor.angle}deg, ${color1} 40%, ${color2} 90%)`,
-          // color: textColor(linearColor.colors[0], linearColor.colors[1]),
+          background: `linear-gradient(${linearColor.angle}deg, ${color1} 30%, ${color2} 90%)`,
           color: textColor(color1, color2),
         };
       }

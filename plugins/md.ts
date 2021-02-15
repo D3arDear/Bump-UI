@@ -2,6 +2,21 @@
 import path from "path";
 import fs from "fs";
 import marked from "marked";
+import hljs from "highlight.js";
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  pedantic: false,
+  sanitize: false,
+  tables: true,
+  breaks: true,
+  smartLists: true,
+  smartypants: true,
+  highlight: function (code) {
+    return hljs.highlightAuto(code).value;
+  },
+});
 
 const mdToJs = (str) => {
   const content = JSON.stringify(marked(str));

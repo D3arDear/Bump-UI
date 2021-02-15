@@ -1,6 +1,8 @@
+<demo>
+渐变背景
+</demo>
 <template>
   <div class="button-demo__section">
-    <h2>渐变背景</h2>
     <section>
       <Button
         class="button"
@@ -14,5 +16,16 @@
   </div>
 </template>
 <script lang="ts">
-export default {};
+import Button from "../lib/Button/Button.vue";
+export default {
+  components: {
+    Button,
+  },
+  setup() {
+    const onClick = () => {
+      console.log("hi");
+    };
+    return { onClick };
+  },
+};
 </script>

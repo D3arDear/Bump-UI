@@ -9,9 +9,11 @@
     "github-markdown-css": "^4.0.0",
     "highlight.js": "^10.6.0",
     "vue": "^3.0.2",
-    "vue-router": "4.0.0-rc.5"
+    "vue-router": "4.0.0-rc.5",
+    "vue3-highlightjs": "^1.0.5"
   },
   "devDependencies": {
+    "@types/highlight.js": "^10.1.0",
     "@vue/compiler-core": "^3.0.5",
     "@vue/compiler-sfc": "^3.0.2",
     "marked": "^2.0.0",

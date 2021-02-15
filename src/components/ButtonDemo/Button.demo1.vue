@@ -1,6 +1,8 @@
+<demo>
+默认样式
+</demo>
 <template>
   <div class="button-demo__section">
-    <h2>默认样式</h2>
     <section>
       <Button class="button">默认按钮</Button>
       <Button class="button" surfaceStyle="concave" bodyStyle="convex"
@@ -22,5 +24,10 @@
   </div>
 </template>
 <script lang="ts">
-export default {};
+import Button from "../lib/Button/Button.vue";
+export default {
+  components: {
+    Button,
+  },
+};
 </script>

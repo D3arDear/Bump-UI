@@ -1,6 +1,8 @@
+<demo>
+圆角按钮
+</demo>
 <template>
   <div class="button-demo__section">
-    <h2>圆角按钮</h2>
     <section>
       <Button class="button" rounded>默认圆角按钮</Button>
       <Button class="button" rounded surfaceStyle="concave" bodyStyle="convex"
@@ -22,4 +24,10 @@
   </div>
 </template>
 <script lang="ts">
+import Button from "../lib/Button/Button.vue";
+export default {
+  components: {
+    Button,
+  },
+};
 </script>

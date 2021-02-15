@@ -1,6 +1,8 @@
+<demo>
+加载中
+</demo>
 <template>
   <div class="button-demo__section">
-    <h2>加载中</h2>
     <section>
       <Button class="button" loading>加载中</Button>
       <Button class="button" level="success" loading textButton>加载中</Button>
@@ -15,4 +17,10 @@
   </div>
 </template>
 <script lang="ts">
+import Button from "../lib/Button/Button.vue";
+export default {
+  components: {
+    Button,
+  },
+};
 </script>

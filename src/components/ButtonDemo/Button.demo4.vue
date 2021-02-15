@@ -1,6 +1,8 @@
+<demo>
+按钮等级
+</demo>
 <template>
   <div class="button-demo__section">
-    <h2>按钮等级</h2>
     <section>
       <Button class="button">默认</Button>
       <Button class="button" level="primary">主要</Button>
@@ -12,4 +14,10 @@
   </div>
 </template>
 <script lang="ts">
+import Button from "../lib/Button/Button.vue";
+export default {
+  components: {
+    Button,
+  },
+};
 </script>

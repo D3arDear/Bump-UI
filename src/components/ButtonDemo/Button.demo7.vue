@@ -1,6 +1,8 @@
+<demo>
+文字按钮
+</demo>
 <template>
   <div class="button-demo__section">
-    <h2>文字按钮</h2>
     <section>
       <Button class="button" textButton>默认按钮</Button>
       <Button class="button" level="success" textButton>成功按钮</Button>
@@ -17,4 +19,10 @@
   </div>
 </template>
 <script lang="ts">
+import Button from "../lib/Button/Button.vue";
+export default {
+  components: {
+    Button,
+  },
+};
 </script>

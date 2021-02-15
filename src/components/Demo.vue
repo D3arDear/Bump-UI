@@ -53,8 +53,13 @@ export default {
 <style scoped>
 code {
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  padding: 20px;
+  border-radius: 8px;
 }
 .demo {
   width: 100%;
+}
+h2 {
+  margin: 20px 0;
 }
 </style>

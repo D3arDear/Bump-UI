@@ -1,6 +1,7 @@
 <demo>
 文字按钮
 </demo>
+
 <template>
   <div class="button-demo__section">
     <section>
@@ -27,7 +28,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.button {
-  margin: 5px;
-}
+@import "./Button.demo.scss";
 </style>

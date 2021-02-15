@@ -1,9 +1,15 @@
 <template>
   <div class="switch">
     <h1>Switch 组件</h1>
-    <Demo :component="SwitchDemo1" />
-    <Demo :component="SwitchDemo2" />
-    <Demo :component="SwitchDemo3" />
+    <Demo :component="SwitchDemo1">
+      <p>Switch 的基本用法 value 控制 Switch 开关状态</p>
+    </Demo>
+    <Demo :component="SwitchDemo2">
+      <p>接受 flat 属性，应用扁平样式</p>
+    </Demo>
+    <Demo :component="SwitchDemo3">
+      <p>接受 retro 属性，应用复古样式</p>
+    </Demo>
   </div>
 </template>
 

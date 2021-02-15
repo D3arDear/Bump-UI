@@ -11,12 +11,7 @@
     background-image: surface-generator($light-direction, $color, concave);
   }
   &.body-convex {
-    box-shadow: shadow-generator(
-      $light-direction,
-      $--color--background,
-      $blur,
-      false
-    );
+    box-shadow: shadow-generator($light-direction, $--color--background, $blur, false);
   }
   &.body-concave {
     box-shadow: shadow-generator($light-direction, $color, $blur, true);
@@ -81,9 +76,20 @@
     @include BUI-ButtonNeoTheme($--color--danger);
     @include loadingIndicator($--color--danger, $--blur-range-4);
   }
+  &--big {
+    @extend .BUI-Button-Neo;
+    font-size: $--font--size--big;
+    height: 3em;
+    padding: 0 1.5em;
+    &.rounded {
+      height: 3em;
+      min-width: 3em;
+      border-radius: 1.5em;
+    }
+  }
   &--medium {
     @extend .BUI-Button-Neo;
-    font-size: 13px;
+    font-size: $--font--size--medium;
     height: 2.75em;
     padding: 0 1em;
     &.rounded {
@@ -94,7 +100,7 @@
   }
   &--small {
     @extend .BUI-Button-Neo;
-    font-size: 12px;
+    font-size: $--font--size--small;
     height: 2.5em;
     padding: 0 0.75em;
     &.rounded {
@@ -105,7 +111,7 @@
   }
   &--mini {
     @extend .BUI-Button-Neo;
-    font-size: 12px;
+    font-size: $--font--size--small;
     height: 2.25em;
     padding: 0 0.75em;
     &.rounded {

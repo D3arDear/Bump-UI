@@ -2,8 +2,17 @@
   <div class="dialog-demo">
     <h1>Dialog 组件</h1>
     <div class="dialog-demo__section">
-      <Demo :component="DialogDemo1" />
-      <Demo :component="DialogDemo2" />
+      <Demo :component="DialogDemo1">
+        <p>
+          Dialog 组件的基本用法通过具名插槽传入内容 v-slot:title
+          传入标题，v-slot:content 传入内容，提供 ok 和 cancel
+          回调在确认和取消触发时调用。 closeOnClickOverylay
+          控制点击浮层是否能关闭对话框
+        </p>
+      </Demo>
+      <Demo :component="DialogDemo2">
+        <p>调用 openDialog 函数，构造并挂载 Dialog 组件</p>
+      </Demo>
     </div>
   </div>
 </template>

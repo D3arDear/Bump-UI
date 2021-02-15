@@ -4,6 +4,7 @@
 <template>
   <div class="button-demo__section">
     <section>
+      <Button class="button" size="big">大型按钮</Button>
       <Button class="button">默认按钮</Button>
       <Button class="button" size="medium">中型按钮</Button>
       <Button class="button" size="small">小型按钮</Button>
@@ -20,7 +21,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.button {
-  margin: 5px;
-}
+@import "./Button.demo.scss";
 </style>

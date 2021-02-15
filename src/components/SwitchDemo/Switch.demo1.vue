@@ -1,6 +1,7 @@
 <demo>
 默认 Switch 开关
 </demo>
+
 <template>
   <div class="switchSection">
     <Switch v-model:value="bool" />

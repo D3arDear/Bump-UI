@@ -1,14 +1,17 @@
 <template>
   <div class="demo">
     <h2>{{ component.__sourceCodeTitle }}</h2>
+    <slot></slot>
     <div class="demo-component">
       <component :is="component" />
     </div>
     <div class="demo-actions">
       <Button textButton level="primary" @click="hideCode" v-if="codeVisible">
-        > <
+        &gt; &lt;
       </Button>
-      <Button textButton level="primary" @click="showCode" v-else>< ></Button>
+      <Button textButton level="primary" @click="showCode" v-else>
+        &lt; &gt;
+      </Button>
     </div>
     <div class="demo-code" v-if="codeVisible">
       <pre v-highlightjs="html">
@@ -48,7 +51,7 @@ export default {
 };
 </script>
   
-<style scoped>
+<style lang="scss" scoped>
 code {
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
   padding: 20px;
@@ -56,6 +59,10 @@ code {
 }
 .demo {
   width: 100%;
+  &-component {
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
 }
 h2 {
   margin: 20px 0;

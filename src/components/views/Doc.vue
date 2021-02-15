@@ -32,7 +32,9 @@
           </li>
         </ul>
       </aside>
-      <main :class="{ asideVisible: asideVisible }"><router-view /></main>
+      <main :class="{ asideVisible: asideVisible }">
+        <div class="main-content"><router-view /></div>
+      </main>
     </div>
   </div>
 </template>
@@ -153,11 +155,29 @@ export default {
     justify-content: flex-start;
     align-items: flex-start;
     background: $--color--background;
+    .main-content {
+      width: 960px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex: 1;
+      @media (min-width: 1024px) {
+        width: 960px;
+      }
+      @media (max-width: 1024px) {
+        width: 700px;
+      }
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+    }
     &.asideVisible {
       margin-left: 208px;
     }
   }
-  @media (max-width: 500px) {
+  @media (max-width: 768px) {
     main.asideVisible {
       margin-left: 0;
     }

@@ -1,34 +1,28 @@
 <template>
   <div class="switch">
-    <h1>Switch组件</h1>
-    <div class="switchSection">
-      <h2>默认 Switch 开关</h2>
-      <Switch v-model:value="bool1" />
-    </div>
-    <div class="switchSection">
-      <h2>扁平 Switch 开关</h2>
-      <Switch v-model:value="bool2" flat />
-    </div>
-    <div class="switchSection">
-      <h2>复古开关</h2>
-      <Switch v-model:value="bool3" retro />
-    </div>
+    <h1>Switch 组件</h1>
+    <Demo :component="SwitchDemo1" />
+    <Demo :component="SwitchDemo2" />
+    <Demo :component="SwitchDemo3" />
   </div>
 </template>
 
 <script lang="ts" scoped>
-import { ref } from "vue";
-import Switch from "../lib/Switch/Switch.vue";
+import Demo from "../Demo.vue";
+import SwitchDemo1 from './Switch.demo1.vue'
+import SwitchDemo2 from './Switch.demo2.vue'
+import SwitchDemo3 from './Switch.demo3.vue'
 export default {
   name: "SwitchDemo",
-  components: { Switch },
+  components: { Demo },
   setup() {
-    const bool1 = ref(false);
-    const bool2 = ref(false);
-    const bool3 = ref(false);
-    return { bool1, bool2, bool3 };
+    return {
+      SwitchDemo1,
+      SwitchDemo2,
+      SwitchDemo3,
+    };
   },
-};
+}
 </script>
 
 <style lang="scss">

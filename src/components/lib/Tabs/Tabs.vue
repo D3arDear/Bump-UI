@@ -20,11 +20,15 @@
       <div :class="classes('nav', 'item-indicator', '')" ref="indicator"></div>
     </div>
     <div :class="classes('content', '', '')">
-      <component
-        :is="current"
-        :key="current.props.title"
-        :class="classes('content', 'item', selectedClass(current.props.title))"
-      />
+      <transition :name="classes('animation', '', 'slide-fade')" mode="out-in">
+        <component
+          :is="current"
+          :key="current.props.title"
+          :class="
+            classes('content', 'item', selectedClass(current.props.title))
+          "
+        />
+      </transition>
     </div>
   </div>
 </template>
@@ -90,4 +94,16 @@ export default {
 
 <style lang="scss">
 @import "./Tabs.scss";
+.BUI-Tabs-animation--slide-fade {
+  &-enter-active,
+  &-leave-active {
+    transition: all 300ms ease;
+    transform: translateY(0);
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(-5%);
+  }
+}
 </style>

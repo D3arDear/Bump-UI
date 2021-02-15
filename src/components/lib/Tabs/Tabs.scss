@@ -44,12 +44,7 @@
         bottom: -1px;
         width: 100px;
         box-shadow: 0 0 $--blur-range-5 rgba($--color--checked, 0.25),
-          shadow-generator(
-            $light-direction,
-            $--color--checked,
-            $--blur-range-5,
-            true
-          );
+          shadow-generator($light-direction, $--color--checked, $--blur-range-5, true);
         transition: all 300ms;
       }
       &--selected {
@@ -57,11 +52,7 @@
         color: $--color--checked;
         background: $--color--background;
         border-bottom: 1px solid darken($--color--background, 10%);
-        box-shadow: shadow-light(
-            $light-direction,
-            $--color--background,
-            $--blur-range-0
-          ),
+        box-shadow: shadow-light($light-direction, $--color--background, $--blur-range-0),
           navOneSideShadow($--color--background);
       }
     }
@@ -72,6 +63,7 @@
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
     padding: 16px;
+    transition: all 300ms;
     &__item {
       justify-content: flex-start;
       align-items: flex-start;

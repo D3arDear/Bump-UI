@@ -4,7 +4,14 @@
     <div class="button-demo__section">
       <h2>默认样式</h2>
       <section>
-        <Button class="button">默认按钮</Button>
+        <Button
+          class="button"
+          :linearColor="{
+            colors: ['#FE6B8B', '#FF8E53'],
+            angle: '45',
+          }"
+          >默认按钮</Button
+        >
         <Button class="button" surfaceStyle="concave" bodyStyle="convex"
           >表面凹陷凸起按钮</Button
         >

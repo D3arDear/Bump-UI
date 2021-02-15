@@ -1,6 +1,5 @@
 <template>
   <button
-    v-bind="rest"
     v-on="{
       mousedown: mouseDown,
       mouseup: mouseUp,
@@ -14,6 +13,8 @@
       size && classes(buttonTheme, '', size),
       themeClasses,
     ]"
+    :style="linearColor && linearBG"
+    v-bind="rest"
   >
     <span v-if="loading" :class="classes(buttonTheme, 'loadingIndicator', '')">
       <span :class="classes(buttonTheme, 'loadingIndicator-space', '')"></span>
@@ -24,8 +25,13 @@
 
 
 <script lang="ts">
-import { ref } from "vue";
+import { computed, PropType, ref } from "vue";
 import { classMaker } from "../common/classMaker";
+import { hex2rgb, rgb2hsl } from "../common/colorSwitch";
+interface ILinearColor {
+  colors: string[];
+  angle: number;
+}
 
 export default {
   inheritAttrs: false,
@@ -51,18 +57,59 @@ export default {
       type: Boolean,
       default: false,
     },
+    linearColor: {
+      type: Object as PropType<ILinearColor>,
+      required: false,
+    },
   },
   setup(props, context) {
     const levelList = ["primary", "success", "info", "warning", "danger"];
     const pressed = ref(false);
 
-    const { surfaceStyle, bodyStyle, rounded, textButton, loading } = props;
+    const {
+      surfaceStyle,
+      bodyStyle,
+      rounded,
+      textButton,
+      loading,
+      linearColor,
+    } = props;
     const { size, level, ...rest } = context.attrs;
 
     const themeClasses = `surface-${surfaceStyle} body-${bodyStyle}`;
     const classes = classMaker("BUI-Button");
     const parsedLevel = levelList.indexOf(level as string) < 0 ? "" : level;
     const buttonTheme = textButton ? "Text" : "Neo";
+
+    const colorHsl = (color) => {
+      if (linearColor) {
+        const regex = new RegExp(/^#/);
+        return regex.test(color) ? rgb2hsl(hex2rgb(color)) : rgb2hsl(color);
+      }
+      return;
+    };
+    const textColor = (color1, color2) => {
+      if (linearColor) {
+        return (colorHsl(color1).l < 50 && colorHsl(color2).l < 50) ||
+          colorHsl(color1).s > 50 ||
+          colorHsl(color2).s > 50
+          ? "#eee"
+          : "#292929";
+      }
+      return;
+    };
+    const linearBG = computed(() => {
+      if (linearColor) {
+        const color1 = linearColor.colors[0];
+        const color2 = linearColor.colors[1];
+        return {
+          background: `linear-gradient(${linearColor.angle}deg, ${color1} 40%, ${color2} 90%)`,
+          // color: textColor(linearColor.colors[0], linearColor.colors[1]),
+          color: textColor(color1, color2),
+        };
+      }
+      return;
+    });
 
     const mouseDown = () => {
       pressed.value = true;
@@ -84,6 +131,7 @@ export default {
       mouseUp,
       mouseDown,
       loading,
+      linearBG,
     };
   },
 };

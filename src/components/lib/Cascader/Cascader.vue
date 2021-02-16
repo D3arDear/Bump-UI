@@ -1,7 +1,7 @@
 <template>
   <div class="cascader" ref="cascader" v-click-outside="close">
     <div class="trigger" @click="toggle">
-      {{ result || "&nbsp;" }}
+      {{ result() || "&nbsp;" }}
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
       <cascader-items
@@ -19,7 +19,7 @@
 
 <script lang='ts'>
 import CascaderItems from './Cascader.Items.vue'
-import ClickOutside from '../common/clickOutside'
+// import ClickOutside from '../common/clickOutside'
 import { computed, PropType, ref } from 'vue'
 
 interface ISelectedItem {
@@ -31,7 +31,7 @@ interface ISelectedItem {
 export default {
   name: 'BUI-Cascader',
   components: { CascaderItems },
-  directives: { ClickOutside },
+  // directives: { ClickOutside },
   props: {
     source: {
       type: Array
@@ -98,11 +98,11 @@ export default {
           }
         }
       }
-      let updateSource = (result) => {
+      let updateSource = (sourceResult) => {
         loadingItem.value = {}
         let copy = JSON.parse(JSON.stringify(props.source))
         let toUpdate = complex(copy, lastItem.id)
-        toUpdate.children = result
+        toUpdate.children = sourceResult
         context.emit('update:source', copy)
       }
       if (!lastItem.isLeaf && props.loadData) {
@@ -118,7 +118,8 @@ export default {
     return {
       loadingItem,
       onUpdateSelected,
-      result
+      result,
+      toggle
     }
   }
 }

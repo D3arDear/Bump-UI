@@ -74,6 +74,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+p {
+}
 .button-demo {
   display: flex;
   flex-direction: column;

@@ -1,7 +1,9 @@
 <template>
   <div class="demo">
     <h2>{{ component.__sourceCodeTitle }}</h2>
-    <slot></slot>
+    <div class="demo-description">
+      <slot></slot>
+    </div>
     <div class="demo-wrapper">
       <div class="demo-component">
         <component :is="component" />
@@ -86,6 +88,12 @@ export default {
 .demo {
   width: 100%;
   transition: all 300ms;
+  &-description {
+    color: #666666;
+    p {
+      color: #666666;
+    }
+  }
   &-wrapper {
     margin-top: 20px;
     border-radius: $--border-radius--default;

@@ -133,6 +133,7 @@ export default {
     font-size: 14px;
     text-align: center;
     height: 36px;
+    background: darken($--color--background, 2%);
     span {
       display: inline-flex;
       font-size: 14px;
@@ -151,13 +152,13 @@ export default {
       margin-left: 0.5em;
     }
     &:hover {
-      background: darken($--color--background, 3%);
+      background: darken($--color--background, 5%);
     }
     &--active {
       @extend .demo-actions;
-      background: darken($--color--background, 3%);
+      background: darken($--color--background, 5%);
       &:hover {
-        background: darken($--color--background, 5%);
+        background: darken($--color--background, 8%);
       }
     }
   }

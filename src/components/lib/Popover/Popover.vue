@@ -228,7 +228,7 @@ export default {
     }
   }
   &.position-right {
-    margin-left: 10px;
+    margin-left: 20px;
     &::before,
     &::after {
       clip-path: polygon(100% 0%, 0% 30%, 100% 100%);

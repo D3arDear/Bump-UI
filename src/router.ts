@@ -8,6 +8,7 @@ import TabsDemo from "./components/TabsDemo/Tabs.demo.vue";
 import IconDemo from "./components/IconDemo/Icon.demo.vue";
 import CascaderDemo from "./components/CascaderDemo/Cascader.demo.vue";
 import PopoverDemo from "./components/PopoverDemo/Popover.demo.vue";
+import ToastDemo from "./components/ToastDemo/Toast.demo.vue";
 
 import { h } from "vue";
 import Markdown from "./components/Markdown.vue";
@@ -42,6 +43,7 @@ export const router = createRouter({
         { path: "icon", component: IconDemo },
         { path: "cascader", component: CascaderDemo },
         { path: "popover", component: PopoverDemo },
+        { path: "toast", component: ToastDemo },
       ],
     },
   ],

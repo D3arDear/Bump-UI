@@ -26,14 +26,14 @@
           <Icon :name="icon.name" />
           <div
             :class="`parting${size ? '--' + size : ''}`"
-            v-if="(icon && context.slots.default) || buttonTheme === 'Text'"
+            v-if="(icon && context.slots.default) || buttonTheme !== 'Text'"
           ></div>
         </template>
         <slot />
         <template v-if="icon.right === true">
           <div
             :class="`parting${size ? '--' + size : ''}`"
-            v-if="(icon && context.slots.default) || buttonTheme === 'Text'"
+            v-if="(icon && context.slots.default) || buttonTheme !== 'Text'"
           ></div>
           <Icon :name="icon.name" />
         </template>

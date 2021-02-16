@@ -55,12 +55,6 @@
       box-shadow: none;
     }
   }
-  .BUI-Button-Text__content {
-    color: inherit;
-    margin: auto;
-    font-size: inherit;
-    user-select: none;
-  }
   &--primary {
     @extend .BUI-Button-Text;
     @include levelHover-andColor($--color--primary);
@@ -128,6 +122,27 @@
       height: 2em;
       min-width: 2em;
       border-radius: 1em;
+    }
+  }
+  .BUI-Button-Text__content {
+    color: inherit;
+    margin: auto;
+    font-size: inherit;
+    user-select: none;
+    .parting {
+      display: none;
+      &--big {
+        @extend .parting;
+      }
+      &--medium {
+        @extend .parting;
+      }
+      &--small {
+        @extend .parting;
+      }
+      &--mini {
+        @extend .parting;
+      }
     }
   }
 }

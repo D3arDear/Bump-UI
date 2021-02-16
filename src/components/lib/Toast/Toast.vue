@@ -1,27 +1,32 @@
 <template>
-  <div class="wrapper" :class="toastClasses">
-    <div class="toast" :ref="toastRef">
-      <div class="message">
+  <div :class="[classes('', '', ''), toastClasses]">
+    <div :class="classes('', 'toast', '')" :ref="toastRef">
+      <div :class="classes('', 'toast-message', '')">
         <slot v-if="!enableHTML"></slot>
         <div v-else v-html="$slots.default[0]"></div>
       </div>
-      <div class="line" :ref="lineRef"></div>
-      <span class="close" v-if="closeButton" @click="onClickClose">{{
-        closeButton.text
-      }}</span>
+      <div :class="classes('', 'line', '')" :ref="lineRef"></div>
+      <div
+        :class="classes('', 'close', '')"
+        v-if="closeButton"
+        @click="onClickClose"
+      >
+        {{ closeButton.text }}
+      </div>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { computed, nextTick, onMounted, ref } from 'vue';
+import { classMaker } from '../common/classMaker';
 export default {
   name: "BUI-Toast",
   props: {
     autoClose: {
       type: [Boolean, Number],
-      default: 3,
+      default: false,
       validator: (value: boolean | number) => {
-        return value === false || typeof value === "number";
+        return value !== false || typeof value === "number";
       }
     },
     closeButton: {
@@ -49,11 +54,9 @@ export default {
     const line = ref<HTMLDivElement>(null)
     const toast = ref<HTMLDivElement>(null)
 
+    const classes = classMaker('BUI-Toast')
     const updateStyles = async () => {
-      console.log('调用了')
       await nextTick(() => {
-        console.log('来看Line了')
-        console.log(line.value)
         line.value.style.height = `${toast.value.getBoundingClientRect().height}px`;
       });
     }
@@ -66,26 +69,30 @@ export default {
 
     onMounted(() => {
       updateStyles();
-      execAutoClose();
     })
     const toastClasses = computed(() => {
-      return { [`position-${position}`]: true };
+      return `position-${position}`
     })
 
-    const execAutoClose = () => {
-      if (autoClose) {
-        setTimeout(() => {
-          close();
-        }, typeof autoClose === 'number' && autoClose * 1000);
-      }
-    }
     return {
       toastClasses,
       toastRef,
-      lineRef
+      lineRef,
+      classes,
+      autoClose
     }
   },
+  mounted() {
+    this.execAutoClose();
+  },
   methods: {
+    execAutoClose() {
+      if (this.autoClose) {
+        setTimeout(() => {
+          this.onClickClose();
+        }, this.autoClose * 1000);
+      }
+    },
     close() {
       this.$el.remove();
       this.$emit("close");
@@ -102,11 +109,17 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-$font-size: 14px;
+<style lang="scss">
+@import "../style/theme.scss";
+$font-size: $--font--size--default;
 $toast-min-height: 40px;
-$toast-bg: #222020c2;
-$box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
+$toast-bg: rgba($--color--background, 0.5);
+$box-shadow: shadow-generator(
+  $light-direction,
+  $--color--background,
+  $--blur-range-3
+);
+
 @keyframes slide-down {
   0% {
     opacity: 0;
@@ -135,15 +148,36 @@ $box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
     opacity: 1;
   }
 }
-.wrapper {
+.BUI-Toast {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  $animation-duration: 250ms;
+  $animation-duration: 300ms;
   z-index: 21;
+  &__close {
+    display: inline-flex;
+    min-height: $toast-min-height;
+    min-width: $toast-min-height;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    color: $--color--primary;
+    cursor: pointer;
+  }
+  &__line {
+    width: 1px;
+    margin-left: 1em;
+    @include shadow(
+      $light-direction,
+      darken($--color--background, 5%),
+      $--blur-range-5,
+      true
+    );
+  }
   &.position-top {
     top: 0;
-    .toast {
+    .BUI-Toast__toast {
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       animation: slide-down $animation-duration;
@@ -151,7 +185,7 @@ $box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
   }
   &.position-bottom {
     bottom: 0;
-    .toast {
+    .BUI-Toast__toast {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       animation: slide-up $animation-duration;
@@ -160,20 +194,20 @@ $box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
   &.position-middle {
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
-    .toast {
+    .BUI-Toast__toast {
       animation: fade-in $animation-duration;
     }
   }
 }
-.toast {
+.BUI-Toast__toast {
   animation: fadeIn 1s;
-  .message {
-    padding: 8px 0;
+  &-message {
+    padding: 8px 0 8px 1em;
   }
   line-height: 1.8;
-  border-radius: 2px;
-  color: #eeeeee;
-  padding: 0 16px;
+  border-radius: 8px;
+  color: ContrastText($--color--background);
+  padding: 0;
   font-size: $font-size;
   line-height: 1.8;
   min-height: $toast-min-height;
@@ -181,15 +215,6 @@ $box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
   align-items: center;
   background: $toast-bg;
   box-shadow: $box-shadow;
-  .close {
-    flex-shrink: 0;
-    padding-left: 16px;
-    cursor: pointer;
-  }
-  .line {
-    border-left: 1px solid #151515;
-    margin-left: 16px;
-  }
 }
 </style>
 

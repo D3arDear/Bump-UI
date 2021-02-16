@@ -33,6 +33,9 @@
           <li>
             <router-link to="/doc/tabs"> Tabs </router-link>
           </li>
+          <li>
+            <router-link to="/doc/cascader"> Cascader </router-link>
+          </li>
         </ul>
       </aside>
       <main :class="{ asideVisible: asideVisible }">
@@ -123,6 +126,7 @@ export default {
         a {
           text-decoration: none;
           color: ContrastText($--color--background);
+          font-size: 14px;
           cursor: pointer;
           width: 8em;
           display: flex;

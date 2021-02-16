@@ -63,7 +63,7 @@ interface IIcon {
 
 export default {
   inheritAttrs: false,
-  name: "Button",
+  name: "BUI-Button",
   components: {
     Icon
   },

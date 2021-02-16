@@ -22,13 +22,19 @@
         }"
         :icon="{ name: 'setting', right: false }"
       />
-      <Button class="button" :icon="{ name: 'down', right: false }" rounded />
+      <Button
+        class="button"
+        surfaceStyle="convex"
+        :icon="{ name: 'down', right: false }"
+        rounded
+      />
       <Button class="button" :icon="{ name: 'setting', right: true }" rounded>
         设置
       </Button>
       <Button
         class="button"
         size="medium"
+        surfaceStyle="convex"
         :icon="{ name: 'setting', right: false }"
         rounded
       >

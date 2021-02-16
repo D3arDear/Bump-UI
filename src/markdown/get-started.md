@@ -15,16 +15,16 @@ import { theme } from "bump-ui";
 
 代码示例：
 
-```xml
+```vue
 <template>
   <div>
     <Button>按钮</Button>
   </div>
 </template>
 <script>
-import {Button, Tabs, Tab, Switch, Dialog, openDialog} from "gulu-ui-1"
+import { Button, Tabs, Tab, Switch, Dialog, openDialog } from "bump-ui";
 export default {
-  components: {Button}
-}
+  components: { Button },
+};
 </script>
 ```

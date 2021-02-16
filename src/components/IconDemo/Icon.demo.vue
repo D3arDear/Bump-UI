@@ -3,7 +3,10 @@
     <h1>Icon 组件</h1>
     <div class="icon-demo__section">
       <Demo :component="IconDemo1">
-        <p>Icon 组件接受 name 属性，渲染 name 相应的图标</p>
+        <p>
+          Icon 组件接受 name 属性，渲染 name 相应的图标，图标的 fill 由当前
+          color 决定
+        </p>
       </Demo>
     </div>
   </div>

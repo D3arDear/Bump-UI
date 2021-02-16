@@ -6,13 +6,6 @@
       <div class="demo-component">
         <component :is="component" />
       </div>
-      <transition name="animation--fade" mode="out-in">
-        <div class="demo-code" v-if="codeVisible">
-          <pre v-highlightjs="html">
-            <code class="vue"></code>
-          </pre>
-        </div>
-      </transition>
       <div
         :class="`demo-actions${codeVisible ? '--active' : ''}`"
         @click="toggleCode"
@@ -42,6 +35,13 @@
           </div>
         </transition>
       </div>
+      <transition name="animation--fade" mode="out-in">
+        <div class="demo-code" v-if="codeVisible">
+          <pre v-highlightjs="html">
+            <code class="vue"></code>
+          </pre>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -93,8 +93,8 @@ export default {
     @include shadow(
       $light-direction,
       $--color--background,
-      $--blur-range-0,
-      false
+      $--blur-range-5,
+      true
     );
   }
   &-code {
@@ -110,8 +110,8 @@ export default {
   }
   &-component {
     padding: 20px;
-    margin-top: 10px;
     margin-bottom: 5px;
+    border-radius: 8px;
   }
   &-actions {
     padding: 10px;
@@ -143,13 +143,13 @@ export default {
       margin-left: 0.5em;
     }
     &:hover {
-      background: darken($--color--background, 5%);
+      background: darken($--color--background, 3%);
     }
     &--active {
       @extend .demo-actions;
-      background: darken($--color--background, 5%);
+      background: darken($--color--background, 3%);
       &:hover {
-        background: darken($--color--background, 8%);
+        background: darken($--color--background, 5%);
       }
     }
   }
@@ -190,7 +190,7 @@ h2 {
   &-enter-from,
   &-leave-to {
     opacity: 0;
-    transform: translateY(-5%);
+    transform: translateY(3%);
   }
 }
 </style>

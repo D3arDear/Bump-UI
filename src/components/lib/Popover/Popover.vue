@@ -1,13 +1,18 @@
 <template>
-  <div class="popover" ref="popover">
-    <div
-      ref="contentWrapper"
-      class="BUI-Popover-content-wrapper"
-      v-if="visible"
-      :class="[{ [`position-${position}`]: true }, popClassName]"
-    >
-      <slot name="content" :close="close"></slot>
-    </div>
+  <div :class="classes('', '', '')" ref="popover">
+    <transition :name="classes('animation', '', `slide-${position}`)">
+      <div
+        ref="contentWrapper"
+        v-if="visible"
+        :class="[
+          classes('content', 'wrapper', ''),
+          { [`position-${position}`]: true },
+          popClassName,
+        ]"
+      >
+        <slot name="content" :close="close"></slot>
+      </div>
+    </transition>
     <span ref="triggerWrapper" style="display: inline-block">
       <slot></slot>
     </span>
@@ -16,6 +21,7 @@
 
 <script lang='ts'>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue'
+import { classMaker } from '../common/classMaker'
 export default {
   name: "BUI-Popover",
   props: {
@@ -46,12 +52,9 @@ export default {
     const popover = ref<HTMLDivElement>(null)
     const triggerWrapper = ref<HTMLDivElement>(null)
     const contentWrapper = ref<HTMLDivElement>(null)
-    // onMounted(() => {
-    //   watchEffect(() => {
-    //     console.log(contentWrapper.value)
-    //     addPopoverListeners()
-    //   }, { flush: 'post' })
-    // })
+
+    const classes = classMaker('BUI-Popover')
+
     onMounted(() => {
       addPopoverListeners()
     })
@@ -59,7 +62,6 @@ export default {
       putBackContent()
       removePopoverListeners()
     })
-
     const openEvent = computed(() => {
       if (trigger === 'click') {
         return 'click'
@@ -160,6 +162,7 @@ export default {
       triggerWrapper,
       close,
       position,
+      classes
     }
   },
 
@@ -168,22 +171,22 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-$box-shadow-color: rgba(0, 0, 0, 0.3);
-$border-color: #ddd;
-.popover {
+<style lang="scss">
+@import "../style/theme.scss";
+.BUI-Popover {
   display: inline-block;
   vertical-align: top;
   position: relative;
 }
-.BUI-Popover-content-wrapper {
+.BUI-Popover-content__wrapper {
   position: absolute;
-  border: 1px solid $border-color;
-  filter: drop-shadow(0 0 2px $box-shadow-color);
+  border-radius: 8px;
+  border: 1px solid darken($--color--background, 10%);
+  filter: drop-shadow(0 0 2px background2shadowD($--color--background));
   max-width: 20em;
   word-break: break-all;
   padding: 0.5em 1em;
-  background: white;
+  background: surface-generator($light-direction, $--color--background, convex);
   z-index: 1;
   &::before,
   &::after {
@@ -192,7 +195,7 @@ $border-color: #ddd;
     display: block;
     width: 15px;
     height: 10px;
-    background: $border-color;
+    background: $--color--background;
     position: absolute;
   }
   &.position-top {
@@ -204,7 +207,7 @@ $border-color: #ddd;
       top: 100%;
     }
     &::after {
-      background: white;
+      background: $--color--background;
       top: calc(100% - 1px);
     }
   }
@@ -220,7 +223,7 @@ $border-color: #ddd;
       height: 15px;
     }
     &::after {
-      background: white;
+      background: $--color--background;
       left: calc(100% - 1px);
     }
   }
@@ -235,7 +238,7 @@ $border-color: #ddd;
       height: 15px;
     }
     &::after {
-      background: white;
+      background: $--color--background;
       right: calc(100% - 1px);
     }
   }
@@ -247,8 +250,58 @@ $border-color: #ddd;
       clip-path: polygon(0% 100%, 30% 0%, 100% 100%);
     }
     &::after {
-      background: white;
+      background: $--color--background;
       bottom: calc(100% - 1px);
+    }
+  }
+}
+
+.BUI-Popover-animation--slide {
+  &-top {
+    &-enter-active,
+    &-leave-active {
+      transition: all 300ms ease;
+      transform: translateY(-100%);
+    }
+    &-enter-from,
+    &-leave-to {
+      opacity: 0;
+      transform: translateY(-120%);
+    }
+  }
+  &-bottom {
+    &-enter-active,
+    &-leave-active {
+      transition: all 300ms ease;
+      transform: translateY(0);
+    }
+    &-enter-from,
+    &-leave-to {
+      opacity: 0;
+      transform: translateY(10%);
+    }
+  }
+  &-right {
+    &-enter-active,
+    &-leave-active {
+      transition: all 300ms ease;
+      transform: translateX(0);
+    }
+    &-enter-from,
+    &-leave-to {
+      opacity: 0;
+      transform: translateX(10%);
+    }
+  }
+  &-left {
+    &-enter-active,
+    &-leave-active {
+      transition: all 300ms ease;
+    }
+    &-enter-from,
+    &-leave-to {
+      opacity: 0;
+      transform: translateX(-150%);
     }
   }
 }

@@ -93,9 +93,10 @@ export default {
     },
     log() { },
     onClickClose() {
-      this.close();
       if (this.closeButton && typeof this.closeButton.callback === "function") {
         this.closeButton.callback(this); // this === toast 实例
+      } else {
+        this.close();
       }
     }
   }

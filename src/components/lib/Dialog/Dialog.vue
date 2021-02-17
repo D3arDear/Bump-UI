@@ -7,9 +7,12 @@
             <div :class="[classes('modal-content', '', '')]">
               <header :class="[classes('modal-content', 'header', '')]">
                 <slot name="title"></slot>
-                <Button @click="close" level="primary" textButton rounded
-                  >X</Button
-                >
+                <Button
+                  @click="close"
+                  level="primary"
+                  rounded
+                  :icon="{ name: 'exit', right: false }"
+                />
               </header>
               <main :class="[classes('modal-content', 'main', '')]">
                 <slot name="content"></slot>

@@ -1,17 +1,25 @@
 <template>
   <header class="Topnav" :class="{ asideVisible: asideVisible }">
-    <div class="logo">LOGO</div>
+    <div class="logo"></div>
     <ul class="menu">
       <li>菜单1</li>
       <li>菜单2</li>
     </ul>
-    <span class="toggleAside" @click="toggleAside"></span>
+    <span class="toggleAside" @click="toggleAside">
+      <Icon name="menu" />
+    </span>
   </header>
 </template>
 
 <script lang="ts">
 import { inject, Ref } from "vue";
+import SvgIcon from './logo.vue'
+import Icon from '../../lib/Icon.vue';
 export default {
+  components: {
+    SvgIcon,
+    Icon
+  },
   name: "Topnav",
   setup() {
     const asideVisible = inject<Ref<boolean>>("asideVisible");
@@ -41,19 +49,24 @@ export default {
     $--blur-range-4,
     dark
   );
+  .mainIcon {
+    width: 50px;
+    height: 50px;
+  }
   @media (max-width: 500px) {
     justify-content: center;
     align-items: center;
   }
   .toggleAside {
-    width: 24px;
-    height: 24px;
-    background: black;
     position: absolute;
     left: 16px;
     top: 50%;
     transform: translateY(-50%);
     display: none;
+    svg {
+      height: 30px;
+      width: 30px;
+    }
     @media (max-width: 500px) {
       display: inline-block;
     }
@@ -62,7 +75,11 @@ export default {
     }
   }
   .logo {
-    margin: 10px;
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+    background: url("./logo.png") no-repeat;
+    background-size: 100% 100%;
   }
   .menu {
     display: flex;

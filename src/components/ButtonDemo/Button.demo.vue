@@ -1,6 +1,7 @@
 <template>
   <div class="button-demo">
     <h1>Button 组件</h1>
+    <p>交互的基本单位</p>
     <Demo :component="ButtonDemo1">
       <p>
         这是 Button 默认属性，通过 surfaceStyle 和 bodyStyle 决定按钮凹凸形式
@@ -74,6 +75,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h1 {
+  margin-bottom: 10px;
+}
 p {
 }
 .button-demo {

@@ -28,6 +28,9 @@ export default {
 </script>
 
 <style lang="scss">
+h1 {
+  margin-bottom: 10px;
+}
 .switch {
   display: flex;
   flex-direction: column;

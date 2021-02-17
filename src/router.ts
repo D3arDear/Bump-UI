@@ -10,6 +10,7 @@ import CascaderDemo from "./components/CascaderDemo/Cascader.demo.vue";
 import PopoverDemo from "./components/PopoverDemo/Popover.demo.vue";
 import ToastDemo from "./components/ToastDemo/Toast.demo.vue";
 import CollapseDemo from "./components/CollapseDemo/Collapse.demo.vue";
+import TableDemo from "./components/TableDemo/Table.demo.vue";
 
 import { h } from "vue";
 import Markdown from "./components/Markdown.vue";
@@ -46,6 +47,7 @@ export const router = createRouter({
         { path: "popover", component: PopoverDemo },
         { path: "toast", component: ToastDemo },
         { path: "collapse", component: CollapseDemo },
+        { path: "table", component: TableDemo },
       ],
     },
   ],

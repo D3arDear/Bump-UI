@@ -7,7 +7,7 @@ table 用法
     <div>
       <Table
         :columns="columns"
-        :data-source="dataSource"
+        :data-source="sourceData"
         bordered
         :selected-items.sync="selected"
         :order-by.sync="orderBy"
@@ -27,7 +27,7 @@ table 用法
     <div style="margin: 20px">
       <Table
         :columns="columns"
-        :data-source="dataSource"
+        :data-source="souorceData"
         bordered
         compact
         :striped="false"

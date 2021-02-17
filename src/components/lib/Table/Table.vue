@@ -10,7 +10,7 @@
           <tr>
             <th
               v-if="expendField"
-              :style="{ width: '50px' }"
+              :style="{ width: '36px' }"
               class="BUI-table-center"
             ></th>
             <th
@@ -28,8 +28,8 @@
             <th :style="{ width: '50px' }" v-if="numberVisible">#</th>
             <th
               :style="{ width: column.width + 'px' }"
-              v-for="column in columns"
               :key="column.field"
+              v-for="column in columns"
             >
               <div class="BUI-table-header">
                 {{ column.text }}
@@ -38,29 +38,31 @@
                   class="BUI-table-sorter"
                   @click="changeOrderBy(column.field)"
                 >
-                  <g-icon
-                    name="asc"
+                  <Icon
+                    name="up"
                     :class="{ active: orderBy[column.field] === 'asc' }"
-                  />
-                  <g-icon
-                    name="desc"
+                  ></Icon>
+                  <Icon
+                    name="down"
                     :class="{ active: orderBy[column.field] === 'desc' }"
-                  />
+                  ></Icon>
                 </span>
               </div>
             </th>
-            <th ref="actionsHeader" v-if="$scopedSlots.default"></th>
+            <th v-if="$slots.default" ref="actionsHeader"></th>
           </tr>
         </thead>
         <tbody>
-          <template v-for="(item, index) in dataSource">
-            <tr :key="item.id">
+          <template v-for="(item, index) in dataSource" :key="item.id">
+            <tr>
               <td
                 v-if="expendField"
-                :style="{ width: '50px' }"
+                :style="{ width: '36px' }"
                 class="BUI-table-center"
               >
-                <g-icon
+                <Icon
+                  v-if="item.description"
+                  :class="{ active: inExpendedIds(item.id) }"
                   class="BUI-table-expendIcon"
                   name="right"
                   @click="expendItem(item.id)"
@@ -77,11 +79,11 @@
                   :checked="inSelectedItems(item)"
                 />
               </td>
-              <td :style="{ width: '50px' }" v-if="numberVisible">
+              <td v-if="numberVisible" :style="{ width: '50px' }">
                 {{ index + 1 }}
               </td>
-              <template v-for="column in columns">
-                <td :style="{ width: column.width + 'px' }" :key="column.field">
+              <template v-for="column in columns" :key="column.field">
+                <td :style="{ width: column.width + 'px' }">
                   <template v-if="column.render">
                     <vnodes
                       :vnodes="column.render({ value: item[column.field] })"
@@ -92,304 +94,232 @@
                   </template>
                 </td>
               </template>
-              <td v-if="$scopedSlots.default">
+              <td v-if="$slots.default">
                 <div ref="actions" style="display: inline-block">
                   <slot :item="item"></slot>
                 </div>
               </td>
             </tr>
-            <tr v-if="inExpendedIds(item.id)" :key="`${item.id}-expend`">
-              <td :colspan="columns.length + expendedCellColSpan">
-                {{ item[expendField] || "空" }}
-              </td>
-            </tr>
+            <transition name="scroll">
+              <tr
+                class="descriptionTr"
+                v-if="inExpendedIds(item.id)"
+                :key="`${item.id}-expend`"
+              >
+                <td
+                  v-for="n in expendedCellColSpan"
+                  class="descriptionHolder"
+                ></td>
+                <td
+                  class="description"
+                  :colspan="columns.length + expendedCellColSpan"
+                >
+                  {{ item[expendField] }}
+                </td>
+              </tr>
+            </transition>
           </template>
         </tbody>
       </table>
     </div>
-    <div v-if="loading" class="BUI-table-loading">
+    <div class="BUI-table-loading" v-if="loading">
       <Icon name="loading" />
     </div>
   </div>
 </template>
-
 <script>
-  import Icon from '../Icon.vue'
-  export default {
-    components: {
-      Icon,
-      vnodes: {
-        functional: true,
-        render: (h, context) => context.props.vnodes
-      }
+import Icon from "../Icon.vue";
+export default {
+  name: "BUI-Table",
+  components: {
+    Icon,
+    vnodes: {
+      functional: true,
+      render: (h, context) => context.props.vnodes
+    }
+  },
+  data() {
+    return {
+      expendedIDs: [],
+      columns: []
+    };
+  },
+  props: {
+    checkable: {
+      type: Boolean,
+      default: false
     },
-    name: "BUI-Table",
-    data () {
-      return {
-        expendedIds: [],
-        columns: []
-      }
+    striped: {
+      type: Boolean,
+      default: true
     },
-    props: {
-      height: {
-        type: Number
-      },
-      expendField: {
-        type: String
-      },
-      orderBy: {
-        type: Object,
-        default: () => ({}),
-      },
-      loading: {
-        type: Boolean,
-        default: false
-      },
-      striped: {
-        type: Boolean,
-        default: true
-      },
-      selectedItems: {
-        type: Array,
-        default: () => []
-      },
-      compact: {
-        type: Boolean,
-        default: false
-      },
-      dataSource: {
-        type: Array,
-        required: true,
-        validator (array) {
-          return !(array.filter(item => item.id === undefined).length > 0)
-        }
-      },
-      numberVisible: {
-        type: Boolean,
-        default: false
-      },
-      bordered: {
-        type: Boolean,
-        default: false
-      },
-      checkable: {
-        type: Boolean,
-        default: false
-      }
+    expendField: {
+      type: String
     },
-    mounted () {
-      this.columns = this.$slots.default.map(node => {
-        let {text, field, width} = node.componentOptions.propsData
-        let render = node.data.scopedSlots && node.data.scopedSlots.default
-        return {text, field, width, render}
-      })
-      let result = this.columns[0].render({value: '方方'})
-      console.log(result)
-
-      let table2 = this.$refs.table.cloneNode(false)
-      this.table2 = table2
-      table2.classList.add('BUI-table-copy')
-      let tHead = this.$refs.table.children[0]
-      let {height} = tHead.getBoundingClientRect()
-      this.$refs.tableWrapper.style.marginTop = height + 'px'
-      this.$refs.tableWrapper.style.height = this.height - height + 'px'
-      table2.appendChild(tHead)
-      this.$refs.wrapper.appendChild(table2)
-
-
-      if (this.$scopedSlots.default) {
-        let div = this.$refs.actions[0]
-        let {width} = div.getBoundingClientRect()
-        let parent = div.parentNode
-        let styles = getComputedStyle(parent)
-        let paddingLeft = styles.getPropertyValue('padding-left')
-        let paddingRight = styles.getPropertyValue('padding-right')
-        let borderLeft = styles.getPropertyValue('border-left-width')
-        let borderRight = styles.getPropertyValue('border-right-width')
-        let width2 = width + parseInt(paddingRight) + parseInt(paddingRight) + parseInt(borderLeft) + parseInt(borderRight) + 'px'
-        this.$refs.actionsHeader.style.width = width2
-        this.$refs.actions.map(div => {
-          div.parentNode.style.width = width2
-        })
-
-      }
+    height: {
+      type: Number
     },
-    beforeDestroy () {
-      this.table2.remove()
+    orderBy: {
+      type: Object,
+      default: () => ({})
     },
-
-    computed: {
-      areAllItemsSelected () {
-        const a = this.dataSource.map(item => item.id).sort()
-        const b = this.selectedItems.map(item => item.id).sort()
-        if (a.length !== b.length) { return false }
-        let equal = true
-        for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) {
-          equal = false
-          break
-        }
-        return equal
-      },
-      expendedCellColSpan () {
-        let result = 0
-        if (this.checkable) { result += 1 }
-        if (this.expendField) { result += 1 }
-        return result
-      }
+    loading: {
+      type: Boolean,
+      default: false
     },
-    watch: {
-      selectedItems () {
-        if (this.selectedItems.length === this.dataSource.length) {
-          this.$refs.allChecked.indeterminate = false
-        } else if (this.selectedItems.length === 0) {
-          this.$refs.allChecked.indeterminate = false
+    selectedItems: {
+      type: Array,
+      default: () => []
+    },
+    compact: {
+      type: Boolean,
+      default: false
+    },
+    dataSource: {
+      type: Array,
+      required: true,
+      validator(array) {
+        if (array.filter(item => item.id === undefined).length > 0) {
+          return false;
         } else {
-          this.$refs.allChecked.indeterminate = true
+          return true;
         }
       }
     },
-    methods: {
-      inExpendedIds (id) {
-        return this.expendedIds.indexOf(id) >= 0
-      },
-      expendItem (id) {
-        if (this.inExpendedIds(id)) {
-          this.expendedIds.splice(this.expendedIds.indexOf(id), 1)
-        } else {
-          this.expendedIds.push(id)
-        }
-      },
-      changeOrderBy (key) {
-        const copy = JSON.parse(JSON.stringify(this.orderBy))
-        let oldValue = copy[key]
-        if (oldValue === 'asc') {
-          copy[key] = 'desc'
-        } else if (oldValue === 'desc') {
-          copy[key] = true
-        } else {
-          copy[key] = 'asc'
-        }
-        this.$emit('update:orderBy', copy)
-      },
-      inSelectedItems (item) {
-        return this.selectedItems.filter(i => i.id === item.id).length > 0
-      },
-      onChangeItem (item, index, e) {
-        let selected = e.target.checked
-        let copy = JSON.parse(JSON.stringify(this.selectedItems))
-        if (selected) {
-          copy.push(item)
-        } else {
-          copy = copy.filter(i => i.id !== item.id)
-        }
-        this.$emit('update:selectedItems', copy)
-      },
-      onChangeAllItems (e) {
-        let selected = e.target.checked
-        this.$emit('update:selectedItems', selected ? this.dataSource : [])
+    numberVisible: {
+      type: Boolean,
+      default: false
+    },
+    bordered: {
+      type: Boolean,
+      default: false
+    }
+  },
+  watch: {
+    selectedItems() {
+      if (this.selectedItems.length === this.dataSource.length) {
+        this.$refs.allChecked.indeterminate = false;
+      } else if (this.selectedItems.length === 0) {
+        this.$refs.allChecked.indeterminate = false;
+      } else {
+        this.$refs.allChecked.indeterminate = true;
       }
     }
+  },
+  methods: {
+    inExpendedIds(id) {
+      return this.expendedIDs.indexOf(id) >= 0;
+    },
+    expendItem(id) {
+      if (this.inExpendedIds(id)) {
+        this.expendedIDs.splice(this.expendedIDs.indexOf(id), 1);
+      } else {
+        this.expendedIDs.push(id);
+      }
+    },
+    changeOrderBy(key) {
+      const copy = JSON.parse(JSON.stringify(this.orderBy));
+      let oldValue = copy[key];
+      if (oldValue === "asc") {
+        copy[key] = "desc";
+      } else if (oldValue === "desc") {
+        copy[key] = true;
+      } else {
+        copy[key] = "asc";
+      }
+      this.$emit("update:orderBy", copy);
+    },
+    inSelectedItems(item) {
+      return this.selectedItems.filter(i => i.id === item.id).length > 0;
+    },
+    onChangeItem(item, index, e) {
+      let selected = e.target.checked;
+      let copy = JSON.parse(JSON.stringify(this.selectedItems));
+      if (selected) {
+        copy.push(item);
+      } else {
+        copy = copy.filter(i => i.id !== item.id);
+      }
+      this.$emit("update:selectedItems", copy);
+    },
+    onChangeAllItems(e) {
+      let selected = e.target.checked;
+      this.$emit("update:selectedItems", selected ? this.dataSource : []);
+    }
+  },
+  mounted() {
+    this.columns = this.$slots.default.map(node => {
+      let { text, field, width } = node.componentOptions.propsData;
+      let render = node.data.scopedSlots && node.data.scopedSlots.default;
+      return {
+        text,
+        field,
+        width,
+        render
+      };
+    });
+    // let result = this.columns[0].render({ value: "bren" });
+    // console.log(result);
+    let table2 = this.$refs.table.cloneNode(false);
+    this.table2 = table2;
+    table2.classList.add("BUI-table-copy");
+    let tHead = this.$refs.table.children[0];
+    let { height } = tHead.getBoundingClientRect();
+    this.$refs.wrapper.style.paddingTop = height + "px";
+    this.$refs.tableWrapper.style.height = this.height - height + "px";
+    table2.appendChild(tHead);
+    this.$refs.wrapper.appendChild(table2);
+    if (this.$scopedSlots.default) {
+      let div = this.$refs.actions[0];
+      let { width } = div.getBoundingClientRect();
+      let parent = div.parentNode;
+      let style = getComputedStyle(parent);
+      let paddingLeft = style.getPropertyValue("padding-left");
+      let paddingRight = style.getPropertyValue("padding-Right");
+      let borderLeft = style.getPropertyValue("border-left-width");
+      let borderRight = style.getPropertyValue("border-right-width");
+      let width2 =
+        width +
+        parseInt(paddingLeft) +
+        parseInt(paddingRight) +
+        parseInt(borderLeft) +
+        parseInt(borderRight) +
+        "px";
+      this.$refs.actionsHeader.style.width = width2;
+      this.$refs.actions.map(div => {
+        div.parentNode.style.width = width2;
+      });
+    }
+  },
+  computed: {
+    areAllItemsSelected() {
+      const a = this.dataSource.map(item => item.id).sort();
+      const b = this.selectedItems.map(item => item.id).sort();
+      if (a.length !== b.length) {
+        return false;
+      }
+      let equal = true;
+      for (let index = 0; index < a.length; index++)
+        if (a[index] !== b[index]) {
+          equal = false;
+          break;
+        }
+      return equal;
+    },
+    expendedCellColSpan() {
+      let result = 0;
+      if (this.checkable) {
+        result += 1;
+      }
+      if (this.expendField) {
+        result += 1;
+      }
+      return result;
+    }
   }
+};
 </script>
 
 <style scoped lang="scss">
-@import "../style/animation.scss";
-$grey: darken(#ddd, 10%);
-.BUI-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  border-bottom: 1px solid $grey;
-  &.bordered {
-    border: 1px solid $grey;
-    td,
-    th {
-      border: 1px solid $grey;
-    }
-  }
-  &.compact {
-    td,
-    th {
-      padding: 4px;
-    }
-  }
-  td,
-  th {
-    border-bottom: 1px solid $grey;
-    text-align: left;
-    padding: 8px;
-  }
-  &.striped {
-    tbody {
-      > tr {
-        &:nth-child(odd) {
-          background: white;
-        }
-        &:nth-child(even) {
-          background: lighten($grey, 10%);
-        }
-      }
-    }
-  }
-  &-sorter {
-    display: inline-flex;
-    flex-direction: column;
-    margin: 0 4px;
-    cursor: pointer;
-    svg {
-      width: 10px;
-      height: 10px;
-      fill: $grey;
-      &.active {
-        fill: red;
-      }
-      &:first-child {
-        position: relative;
-        bottom: -1px;
-      }
-      &:nth-child(2) {
-        position: relative;
-        top: -1px;
-      }
-    }
-  }
-  &-header {
-    display: flex;
-    align-items: center;
-  }
-  &-wrapper {
-    position: relative;
-    overflow: auto;
-  }
-  &-loading {
-    background: rgba(255, 255, 255, 0.8);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    svg {
-      width: 50px;
-      height: 50px;
-      @include spin;
-    }
-  }
-  &-copy {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: white;
-  }
-  &-expendIcon {
-    width: 10px;
-    height: 10px;
-  }
-  & &-center {
-    text-align: center;
-  }
-}
+@import "Table.scss";
 </style>

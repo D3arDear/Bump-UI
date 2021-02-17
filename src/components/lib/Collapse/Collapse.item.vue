@@ -7,7 +7,7 @@
   </div>
 </template>
 <script lang='ts'>
-import { inject, onMounted, PropType, ref, watchEffect } from 'vue';
+import { computed, inject, onMounted, PropType, ref, watchEffect } from 'vue';
 import { EventBusType } from '../common/eventBus';
 export default {
   name: "BUI-Collapse-item",
@@ -20,32 +20,20 @@ export default {
       type: String,
       required: true
     },
-    names: {
-      type: Array as PropType<string[]>,
-      required: true
-    },
-    eventHandler: {
-      type: Function as PropType<(methods: string, name: string) => void>,
-      required: true
-    }
-
   },
   setup(props, context) {
-    const { name, eventHandler } = props
+    const eventBus = inject<EventBusType>("EventBus");
+    const { name } = props
     const open = ref(false)
 
-    const eventBus = inject<EventBusType>("EventBus");
-    const names = inject<string[]>("names");
-
-
     onMounted(() => {
-      watchEffect(() => {
+      eventBus.on("update:selected", names => {
         if (names.indexOf(name) >= 0) {
-          open.value = true
+          open.value = true;
         } else {
-          open.value = false
+          open.value = false;
         }
-      }, { flush: 'post' })
+      });
     })
     const toggle = () => {
       if (open.value) {

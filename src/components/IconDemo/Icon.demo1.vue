@@ -14,6 +14,8 @@
       <Icon name="error" />
       <Icon name="thumbs-up" />
       <Icon name="download" />
+      <Icon name="right" />
+      <Icon name="left" />
     </section>
   </div>
 </template>

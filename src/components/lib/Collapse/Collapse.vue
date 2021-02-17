@@ -5,7 +5,6 @@
 </template>
 <script lang='ts'>
 import { onMounted, provide, reactive, ref, } from 'vue';
-import CollapseItem from './Collapse.item.vue'
 import EventBus from '../common/eventBus'
 import { classMaker } from '../common/classMaker'
 

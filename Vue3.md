@@ -180,3 +180,93 @@ watchEffect(
 
 - `in-out`: 新元素先进行过渡，完成之后当前元素过渡离开。
 - `out-in`: 当前元素先进行过渡，完成之后新元素过渡进入。
+
+# 好像不能用 new Vue() 创建 eventBus 了
+
+- `new Vue()` 无法创建实例
+- `Vue.createApp({})` 创建的实例也没有 `$on` 方法
+
+## 解决方法
+
+### 官方推荐第三方库
+
+- vue3-eventbus
+- mitt
+
+### 自己写一个发布订阅
+
+```ts
+// eventBus.js
+export default class EventBus {
+  constructor() {
+    this.eventList = {};
+  }
+  // 订阅
+  on(eventName, callback) {
+    this.eventList[eventName] = this.eventList[eventName] || [];
+    this.eventList[eventName].push(callback);
+  }
+  // 发布
+  emit(eventName, data) {
+    if (this.eventList[eventName]) {
+      this.eventList[eventName].forEach(function (callback) {
+        callback(data);
+      });
+    }
+  }
+  off(eventName, callback) {
+    if (this.eventList[eventName]) {
+      for (let i = 0; i < this.eventList[eventName].length; i++) {
+        if (this.eventList[eventName][i] === fn) {
+          this.eventList[eventName].splice(i, 1);
+          break;
+        }
+      }
+    }
+  }
+}
+```
+
+之后去入口文件挂载
+
+```ts
+// main.js
+import { createApp } from "vue";
+import App from "./App.vue";
+// ① 引入事件类
+// 自己编写的或者mitt皆可
+import EventBus from "lib/bus.js";
+// 或者：import EventBus from 'mitt'
+const $bus = new EventBus();
+
+// ② 挂载
+// 1.使用provide提供
+app.provide("$bus", $bus);
+// 2.挂载到this上
+app.config.globalProperties.$bus = $bus;
+```
+
+created 中使用不需要引入 inject
+
+```ts
+// Button.vue
+export default {
+  created() {
+    this.$bus.emit("ButtonCreated");
+  },
+};
+```
+
+setup 无法访问到 this 所以需要 provide/inject
+
+```ts
+import { inject } from "vue";
+export default {
+  setup() {
+    const $bus = inject("$bus");
+    $bus.emit("ButtonSetup");
+  },
+};
+```
+
+参考文献: https://juejin.cn/post/6890781300648017934

@@ -4,19 +4,24 @@
     <Demo :component="ScrollDemo1">
       <p>Scroll 的基本用法</p>
     </Demo>
+    <Demo :component="ScrollDemo2">
+      <p>barColor 属性接受一个类型为 string 的颜色值</p>
+    </Demo>
   </div>
 </template>
 
 <script lang="ts" scoped>
 import Demo from "../Demo.vue";
 import ScrollDemo1 from './Scroll.demo1.vue'
+import ScrollDemo2 from './Scroll.demo2.vue'
 
 export default {
   name: "SwitchDemo",
   components: { Demo },
   setup() {
     return {
-      ScrollDemo1
+      ScrollDemo1,
+      ScrollDemo2
     };
   },
 }

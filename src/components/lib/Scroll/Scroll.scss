@@ -1,0 +1,43 @@
+@import "../style/theme.scss";
+.BUI-Scroll {
+  transition: transform 0.05s ease;
+  &-wrapper {
+    overflow: hidden;
+    position: relative;
+  }
+}
+.BUI-Scroll {
+  &__track {
+    position: absolute;
+    top: 8px;
+    right: 0;
+    bottom: 8px;
+    width: 10px;
+    border-radius: 5px;
+    background: darken($--color--background, 5%);
+    opacity: 0.8;
+    box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-5, true);
+  }
+  &__bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    padding: 0px 1px 16px 1px;
+    &--inner {
+      width: 100%;
+      height: 100%;
+      background: lighten(ContrastText($--color--background), 10%);
+      width: 8px;
+      border-radius: 4px;
+      transition: box-shadow 300ms;
+      &:hover {
+        box-shadow: surface-shadow-generator(
+          $light-direction,
+          $--color--background,
+          $--blur-range-5
+        );
+      }
+    }
+  }
+}

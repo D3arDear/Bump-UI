@@ -1,6 +1,6 @@
 <template>
   <div
-    class="BUI-scroll-wrapper"
+    :class="classes('wrapper', '', '')"
     ref="parentRef"
     v-on="{
       mouseenter: onMouseEnter,
@@ -10,30 +10,39 @@
     }"
   >
     <div
-      class="BUI-scroll"
+      :class="classes('', '', '')"
       ref="childRef"
       :style="{ transform: `translateY(${contentY}px)` }"
     >
       <slot></slot>
     </div>
-    <div class="BUI-scroll-track" v-show="scrollBarVisible">
-      <div
-        class="BUI-scroll-barRef"
-        ref="barRef"
-        v-on="{
-          mousedown: onMouseDownScrollBar,
-          selectstart: onSelectStartScrollBar,
-        }"
-      >
-        <div class="BUI-scroll-barRef-inner"></div>
+    <transition name="BUI-animation--fade">
+      <div :class="classes('', 'track', '')" v-show="scrollBarVisible">
+        <div
+          :class="classes('', 'bar', '')"
+          ref="barRef"
+          v-on="{
+            mousedown: onMouseDownScrollBar,
+            selectstart: onSelectStartScrollBar,
+          }"
+        >
+          <div
+            :class="classes('', 'bar', 'inner')"
+            :style="{ background: barColor }"
+          ></div>
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 <script lang='ts'>
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
+import { classMaker } from '../common/classMaker';
 export default {
   name: "BUI-Scroll",
+  props: {
+    barColor: String
+  },
   setup(props, context) {
     const scrollBarVisible = ref(false)
     const isScrolling = ref(false)
@@ -47,6 +56,8 @@ export default {
     const parentRef = ref<HTMLDivElement>(null)
     const childRef = ref<HTMLDivElement>(null)
     const barRef = ref<HTMLDivElement>(null)
+
+    const classes = classMaker('BUI-Scroll')
 
     const childHeight = computed(() => {
       return childRef.value.getBoundingClientRect().height
@@ -227,43 +238,68 @@ export default {
       onMouseLeave,
       onMouseMove,
       onMouseDownScrollBar,
-      onSelectStartScrollBar
+      onSelectStartScrollBar,
+      classes
     };
   },
 };
 </script>
-<style lang="scss" scoped>
-.BUI-scroll {
+<style lang="scss">
+@import "../style/theme.scss";
+.BUI-Scroll {
   transition: transform 0.05s ease;
   &-wrapper {
     overflow: hidden;
     position: relative;
   }
-  &-track {
+  &__track {
     position: absolute;
-    top: 0;
+    top: 8px;
     right: 0;
-    height: 100%;
-    width: 14px;
-    background: rgba(247, 247, 247, 0.5);
+    bottom: 8px;
+    width: 10px;
+    border-radius: 5px;
+    background: darken($--color--background, 5%);
     opacity: 0.8;
+    box-shadow: shadow-generator(
+      $light-direction,
+      $--color--background,
+      $--blur-range-5,
+      true
+    );
   }
-  &-barRef {
+  &__bar {
     position: absolute;
     top: 0;
     left: 0;
     height: 20px;
-    padding: 4px 3px;
-    &-inner {
+    padding: 0px 1px 16px 1px;
+    &--inner {
       width: 100%;
       height: 100%;
-      background: #c2c2c2;
+      background: lighten(ContrastText($--color--background), 10%);
       width: 8px;
       border-radius: 4px;
+      transition: box-shadow 300ms;
       &:hover {
-        background: #7d7d7d;
+        box-shadow: surface-shadow-generator(
+          $light-direction,
+          $--color--background,
+          $--blur-range-5
+        );
       }
     }
+  }
+}
+.BUI-animation--fade {
+  &-enter-active,
+  &-leave-active {
+    opacity: 1;
+    transition: all 300ms ease-in-out;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
   }
 }
 </style>

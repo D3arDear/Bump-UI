@@ -1,5 +1,5 @@
 <template>
-  <div class="collapse">
+  <div :class="classes('', '', '')">
     <slot></slot>
   </div>
 </template>
@@ -7,6 +7,7 @@
 import { onMounted, provide, reactive, ref, } from 'vue';
 import CollapseItem from './Collapse.item.vue'
 import EventBus from '../common/eventBus'
+import { classMaker } from '../common/classMaker'
 
 export default {
   name: "BUI-Collapse",
@@ -23,22 +24,18 @@ export default {
     const slots = context.slots.default()
     const eventBus = reactive(new EventBus())
     const selected = ref(props.selected)
+    const classes = classMaker('BUI-Collapse')
 
     provide("EventBus", eventBus);
     eventBus.emit("update:selected", selected.value);
 
-    slots.forEach((tag) => {
-      if (tag.type !== CollapseItem) {
-        throw new Error("Collapse 的子标签必须是 CollapseItem");
-      }
-    });
-
     const eventHandler = (data) => {
       const { methods, name } = data
-      console.log('里面改之前', props.selected)
       if (props.single) {
         const newSelected = methods === 'open' ? [name] : []
         context.emit('update:selected', newSelected)
+        selected.value = newSelected
+        eventBus.emit("update:selected", newSelected);
       } else {
         let selectedCopy = JSON.parse(JSON.stringify(props.selected));
         if (methods === 'open') { selectedCopy.push(name) } else { selectedCopy = selectedCopy.filter(el => el !== name) }
@@ -54,14 +51,18 @@ export default {
     onMounted(() => {
     })
     return {
-      eventHandler
+      classes
     }
   }
 };
 </script>
-<style lang="scss" scoped>
-.collapse {
-  background: #fafafa;
-  border-radius: 2px;
+<style lang="scss">
+@import "../style/theme.scss";
+.BUI-Collapse {
+  width: 100%;
+  padding: 16px;
+  background: $--color--background;
+  border-radius: $--border-radius--default;
+  @include shadow($light-direction, $--color--background, $--blur-range-0);
 }
 </style>

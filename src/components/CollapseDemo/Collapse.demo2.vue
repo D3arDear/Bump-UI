@@ -1,9 +1,9 @@
 <demo>
-默认 collapse 
+限制仅显示一项
 </demo>
 <template>
   <div class="switchSection">
-    <Collapse v-model:selected="selectedTab">
+    <Collapse v-model:selected="selectedTab" single>
       <Collapse-item
         v-for="(item, index) in contents"
         :title="item.title"

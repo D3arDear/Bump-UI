@@ -1,10 +1,10 @@
 <template>
   <div class="collapse">
-    <slot :eventHandler="eventHandler" :name="selected"></slot>
+    <slot></slot>
   </div>
 </template>
 <script lang='ts'>
-import { inject, onMounted, provide } from 'vue';
+import { inject, onMounted, provide, reactive } from 'vue';
 import CollapseItem from './Collapse.item.vue'
 import EventBus from '../common/eventBus'
 import { EventBusType } from '../common/eventBus'
@@ -22,9 +22,10 @@ export default {
   },
   setup(props, context) {
     const slots = context.slots.default()
-    provide("EventBus", new EventBus());
-    const eventBus = inject<EventBusType>("EventBus");
-
+    const eventBus = reactive(new EventBus())
+    provide("EventBus", eventBus);
+    provide("names", props.selected);
+    console.log(eventBus)
     slots.forEach((tag) => {
       if (tag.type !== CollapseItem) {
         throw new Error("Collapse 的子标签必须是 CollapseItem");
@@ -32,14 +33,17 @@ export default {
     });
 
 
-    const eventHandler = (methods, name) => {
+    const eventHandler = (data) => {
+      const { methods, name } = data
+      console.log('调用了', methods, name)
       if (props.single) {
         const newSelected = methods === 'open' ? [name] : []
         context.emit('update:selected', newSelected)
       } else {
         let selectedCopy = JSON.parse(JSON.stringify(props.selected));
-        const newSelected = methods === 'open' ? selectedCopy.push(name) : selectedCopy.forEach(el => el !== name);
-        context.emit('update:selected', newSelected)
+        methods === 'open' ? selectedCopy.push(name) : selectedCopy.forEach(el => el !== name);
+        console.log(selectedCopy)
+        context.emit('update:selected', selectedCopy)
       }
     }
 
@@ -48,7 +52,6 @@ export default {
 
     slots.forEach((tag) => {
       tag.props.names = props.selected
-      tag.props.eventHandler = eventHandler
       console.log(tag.props.name, tag.props)
     });
     onMounted(() => { })

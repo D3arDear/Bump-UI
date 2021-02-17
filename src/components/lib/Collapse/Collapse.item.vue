@@ -35,11 +35,12 @@ export default {
     const open = ref(false)
 
     const eventBus = inject<EventBusType>("EventBus");
+    const names = inject<string[]>("names");
 
 
     onMounted(() => {
       watchEffect(() => {
-        if (props.names.indexOf(name) >= 0) {
+        if (names.indexOf(name) >= 0) {
           open.value = true
         } else {
           open.value = false
@@ -47,10 +48,10 @@ export default {
       }, { flush: 'post' })
     })
     const toggle = () => {
-      if (open) {
-        eventBus.emit('item:close', ['close', 'name'])
+      if (open.value) {
+        eventBus.emit('item:close', { methods: 'close', name: name })
       } else {
-        eventBus.emit('item:open', ['open', 'name'])
+        eventBus.emit('item:open', { methods: 'open', name: name })
       }
     }
 

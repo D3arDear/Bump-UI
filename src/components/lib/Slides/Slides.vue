@@ -1,6 +1,6 @@
 <template>
   <div
-    class="z-slides"
+    class="BUI-Slides"
     v-on="{
       mouseenter: onMouseEnter,
       mouseleave: onMouseLeave,
@@ -9,12 +9,12 @@
       touchend: onTouchEnd,
     }"
   >
-    <div class="z-slides-window" ref="window">
-      <div class="z-slides-wrapper" ref="wrapper">
+    <div class="BUI-Slides-window" ref="window">
+      <div class="BUI-Slides-wrapper" ref="wrapper">
         <slot></slot>
       </div>
     </div>
-    <div class="z-slides-dots">
+    <div class="BUI-Slides-dots">
       <span @click="onClickPrev" class="prev">
         <Icon name="left"></Icon>
       </span>
@@ -62,6 +62,8 @@ export default {
     const wrapperRef = ref<HTMLDivElement>(null)
     const eventBus = reactive(new EventBus())
     provide("EventBus", eventBus);
+
+    console.log(props.selected)
 
     const selectedIndex = computed(() => {
       let index = names.value.indexOf(props.selected);
@@ -200,19 +202,20 @@ export default {
       onTouchMove,
       onTouchEnd,
       onClickNext,
-      onClickPrev
+      onClickPrev,
+      selectedIndex
     }
   },
 };
 </script>
 <style lang="scss" scoped>
-.z-slides {
+.BUI-Slides {
   border: 1px solid grey;
-  &-window {
-    overflow: hidden;
-  }
   &-wrapper {
     position: relative;
+  }
+  &-window {
+    overflow: hidden;
   }
   &-dots {
     padding: 8px 0;

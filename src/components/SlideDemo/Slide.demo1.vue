@@ -5,8 +5,8 @@
   <div>
     <Slides
       class="wrapper"
-      width="300px"
-      height="200px"
+      width="100%"
+      height="100%"
       v-model:selected="selected"
     >
       <Slides-item name="1">
@@ -36,7 +36,7 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss">
 * {
   margin: 0;
   padding: 0;
@@ -46,12 +46,12 @@ export default {
   margin: 40px;
 }
 .box {
-  width: 100%;
+  width: 500px;
   height: 350px;
-  background: #ddd;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 30px;
+  background: grey;
 }
 </style>

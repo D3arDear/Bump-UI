@@ -1,9 +1,9 @@
 <demo>
-默认 Slide 轮播
+可取消自动播放
 </demo>
 <template>
   <div>
-    <Slides class="wrapper" v-model:selected="selected">
+    <Slides class="wrapper" v-model:selected="selected" :autoPlay="false">
       <Slides-item name="1">
         <div class="box-1">1</div>
       </Slides-item>

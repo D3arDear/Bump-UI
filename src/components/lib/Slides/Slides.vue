@@ -1,6 +1,6 @@
 <template>
   <div
-    class="BUI-Slides"
+    :class="classes('', '', '')"
     v-on="{
       mouseenter: onMouseEnter,
       mouseleave: onMouseLeave,
@@ -9,26 +9,37 @@
       touchend: onTouchEnd,
     }"
   >
-    <div class="BUI-Slides-window" ref="window">
-      <div class="BUI-Slides-wrapper" ref="wrapper">
+    <div :class="classes('', 'window', '')" ref="window">
+      <div :class="classes('', 'wrapper', '')" ref="wrapper">
         <slot></slot>
       </div>
     </div>
-    <div class="BUI-Slides-dots">
-      <span @click="onClickPrev" class="prev">
-        <Icon name="left"></Icon>
-      </span>
-      <span
+    <div :class="classes('', 'dots', '')">
+      <Button
+        @click="onClickPrev"
+        :icon="{ name: 'left' }"
+        rounded
+        textButton
+        level="primary"
+      ></Button>
+      <Button
         v-for="n in childrenLength"
         :key="n"
         :data-index="n - 1"
         :class="{ active: selectedIndex === n - 1 }"
         @click="select(n - 1)"
-        >{{ n }}</span
+        rounded
+        textButton
       >
-      <span @click="onClickNext" class="next">
-        <Icon name="right"></Icon>
-      </span>
+        {{ n }}
+      </Button>
+      <Button
+        @click="onClickNext"
+        :icon="{ name: 'right' }"
+        rounded
+        textButton
+        level="primary"
+      ></Button>
     </div>
   </div>
 </template>
@@ -36,10 +47,13 @@
 import Icon from "../Icon.vue";
 import { computed, isVNode, nextTick, onBeforeUnmount, onMounted, onUpdated, provide, reactive, ref, resolveDirective } from 'vue';
 import EventBus from '../common/eventBus';
+import { classMaker } from '../common/classMaker';
+import Button from '../Button/Button.vue'
 export default {
-  name: "zealotSlides",
+  name: "BUI-Slides",
   components: {
-    Icon
+    Icon,
+    Button
   },
   props: {
     selected: {
@@ -55,6 +69,8 @@ export default {
     }
   },
   setup(props, context) {
+    const classes = classMaker('BUI-Slides')
+
     const childrenLength = ref(0)
     const lastSelectedIndex = ref(undefined)
     const timerId = ref(undefined)
@@ -143,16 +159,12 @@ export default {
         }
         const itemName = vm.props.name;
         eventBus.emit(`update:reverse-${itemName}`, reverse)
-        if (reverse) {
-          console.log('该无缝了')
-        }
         await nextTick(() => {
           eventBus.emit(`update:selected-${itemName}`, selected)
         });
       });
     }
     onUpdated(() => {
-      console.log('应该调用吧')
       updateChildren();
     })
     onBeforeUnmount(() => {
@@ -203,21 +215,26 @@ export default {
       onTouchEnd,
       onClickNext,
       onClickPrev,
-      selectedIndex
+      selectedIndex,
+      classes
     }
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+@import "../style/theme.scss";
+
 .BUI-Slides {
-  border: 1px solid grey;
-  &-wrapper {
+  @include shadow($light-direction, $--color--background, $--blur-range-0);
+  border-radius: $--border-radius--default;
+  &__wrapper {
     position: relative;
   }
-  &-window {
+  &__window {
+    border-radius: $--border-radius--default;
     overflow: hidden;
   }
-  &-dots {
+  &__dots {
     padding: 8px 0;
     display: flex;
     justify-content: center;

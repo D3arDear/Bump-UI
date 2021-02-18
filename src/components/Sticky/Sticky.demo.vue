@@ -1,39 +1,34 @@
 <template>
-  <div class="slider">
-    <h1>Slider 组件</h1>
-    <Demo :component="SlideDemo1">
-      <p>Slider 的基本用法。 selected = name 的内容会被显示</p>
-    </Demo>
-    <Demo :component="SlideDemo2">
-      <p>autoPlay 控制是否开启自动轮播，默认开启</p>
+  <div class="switch">
+    <h1>Sticky 组件</h1>
+    <Demo :component="StickyDemo1">
+      <p>Syicky 的基本用法 distance 可以控制粘连内容距视口边缘的距离</p>
     </Demo>
   </div>
 </template>
 
 <script lang="ts" scoped>
 import Demo from "../Demo.vue";
-import SlideDemo1 from './Slide.demo1.vue'
-import SlideDemo2 from './Slide.demo2.vue'
+import StickyDemo1 from './Sticky.demo1.vue'
 export default {
   name: "SwitchDemo",
   components: { Demo },
   setup() {
     return {
-      SlideDemo1,
-      SlideDemo2
+      StickyDemo1,
     };
   },
 }
 </script>
 
 <style lang="scss">
-.slider {
+.switch {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  .sliderSection {
+  .switchSection {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

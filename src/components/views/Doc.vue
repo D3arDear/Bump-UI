@@ -34,6 +34,9 @@
             <router-link to="/doc/toast"> Toast </router-link>
           </li>
           <li>
+            <router-link to="/doc/sticky"> Sticky </router-link>
+          </li>
+          <li>
             <router-link to="/doc/dialog"> Dialog </router-link>
           </li>
           <li>

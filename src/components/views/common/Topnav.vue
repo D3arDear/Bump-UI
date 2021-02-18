@@ -68,7 +68,7 @@ export default {
     width: 50px;
     height: 50px;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 800px) {
     justify-content: center;
     align-items: center;
   }
@@ -82,7 +82,7 @@ export default {
       height: 30px;
       width: 30px;
     }
-    @media (max-width: 500px) {
+    @media (max-width: 800px) {
       display: inline-block;
     }
     &.asideVisible .toggleAside {
@@ -105,7 +105,7 @@ export default {
       margin: 0 10px;
     }
   }
-  @media (max-width: 500px) {
+  @media (max-width: 800px) {
     .menu {
       display: none;
     }

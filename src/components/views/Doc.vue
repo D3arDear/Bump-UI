@@ -4,14 +4,12 @@
       <Topnav></Topnav>
     </Sticky>
     <div class="content">
-      <aside v-if="asideVisible">
-        <!-- <div class="handle"></div> -->
-        <Scroll
-          :style="{
-            height: 'calc(100vh - 50px)',
-            width: '208px',
-          }"
-        >
+      <transition name="BUI-animation--fade">
+        <div class="blackWrapper" v-if="asideVisible" @click="closeAside"></div>
+      </transition>
+      <transition name="BUI-animation--slide-left">
+        <aside v-if="asideVisible">
+          <!-- <div class="handle"></div> -->
           <h2>文档</h2>
           <ul>
             <li>
@@ -66,8 +64,8 @@
               <router-link to="/doc/cascader"> Cascader × </router-link>
             </li>
           </ul>
-        </Scroll>
-      </aside>
+        </aside>
+      </transition>
       <main :class="{ asideVisible: asideVisible }">
         <div class="main-content">
           <router-view v-slot="{ Component }">
@@ -91,7 +89,10 @@ export default {
   components: { Topnav, Scroll, Sticky },
   setup() {
     const asideVisible = inject<Ref<boolean>>("asideVisible");
-    return { asideVisible };
+    const closeAside = () => {
+      asideVisible.value = false;
+    };
+    return { asideVisible, closeAside };
   },
   name: "Doc",
 };
@@ -112,19 +113,47 @@ export default {
   min-height: calc(100vh - 50px);
   position: relative;
   background: $--color--background;
+  .blackWrapper {
+    position: fixed;
+    z-index: 10;
+    top: 50px;
+    right: 0;
+    bottom: 0;
+    width: calc(100vw - 200px);
+    height: 100vh;
+    background: rgba($--color--background, 0.7);
+    @media (min-width: 800px) {
+      display: none;
+    }
+  }
   aside {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
     display: flex;
-    z-index: 1;
+    z-index: 10;
     background-color: $--color--background;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 50px 0 10px 0;
+    width: 200px;
+    padding: 60px 0 10px 0;
     border-right: 1px solid lighten($--color--background, 10%);
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-thumb {
+      border-radius: 1em;
+      background-color: rgba(50, 50, 50, 0.3);
+    }
+    ::-webkit-scrollbar-track {
+      border-radius: 1em;
+      background-color: rgba(50, 50, 50, 0.1);
+    }
     /* box-shadow: shadowD-oneWay(
       right,
       $--color--background,
@@ -223,7 +252,7 @@ export default {
       }
     }
     &.asideVisible {
-      margin-left: 208px;
+      margin-left: 200px;
     }
   }
   @media (max-width: 768px) {

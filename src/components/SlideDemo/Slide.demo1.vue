@@ -10,13 +10,13 @@
       v-model:selected="selected"
     >
       <Slides-item name="1">
-        <div class="box">1</div>
+        <div class="box-1">1</div>
       </Slides-item>
       <Slides-item name="2">
-        <div class="box">2</div>
+        <div class="box-2">2</div>
       </Slides-item>
       <Slides-item name="3">
-        <div class="box">3</div>
+        <div class="box-3">3</div>
       </Slides-item>
     </Slides>
   </div>
@@ -52,6 +52,17 @@ export default {
   justify-content: center;
   align-items: center;
   font-size: 30px;
-  background: grey;
+  &-1 {
+    @extend .box;
+    background: white;
+  }
+  &-2 {
+    @extend .box;
+    background: grey;
+  }
+  &-3 {
+    @extend .box;
+    background: black;
+  }
 }
 </style>

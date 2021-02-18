@@ -34,7 +34,7 @@
 </template>
 <script lang="ts">
 import Icon from "../Icon.vue";
-import { computed, isVNode, nextTick, onBeforeUnmount, onMounted, onUpdated, provide, reactive, ref } from 'vue';
+import { computed, isVNode, nextTick, onBeforeUnmount, onMounted, onUpdated, provide, reactive, ref, resolveDirective } from 'vue';
 import EventBus from '../common/eventBus';
 export default {
   name: "zealotSlides",
@@ -129,28 +129,30 @@ export default {
       items.value.forEach(async (vm) => {
         let reverse =
           selectedIndex.value > lastSelectedIndex.value ? false : true;
-        if (timerId.value) {
-          if (
-            lastSelectedIndex.value === items.value.length - 1 &&
-            selectedIndex.value === 0
-          ) {
-            reverse = false;
-          }
-          if (
-            lastSelectedIndex.value === 0 &&
-            selectedIndex.value === items.value.length - 1
-          ) {
-            reverse = true;
-          }
+        if (
+          lastSelectedIndex.value === items.value.length - 1 &&
+          selectedIndex.value === 0
+        ) {
+          reverse = false;
+        }
+        if (
+          lastSelectedIndex.value === 0 &&
+          selectedIndex.value === items.value.length - 1
+        ) {
+          reverse = true;
         }
         const itemName = vm.props.name;
         eventBus.emit(`update:reverse-${itemName}`, reverse)
+        if (reverse) {
+          console.log('该无缝了')
+        }
         await nextTick(() => {
           eventBus.emit(`update:selected-${itemName}`, selected)
         });
       });
     }
     onUpdated(() => {
+      console.log('应该调用吧')
       updateChildren();
     })
     onBeforeUnmount(() => {

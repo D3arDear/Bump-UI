@@ -12,6 +12,7 @@ import ToastDemo from "./components/ToastDemo/Toast.demo.vue";
 import CollapseDemo from "./components/CollapseDemo/Collapse.demo.vue";
 import TableDemo from "./components/TableDemo/Table.demo.vue";
 import ScrollDemo from "./components/ScrollDemo/Scroll.demo.vue";
+import SlideDemo from "./components/SlideDemo/Slide.demo.vue";
 
 import { h } from "vue";
 import Markdown from "./components/Markdown.vue";
@@ -50,6 +51,7 @@ export const router = createRouter({
         { path: "collapse", component: CollapseDemo },
         { path: "table", component: TableDemo },
         { path: "scroll", component: ScrollDemo },
+        { path: "slide", component: SlideDemo },
       ],
     },
   ],

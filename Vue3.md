@@ -196,8 +196,19 @@ watchEffect(
 ### 自己写一个发布订阅
 
 ```ts
-// eventBus.js
+interface IEventList {
+  [key: string]: (any) => void;
+}
+export type EventBusType = {
+  eventList: IEventList;
+  on: (eventName: string, callback: any) => void;
+  emit: (eventName: string, callback: any) => void;
+  off: (eventName: string, callback: any) => void;
+};
+
 export default class EventBus {
+  eventList = {};
+
   constructor() {
     this.eventList = {};
   }

@@ -6,7 +6,8 @@
   </transition>
 </template>
 <script lang='ts'>
-import { computed, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
+import { EventBusType } from '../common/eventBus';
 export default {
   name: "BUI-Slides-item",
   props: {
@@ -16,41 +17,49 @@ export default {
     }
   },
   setup(props) {
+    const eventBus = inject<EventBusType>("EventBus");
     const selected = ref(undefined)
     const reverse = ref(false)
     const visible = computed(() => {
-      selected.value = props.name
+      return selected.value === props.name
+    })
+    eventBus.on('update:reverse', (payload: boolean) => {
+      reverse.value = payload
+    })
+    eventBus.on('update:selected', (payload) => {
+      selected.value = payload
     })
     return {
       selected,
       reverse,
-      visible
+      visible,
+      props
     }
   },
 };
 </script>
 <style lang="scss">
-BUI-Slide-animation-leave-active {
+.BUI-Slide-animation-leave-active {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
 }
-BUI-Slide-animation-enter-active,
-BUI-Slide-animation-leave-active {
+.BUI-Slide-animation-enter-active,
+.BUI-Slide-animation-leave-active {
   transition: all 0.5s;
 }
-BUI-Slide-animation-enter {
+.BUI-Slide-animation-enter {
   transform: translateX(100%);
 }
-BUI-Slide-animation-enter.reverse {
+.BUI-Slide-animation-enter.reverse {
   transform: translateX(-100%);
 }
-BUI-Slide-animation-leave-to {
+.BUI-Slide-animation-leave-to {
   transform: translateX(-100%);
 }
-BUI-Slide-animation-leave-to.reverse {
+.BUI-Slide-animation-leave-to.reverse {
   transform: translateX(100%);
 }
 </style>

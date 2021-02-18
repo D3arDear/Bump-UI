@@ -34,7 +34,8 @@
 </template>
 <script lang="ts">
 import Icon from "../Icon.vue";
-import { computed, nextTick, onBeforeUnmount, onMounted, onUpdated, ref } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, onUpdated, provide, reactive, ref } from 'vue';
+import EventBus from '../common/eventBus';
 export default {
   name: "zealotSlides",
   components: {
@@ -59,6 +60,8 @@ export default {
     const timerId = ref(undefined)
     const startTouch = ref(undefined)
     const wrapperRef = ref<HTMLDivElement>(null)
+    const eventBus = reactive(new EventBus())
+    provide("EventBus", eventBus);
 
     const selectedIndex = computed(() => {
       let index = names.value.indexOf(props.selected);
@@ -68,7 +71,7 @@ export default {
       return items.value.map(vm => vm.props.name);
     })
     const items = computed(() => {
-      return context.slots.default().filter(vm => vm.type === "BUI-Slides-items")
+      return context.slots.default().filter(vm => vm.type.name === "BUI-Slides-item")
     })
 
 
@@ -91,7 +94,7 @@ export default {
       }
       startTouch.value = e.touches[0];
     }
-    // const onTouchMove = () => { },
+    const onTouchMove = () => { }
 
     const onTouchEnd = (e) => {
       let endTouch = e.changedTouches[0];
@@ -113,8 +116,8 @@ export default {
     }
 
     const getSelected = () => {
-      let first = items[0];
-      return props.selected || first.name;
+      let first = items.value[0];
+      return props.selected || first.props.name;
     }
     const pause = () => {
       window.clearTimeout(timerId.value);
@@ -139,20 +142,21 @@ export default {
             reverse = true;
           }
         }
-        vm.ref.reverse = reverse;
+        eventBus.emit('update:reverse', reverse)
         nextTick(() => {
-          vm.ref.selected = selected;
+          eventBus.emit('update:selected', selected)
         });
       });
     }
-    const onUpdated = (() => {
+    onUpdated(() => {
       updateChildren();
     })
-    const onBeforeUnmount = (() => {
+    onBeforeUnmount(() => {
       pause()
     })
 
     const select = (newIndex) => {
+      console.log('from', props.selected)
       lastSelectedIndex.value = selectedIndex.value;
       if (newIndex === -1) {
         newIndex = names.value.length - 1;
@@ -161,6 +165,7 @@ export default {
         newIndex = 0;
       }
       context.emit("update:selected", names.value[newIndex]);
+      console.log('to', names.value[newIndex])
     }
 
     const toggleAutoPlay = () => {
@@ -187,15 +192,17 @@ export default {
       childrenLength,
       lastSelectedIndex,
       timerId,
-      startTouch
+      select,
+      startTouch,
+      onMouseEnter,
+      onMouseLeave,
+      onTouchStart,
+      onTouchMove,
+      onTouchEnd,
+      onClickNext,
+      onClickPrev
     }
   },
-
-
-
-
-  methods: {
-  }
 };
 </script>
 <style lang="scss" scoped>

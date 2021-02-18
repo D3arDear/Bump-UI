@@ -34,7 +34,7 @@
 </template>
 <script lang="ts">
 import Icon from "../Icon.vue";
-import { computed, nextTick, onBeforeUnmount, onMounted, onUpdated, provide, reactive, ref } from 'vue';
+import { computed, isVNode, nextTick, onBeforeUnmount, onMounted, onUpdated, provide, reactive, ref } from 'vue';
 import EventBus from '../common/eventBus';
 export default {
   name: "zealotSlides",
@@ -63,7 +63,6 @@ export default {
     const eventBus = reactive(new EventBus())
     provide("EventBus", eventBus);
 
-    console.log(props.selected)
 
     const selectedIndex = computed(() => {
       let index = names.value.indexOf(props.selected);
@@ -98,7 +97,7 @@ export default {
     }
     const onTouchMove = () => { }
 
-    const onTouchEnd = (e) => {
+    const onTouchEnd = async (e) => {
       let endTouch = e.changedTouches[0];
       let { clientX: x1, clientY: y1 } = startTouch.value;
       let { clientX: x2, clientY: y2 } = endTouch;
@@ -112,7 +111,7 @@ export default {
           select(selectedIndex.value + 1);
         }
       }
-      nextTick(() => {
+      await nextTick(() => {
         toggleAutoPlay();
       })
     }
@@ -127,7 +126,7 @@ export default {
     }
     const updateChildren = () => {
       let selected = getSelected();
-      items.value.forEach(vm => {
+      items.value.forEach(async (vm) => {
         let reverse =
           selectedIndex.value > lastSelectedIndex.value ? false : true;
         if (timerId.value) {
@@ -144,9 +143,10 @@ export default {
             reverse = true;
           }
         }
-        eventBus.emit('update:reverse', reverse)
-        nextTick(() => {
-          eventBus.emit('update:selected', selected)
+        const itemName = vm.props.name;
+        eventBus.emit(`update:reverse-${itemName}`, reverse)
+        await nextTick(() => {
+          eventBus.emit(`update:selected-${itemName}`, selected)
         });
       });
     }
@@ -158,7 +158,6 @@ export default {
     })
 
     const select = (newIndex) => {
-      console.log('from', props.selected)
       lastSelectedIndex.value = selectedIndex.value;
       if (newIndex === -1) {
         newIndex = names.value.length - 1;
@@ -167,7 +166,6 @@ export default {
         newIndex = 0;
       }
       context.emit("update:selected", names.value[newIndex]);
-      console.log('to', names.value[newIndex])
     }
 
     const toggleAutoPlay = () => {

@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <template v-if="animationEnabled">
-      <transition name="BUI-Slides-animation" mode="out-in">
-        <div class="BUI-Slides-item" v-if="visible" :class="{ reverse }">
-          <slot></slot>
-        </div>
-      </transition>
-    </template>
+  <div class="BUI-Slides-item">
+    <transition name="BUI-Slides-animation" mode="out-in">
+      <div class="BUI-Slides-item__content" v-if="visible" :class="{ reverse }">
+        <slot></slot>
+      </div>
+    </transition>
   </div>
 </template>
 <script lang='ts'>
-import { computed, inject, onUpdated, ref } from 'vue';
+import { computed, inject, onMounted, onUpdated, ref } from 'vue';
 import { EventBusType } from '../common/eventBus';
 export default {
   name: "BUI-Slides-item",
@@ -24,19 +22,17 @@ export default {
     const eventBus = inject<EventBusType>("EventBus");
     const selected = ref(undefined)
     const reverse = ref(false)
-    const animationEnabled = ref(false)
 
     const visible = computed(() => {
       return selected.value === props.name
     })
-    eventBus.on('update:reverse', (payload: boolean) => {
-      reverse.value = payload
-    })
-    eventBus.on('update:selected', (payload) => {
-      selected.value = payload
-    })
-    onUpdated(() => {
-      animationEnabled.value = true
+    onMounted(() => {
+      eventBus.on(`update:reverse-${props.name}`, (payload) => {
+        reverse.value = payload
+      })
+      eventBus.on(`update:selected-${props.name}`, (payload) => {
+        selected.value = payload
+      })
     })
 
     return {
@@ -44,12 +40,15 @@ export default {
       reverse,
       visible,
       props,
-      animationEnabled
     }
   },
 };
 </script>
 <style lang="scss">
+.BUI-Slides-item {
+  width: 100%;
+  height: 100%;
+}
 .BUI-Slides-animation {
   &-leave-active {
     position: absolute;

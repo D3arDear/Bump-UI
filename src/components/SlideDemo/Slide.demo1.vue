@@ -6,7 +6,7 @@
     <Slides
       class="wrapper"
       width="100%"
-      height="100%"
+      height="400px"
       v-model:selected="selected"
     >
       <Slides-item name="1">
@@ -46,8 +46,8 @@ export default {
   margin: 40px;
 }
 .box {
-  width: 500px;
-  height: 350px;
+  width: 100%;
+  height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -58,6 +58,9 @@
               <router-link to="/doc/slide"> Slide </router-link>
             </li>
             <li>
+              <router-link to="/doc/pager"> Pager </router-link>
+            </li>
+            <li>
               <router-link to="/doc/table"> Table × </router-link>
             </li>
             <li>

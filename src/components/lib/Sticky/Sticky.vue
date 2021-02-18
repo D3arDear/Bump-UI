@@ -2,7 +2,7 @@
   <div :class="classes('', '', '')" ref="wrapper" :style="{ heightRef }">
     <div
       :class="classes('', '', `${sticky ? 'sticky' : ''}`)"
-      :style="{ leftRef, widthRef, topRef }"
+      :style="{ left: leftRef, width: widthRef, top: topRef }"
     >
       <slot></slot>
     </div>
@@ -50,6 +50,8 @@ export default {
         widthRef.value = width + "px";
         topRef.value = props.distance + "px";
         sticky.value = true;
+        console.log(topRef.value)
+        console.log(heightRef.value)
       } else {
         heightRef.value = undefined;
         leftRef.value = undefined;

@@ -1,63 +1,72 @@
 <template>
   <div class="contentWrapper">
-    <Topnav></Topnav>
+    <Sticky class="topnav">
+      <Topnav class="topnav"></Topnav>
+    </Sticky>
     <div class="content">
       <aside v-if="asideVisible">
-        <div class="handle"></div>
-        <h2>文档</h2>
-        <ul>
-          <li>
-            <router-link to="/doc/intro">介绍</router-link>
-          </li>
-          <li>
-            <router-link to="/doc/install">安装</router-link>
-          </li>
-          <li>
-            <router-link to="/doc/get-started">开始使用</router-link>
-          </li>
-        </ul>
-        <h2>组件列表</h2>
-        <ul>
-          <li>
-            <router-link to="/doc/switch"> Switch </router-link>
-          </li>
-          <li>
-            <router-link to="/doc/button"> Button </router-link>
-          </li>
-          <li>
-            <router-link to="/doc/icon"> Icon </router-link>
-          </li>
-          <li>
-            <router-link to="/doc/Popover"> Popover </router-link>
-          </li>
-          <li>
-            <router-link to="/doc/toast"> Toast </router-link>
-          </li>
-          <li>
-            <router-link to="/doc/sticky"> Sticky </router-link>
-          </li>
-          <li>
-            <router-link to="/doc/dialog"> Dialog </router-link>
-          </li>
-          <li>
-            <router-link to="/doc/tabs"> Tabs </router-link>
-          </li>
-          <li>
-            <router-link to="/doc/collapse"> Collapse </router-link>
-          </li>
-          <li>
-            <router-link to="/doc/scroll"> Scroll </router-link>
-          </li>
-          <li>
-            <router-link to="/doc/slide"> Slide </router-link>
-          </li>
-          <li>
-            <router-link to="/doc/table"> Table × </router-link>
-          </li>
-          <li>
-            <router-link to="/doc/cascader"> Cascader × </router-link>
-          </li>
-        </ul>
+        <!-- <div class="handle"></div> -->
+        <Scroll
+          :style="{
+            height: 'calc(100vh - 50px)',
+            width: '208px',
+          }"
+        >
+          <h2>文档</h2>
+          <ul>
+            <li>
+              <router-link to="/doc/intro">介绍</router-link>
+            </li>
+            <li>
+              <router-link to="/doc/install">安装</router-link>
+            </li>
+            <li>
+              <router-link to="/doc/get-started">开始使用</router-link>
+            </li>
+          </ul>
+          <h2>组件列表</h2>
+          <ul>
+            <li>
+              <router-link to="/doc/switch"> Switch </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/button"> Button </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/icon"> Icon </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/Popover"> Popover </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/toast"> Toast </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/sticky"> Sticky </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/dialog"> Dialog </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/tabs"> Tabs </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/collapse"> Collapse </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/scroll"> Scroll </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/slide"> Slide </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/table"> Table × </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/cascader"> Cascader × </router-link>
+            </li>
+          </ul>
+        </Scroll>
       </aside>
       <main :class="{ asideVisible: asideVisible }">
         <div class="main-content">
@@ -75,9 +84,11 @@
 <script lang="ts">
 import { inject, Ref } from "vue";
 import Topnav from "./common/Topnav.vue";
+import Scroll from '../lib/Scroll/Scroll.vue'
+import Sticky from '../lib/Sticky/Sticky.vue';
 
 export default {
-  components: { Topnav },
+  components: { Topnav, Scroll, Sticky },
   setup() {
     const asideVisible = inject<Ref<boolean>>("asideVisible");
     return { asideVisible };
@@ -88,8 +99,12 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../components/lib/style/theme.scss";
+
 .contentWrapper {
   background: $--color--background;
+  .topnav {
+    z-index: 30;
+  }
 }
 .content {
   height: 100%;
@@ -97,9 +112,8 @@ export default {
   position: relative;
   background: $--color--background;
   aside {
-    position: absolute;
-    height: 100%;
-    top: 0;
+    position: fixed;
+    top: 54px;
     left: 0;
     bottom: 0;
     display: flex;

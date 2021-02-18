@@ -33,6 +33,9 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../../components/lib/style/theme.scss";
+.Topnav {
+  z-index: 30;
+}
 .Topnav,
 .TopNav.asideVisible {
   display: flex;
@@ -41,7 +44,7 @@ export default {
   align-items: center;
   height: 50px;
   position: relative;
-  z-index: 20;
+  z-index: 30;
   border-bottom: 1px solid lighten($--color--background, 10%);
   box-shadow: shadowD-oneWay(
     bottom,

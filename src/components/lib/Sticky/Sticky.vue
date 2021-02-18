@@ -50,8 +50,6 @@ export default {
         widthRef.value = width + "px";
         topRef.value = props.distance + "px";
         sticky.value = true;
-        console.log(topRef.value)
-        console.log(heightRef.value)
       } else {
         heightRef.value = undefined;
         leftRef.value = undefined;

@@ -1,8 +1,8 @@
 <template>
   <div class="switch">
     <h1>Sticky 组件</h1>
-    <Demo :component="StickyDemo1">
-      <p>Syicky 的基本用法 distance 可以控制粘连内容距视口顶端多少距离</p>
+    <Demo :component="StickyDemo1" defaultVisible>
+      <p>distance 可以控制粘连内容距视口顶端多少距离</p>
     </Demo>
   </div>
 </template>

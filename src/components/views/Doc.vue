@@ -1,7 +1,7 @@
 <template>
   <div class="contentWrapper">
     <Sticky class="topnav">
-      <Topnav class="topnav"></Topnav>
+      <Topnav></Topnav>
     </Sticky>
     <div class="content">
       <aside v-if="asideVisible">
@@ -103,6 +103,7 @@ export default {
 .contentWrapper {
   background: $--color--background;
   .topnav {
+    position: relative;
     z-index: 30;
   }
 }
@@ -113,7 +114,7 @@ export default {
   background: $--color--background;
   aside {
     position: fixed;
-    top: 54px;
+    top: 0;
     left: 0;
     bottom: 0;
     display: flex;
@@ -122,7 +123,7 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 10px 0;
+    padding: 50px 0 10px 0;
     border-right: 1px solid lighten($--color--background, 10%);
     /* box-shadow: shadowD-oneWay(
       right,

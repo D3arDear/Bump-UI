@@ -92,6 +92,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+  flex-wrap: wrap;
   &-item {
     margin: 10px;
   }

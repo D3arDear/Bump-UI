@@ -1,10 +1,10 @@
 <template>
   <div class="popover">
     <h1>Popover 组件</h1>
-    <Demo :component="PopoverDemo1">
+    <Demo :component="PopoverDemo1" defaultVisible>
       <p>Popover 的基本用法</p>
     </Demo>
-    <Demo :component="PopoverDemo2">
+    <Demo :component="PopoverDemo2" defaultVisible>
       <p>Popover 接受 trigger 属性，决定弹出由 hover 控制还是由 click 控制</p>
     </Demo>
   </div>
@@ -35,9 +35,9 @@ export default {
   width: 100%;
   .switchSection {
     display: flex;
-    flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    flex-wrap: wrap;
     width: 100%;
   }
 }

@@ -51,7 +51,7 @@
 <script lang="ts">
 import Icon from './lib/Icon.vue'
 import "highlight.js/styles/atom-one-dark.css";
-import { Component, computed, PropType, ref } from "vue";
+import { Component, computed, onMounted, PropType, ref } from "vue";
 
 export default {
   components: {
@@ -62,6 +62,10 @@ export default {
       type: Object as PropType<Component>,
       required: true,
     },
+    defaultVisible: {
+      type: Boolean,
+      default: false
+    }
   },
   setup(props) {
     const codeVisible = ref(false);
@@ -70,6 +74,12 @@ export default {
     const toggleCode = () => (codeVisible.value = !codeVisible.value);
     const actionHoverEnter = () => (actionHover.value = true);
     const actionHoverLeave = () => (actionHover.value = false);
+
+    onMounted(() => {
+      if (props.defaultVisible) {
+        codeVisible.value = true;
+      }
+    })
     return {
       html,
       codeVisible,

@@ -2,8 +2,15 @@
   <header class="Topnav" :class="{ asideVisible: asideVisible }">
     <div class="logo"></div>
     <ul class="menu">
-      <li>菜单1</li>
-      <li>菜单2</li>
+      <li>
+        <Button
+          @click="toGithub"
+          surfaceStyle="convex"
+          bodyStyle="convex"
+          :icon="{ name: 'github' }"
+          rounded
+        ></Button>
+      </li>
     </ul>
     <span class="toggleAside" @click="toggleAside">
       <Icon name="menu" />
@@ -15,10 +22,12 @@
 import { inject, Ref } from "vue";
 import SvgIcon from './logo.vue'
 import Icon from '../../lib/Icon.vue';
+import Button from '../../lib/Button/Button.vue';
 export default {
   components: {
     SvgIcon,
-    Icon
+    Icon,
+    Button
   },
   name: "Topnav",
   setup() {
@@ -26,7 +35,10 @@ export default {
     const toggleAside = () => {
       asideVisible.value = !asideVisible.value;
     };
-    return { toggleAside, asideVisible };
+    const toGithub = () => {
+      window.open('https://github.com/BrendanZhang/Bump-UI')
+    }
+    return { toggleAside, asideVisible, toGithub };
   },
 };
 </script>

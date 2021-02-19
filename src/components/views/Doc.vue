@@ -37,6 +37,9 @@
               <router-link to="/doc/button"> Button </router-link>
             </li>
             <li>
+              <router-link to="/doc/Input"> Input </router-link>
+            </li>
+            <li>
               <router-link to="/doc/icon"> Icon </router-link>
             </li>
             <li>

@@ -17,6 +17,7 @@ import StickyDemo from "./components/StickyDemo/Sticky.demo.vue";
 import PagerDemo from "./components/PagerDemo/Pager.demo.vue";
 import LayoutDemo from "./components/LayoutDemo/Layout.demo.vue";
 import GridDemo from "./components/GridDemo/Grid.demo.vue";
+import InputDemo from "./components/InputDemo/Input.demo.vue";
 
 import { h } from "vue";
 import Markdown from "./components/Markdown.vue";
@@ -60,6 +61,7 @@ export const router = createRouter({
         { path: "sticky", component: StickyDemo },
         { path: "pager", component: PagerDemo },
         { path: "grid", component: GridDemo },
+        { path: "input", component: InputDemo },
       ],
     },
   ],

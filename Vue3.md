@@ -341,3 +341,26 @@ export default {
 ```
 
 参考文献: https://juejin.cn/post/6890781300648017934
+
+# emits
+
+- emits 可以用来创建一个子组件向父组件发送更新请求
+
+```html
+<template>
+  <button v-on:click="$emit('updateItem', $event)">OK</button>
+</template>
+<script>
+  export default {
+    emits: ["updateItem"],
+  };
+</script>
+```
+
+```html
+<my-button v-on:updateItem="handleClick"></my-button>
+```
+
+没定义的 emits 会自动绑定到组件的 $attrs 上
+
+注：最好不要使用和原生事件名相同的自定义事件名，否则会调用两次，一次 $emit，另一次原生

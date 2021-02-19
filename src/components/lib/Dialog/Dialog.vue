@@ -11,6 +11,7 @@
                   @click="close"
                   level="primary"
                   rounded
+                  textButton
                   :icon="{ name: 'exit', right: false }"
                 />
               </header>

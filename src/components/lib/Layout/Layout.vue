@@ -14,7 +14,6 @@ export default {
       hasSider: false
     })
     onMounted(() => {
-      console.log(context.slots.default())
       context.slots.default().forEach(vm => {
         if (vm.type.name === "BUI-Sider") {
           layoutClass.hasSider = true;

@@ -1,11 +1,12 @@
 <template>
-  <div class="col" :class="colClass" :style="colStyle">
+  <div class="BUI-Col" :class="colClass" :style="colStyle">
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
-let validator = value => {
+import { computed, ref } from 'vue';
+const validator = value => {
   let keys = Object.keys(value);
   let valid = true;
   keys.forEach(key => {
@@ -16,7 +17,7 @@ let validator = value => {
   return valid;
 };
 export default {
-  name: "zealotCol",
+  name: "BUI-Col",
   props: {
     span: {
       type: [Number, String]
@@ -41,13 +42,11 @@ export default {
       validator
     }
   },
-  data() {
-    return {
-      gutter: 0
-    };
-  },
-  methods: {
-    selectClass(spanAndOffSet, string = "") {
+  setup(props, context) {
+    const gutter = ref(0)
+
+
+    const selectClass = (spanAndOffSet, string = "") => {
       // ipad- or pc-
       if (!spanAndOffSet) {
         return [];
@@ -61,32 +60,37 @@ export default {
       }
       return array;
     }
-  },
-  computed: {
-    colClass() {
-      let { span, offset, pad, narrowPc, pc, widePc } = this;
-      let selectClass = this.selectClass;
+
+    const colClass = computed(() => {
+      let { span, offset, pad, narrowPc, pc, widePc } = props
+      let selectClassFunc = selectClass
       return [
-        ...selectClass({ span, offset }),
-        ...selectClass(pad, "pad-"),
-        ...selectClass(narrowPc, "narrow-pc-"),
-        ...selectClass(pc, "pc-"),
-        ...selectClass(widePc, "wide-pc-")
+        ...selectClassFunc({ span, offset }),
+        ...selectClassFunc(pad, "pad-"),
+        ...selectClassFunc(narrowPc, "narrow-pc-"),
+        ...selectClassFunc(pc, "pc-"),
+        ...selectClassFunc(widePc, "wide-pc-")
       ];
-    },
-    colStyle() {
+    })
+
+    const colStyle = computed(() => {
       return {
-        paddingLeft: this.gutter / 2 + "px",
-        paddingRight: this.gutter / 2 + "px"
+        paddingLeft: gutter.value / 2 + "px",
+        paddingRight: gutter.value / 2 + "px"
       };
-    }
+    })
+
+    return {
+      gutter,
+      colClass,
+      colStyle
+    };
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.col {
-  padding: 10px;
+.BUI-Col {
   $class-prefix: col-;
   @for $n from 1 through 24 {
     &.#{$class-prefix}#{$n} {

@@ -28,6 +28,9 @@
               <router-link to="/doc/layout"> Layout </router-link>
             </li>
             <li>
+              <router-link to="/doc/grid"> Grid </router-link>
+            </li>
+            <li>
               <router-link to="/doc/switch"> Switch </router-link>
             </li>
             <li>

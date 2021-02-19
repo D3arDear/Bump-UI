@@ -16,6 +16,7 @@ import SlideDemo from "./components/SlideDemo/Slide.demo.vue";
 import StickyDemo from "./components/StickyDemo/Sticky.demo.vue";
 import PagerDemo from "./components/PagerDemo/Pager.demo.vue";
 import LayoutDemo from "./components/LayoutDemo/Layout.demo.vue";
+import GridDemo from "./components/GridDemo/Grid.demo.vue";
 
 import { h } from "vue";
 import Markdown from "./components/Markdown.vue";
@@ -58,6 +59,7 @@ export const router = createRouter({
         { path: "slide", component: SlideDemo },
         { path: "sticky", component: StickyDemo },
         { path: "pager", component: PagerDemo },
+        { path: "grid", component: GridDemo },
       ],
     },
   ],

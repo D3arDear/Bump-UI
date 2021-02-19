@@ -2,7 +2,7 @@
 基本布局组件
 </demo>
 <template>
-  <Layout class="layout" :style="{ height: 'calc( 100vh - 50px )' }">
+  <Layout class="layout-out" :style="{ height: 'calc( 100vh - 50px )' }">
     <Sider class="sider">sider</Sider>
     <Layout class="layout">
       <Header class="header">header</Header>
@@ -21,8 +21,8 @@ import Footer from '../lib/Layout/Footer.vue'
 </script>
 
 <style lang="scss">
-.layout {
-  background: none;
+.layout-out {
+  overflow: hidden;
 }
 .sider,
 .header,

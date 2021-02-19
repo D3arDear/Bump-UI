@@ -16,20 +16,12 @@
     </Slides>
   </div>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import Slides from '../lib/Slides/Slides.vue'
 import SlidesItem from '../lib/Slides/Slides-item.vue'
 import { ref } from 'vue';
-export default {
-  name: "demo",
-  components: { Slides, SlidesItem },
-  setup() {
-    const selected = ref("2")
-    return {
-      selected
-    }
-  },
-};
+const name = "demo"
+const selected = ref("2")
 </script>
 <style lang="scss">
 * {

@@ -13,7 +13,7 @@ import CollapseDemo from "./components/CollapseDemo/Collapse.demo.vue";
 import TableDemo from "./components/TableDemo/Table.demo.vue";
 import ScrollDemo from "./components/ScrollDemo/Scroll.demo.vue";
 import SlideDemo from "./components/SlideDemo/Slide.demo.vue";
-import StickyDemo from "./components/Sticky/Sticky.demo.vue";
+import StickyDemo from "./components/StickyDemo/Sticky.demo.vue";
 import PagerDemo from "./components/PagerDemo/Pager.demo.vue";
 
 import { h } from "vue";

@@ -23,19 +23,10 @@
   </section>
 </template>
 
-<script>
+<script lang="ts" setup>
 import Tabs from '../lib/Tabs/Tabs.vue'
 import Tab from '../lib/Tabs/Tab.vue'
 import { ref } from 'vue';
-export default {
-  name: "TabsDemo",
-  components:{
-    Tabs,
-    Tab
-  },
-  setup(){
-    const tabsValue = ref('导航1')
-    return {tabsValue}
-  }
-};
+const name = "TabsDemo"
+const tabsValue = ref('导航1')
 </script>

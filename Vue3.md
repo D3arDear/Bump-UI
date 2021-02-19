@@ -158,6 +158,7 @@ Object as PropType<InterfaceYouWant>;
 ```html
 <script setup>
   import Foo from "./Foo.vue";
+  // 我还需要 components:{} 吗？
   import { ref } from "vue";
 
   const count = ref(0);
@@ -176,6 +177,7 @@ Object as PropType<InterfaceYouWant>;
   - 但是在使用的过程中我发现我这个版本("vue": "3.0.2" )无法使用 `export`，无法指定需要导出的变量
   - 也就是我在 script setup 中定义的所有变量、函数，全部都会导出到上下文
   - 虽然不会产生命名空间的问题，但我还是认为应该选择性的导出（很多情况下一些工具函数仅会在其他函数内部调用）
+    - 不过也有它的好处：我导入的组件不用写 `components:{xxx}` 直接就能用
 
 ## 甚至可以在里面定义 props 和 emit
 

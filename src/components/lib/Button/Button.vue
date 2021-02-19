@@ -111,10 +111,10 @@ export default {
     } = props;
     const { size, level, ...rest } = context.attrs;
 
-    const themeClasses = `surface-${surfaceStyle} body-${bodyStyle}`;
+    const themeClasses = computed(() => `surface-${surfaceStyle} body-${bodyStyle}`);
     const classes = classMaker("BUI-Button");
-    const parsedLevel = levelList.indexOf(level as string) < 0 ? "" : level;
-    const buttonTheme = textButton ? "Text" : "Neo";
+    const parsedLevel = computed(() => levelList.indexOf(level as string) < 0 ? "" : level)
+    const buttonTheme = computed(() => textButton ? "Text" : "Neo")
 
     const singleIcon = computed(() => {
       return context.slots.default

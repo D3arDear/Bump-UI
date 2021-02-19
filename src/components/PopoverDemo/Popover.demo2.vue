@@ -31,12 +31,9 @@ hover 弹出 Popover
 </template>
 
 
-<script lang="ts">
+<script lang="ts" setup>
 import Popover from "../lib/Popover/Popover.vue";
 import Button from '../lib/Button/Button.vue'
-export default {
-  components: { Popover, Button },
-}
 </script>
 
 <style lang="scss" scoped>

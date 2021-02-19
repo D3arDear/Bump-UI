@@ -22,17 +22,27 @@
         textButton
         level="primary"
       ></Button>
-      <Button
-        v-for="n in childrenLength"
-        :key="n"
-        :data-index="n - 1"
-        :class="{ active: selectedIndex === n - 1 }"
-        @click="select(n - 1)"
-        rounded
-        textButton
-      >
-        {{ n }}
-      </Button>
+      <template v-for="n in childrenLength" :key="n">
+        <Button
+          :data-index="n - 1"
+          v-if="selectedIndex === n - 1"
+          @click="select(n - 1)"
+          rounded
+          level="primary"
+          textButton
+        >
+          {{ n }}
+        </Button>
+        <Button
+          :data-index="n - 1"
+          v-else
+          @click="select(n - 1)"
+          rounded
+          textButton
+        >
+          {{ n }}
+        </Button>
+      </template>
       <Button
         @click="onClickNext"
         :icon="{ name: 'right' }"

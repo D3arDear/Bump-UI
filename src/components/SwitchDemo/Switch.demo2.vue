@@ -7,16 +7,10 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue';
 import Switch from "../lib/Switch/Switch.vue";
-export default {
-  components: { Switch },
-  setup() {
-    const bool = ref(false);
-    return { bool };
-  },
-}
+const bool = ref(false);
 </script>
 
 <style lang="scss" scoped>

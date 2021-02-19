@@ -15,6 +15,7 @@ import ScrollDemo from "./components/ScrollDemo/Scroll.demo.vue";
 import SlideDemo from "./components/SlideDemo/Slide.demo.vue";
 import StickyDemo from "./components/StickyDemo/Sticky.demo.vue";
 import PagerDemo from "./components/PagerDemo/Pager.demo.vue";
+import LayoutDemo from "./components/LayoutDemo/Layout.demo.vue";
 
 import { h } from "vue";
 import Markdown from "./components/Markdown.vue";
@@ -42,6 +43,7 @@ export const router = createRouter({
         { path: "intro", component: md(intro) },
         { path: "get-started", component: md(getStarted) },
         { path: "install", component: md(install) },
+        { path: "layout", component: LayoutDemo },
         { path: "switch", component: SwitchDemo },
         { path: "button", component: ButtonDemo },
         { path: "dialog", component: DialogDemo },

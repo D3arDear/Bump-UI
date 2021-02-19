@@ -25,6 +25,9 @@
           <h2>组件列表</h2>
           <ul>
             <li>
+              <router-link to="/doc/layout"> Layout </router-link>
+            </li>
+            <li>
               <router-link to="/doc/switch"> Switch </router-link>
             </li>
             <li>

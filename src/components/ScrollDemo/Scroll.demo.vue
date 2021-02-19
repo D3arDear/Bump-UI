@@ -10,21 +10,12 @@
   </div>
 </template>
 
-<script lang="ts" scoped>
+<script lang="ts" setup>
 import Demo from "../Demo.vue";
 import ScrollDemo1 from './Scroll.demo1.vue'
 import ScrollDemo2 from './Scroll.demo2.vue'
 
-export default {
-  name: "SwitchDemo",
-  components: { Demo },
-  setup() {
-    return {
-      ScrollDemo1,
-      ScrollDemo2
-    };
-  },
-}
+const name = "SwitchDemo"
 </script>
 
 <style lang="scss">

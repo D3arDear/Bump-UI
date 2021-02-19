@@ -1,0 +1,92 @@
+@import "../style/theme.scss";
+@function confirmTextColorByBG($textColor, $default) {
+  @if lightness($--color--background) >= 50% {
+    @if $default == true {
+      @return $--color--text--black;
+    } @else {
+      @return darken($textColor, 20%);
+    }
+  } @else {
+    @if $default == true {
+      @return $--color--text--white;
+    } @else {
+      @return lighten($textColor, 20%);
+    }
+  }
+}
+
+$--color--default-pager-color: #009688;
+.BUI-pager {
+  $width: 20px;
+  $height: 20px;
+  $font-size: 12px;
+  font-style: normal;
+  display: flex;
+  user-select: none;
+  justify-content: flex-start;
+  align-items: center;
+  &.hide {
+    display: none;
+  }
+  &-nav {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: $height;
+    width: $width;
+    font-size: $font-size;
+    margin: 0 4px;
+    cursor: pointer;
+    svg {
+      fill: $--color--pager;
+    }
+    &.disabled {
+      cursor: default;
+      svg {
+        fill: $--color--disabled;
+      }
+    }
+  }
+  &-separator {
+    width: $width;
+    font-size: $font-size;
+    fill: $--color--pager;
+  }
+  &-item {
+    color: $--color--pager;
+    border-radius: $height / 4;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: $width;
+    height: $height;
+    padding: 4px;
+    margin: 0 4px;
+    font-size: $font-size;
+    cursor: pointer;
+    &.separator {
+      &:hover {
+        user-select: none;
+        cursor: auto;
+      }
+    }
+    &.current {
+      color: ContrastText($--color--pager);
+      font-weight: bold;
+      border-radius: $height / 4;
+      transition: all 300ms;
+      @include surface($light-direction, $--color--pager, convex);
+      @include shadow($light-direction, $--color--pager, $--blur-range-4);
+    }
+    &:hover {
+      box-shadow: surface-shadow-generator($light-direction, $--color--pager, $--blur-range-3),
+        shadow-generator($light-direction, $--color--pager, $--blur-range-4);
+    }
+    &.current:hover {
+      @include surface($light-direction, $--color--pager, concave);
+      @include shadow($light-direction, $--color--pager, $--blur-range-5);
+      user-select: none;
+      cursor: auto;
+    }
+  }
+}

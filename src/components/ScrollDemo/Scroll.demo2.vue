@@ -9,11 +9,8 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import Scroll from "../lib/Scroll/Scroll.vue";
-export default {
-  components: { Scroll },
-}
 </script>
 
 <style lang="scss" scoped>

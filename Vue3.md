@@ -152,9 +152,67 @@ Object as PropType<InterfaceYouWant>;
 
 # setup() 是蛮不错的，但是我居然要 return 那么多东西
 
-```html
+- 每次都得在`setup()`最后 `return` 一堆变量，不然外面访问不到
+- 太痛苦了，能不能在定义的时候就导出
 
+```html
+<script setup>
+  import Foo from "./Foo.vue";
+  import { ref } from "vue";
+
+  const count = ref(0);
+  const inc = () => {
+    count.value++;
+  };
+</script>
+
+<template>
+  <Foo :count="count" @click="inc" />
+</template>
 ```
+
+- 这个特性蛮不错的，如果用户铁了心了只想在 `setup()` 里只用 `Composition API`（比如说我）
+- 就相当于在编译运行时把代码放到了 setup 函数中运行，然后把导出的变量定义到上下文中，并包含在返回的对象中。
+  - 但是在使用的过程中我发现我这个版本("vue": "3.0.2" )无法使用 `export`，无法指定需要导出的变量
+  - 也就是我在 script setup 中定义的所有变量、函数，全部都会导出到上下文
+  - 虽然不会产生命名空间的问题，但我还是认为应该选择性的导出（很多情况下一些工具函数仅会在其他函数内部调用）
+
+## 甚至可以在里面定义 props 和 emit
+
+```html
+<script setup>
+  const props = defineProps({
+    foo: String,
+  });
+
+  const emit = defineEmit(["change", "delete"]);
+</script>
+```
+
+- 你可能注意到了这时候的类型还是`String`，也就是我还不能愉快的使用 ts 类型
+- 如果一定要用还是需要 `as PropType<someInterface>`
+- 没关系，这时候你需要一个 `defineProps<someInterface>()`
+
+### 甚至可以愉快的用 ts 类型
+
+```html
+<script lang="ts" setup>
+  const props = defineProps<{
+    foo: string;
+    bar?: number;
+  }>();
+
+  const emit = defineEmit<(e: "update" | "delete", id: number) => void>();
+</script>
+```
+
+关于这个支持 ts 我举双手双脚赞成
+
+## 关于实验性特性
+
+- 由于实验性特性可能会有不可预期的大改动(break)，所以我并没有在库中使用，而是在一些展示页面中使用 `script setup`
+- 有计划在该实验性特性进入稳定版本前不久改版为 `script setup`
+  - 谁不喜欢拥抱 ts 呢
 
 # watchEffect 中更新的后没有继续监听怎么办
 

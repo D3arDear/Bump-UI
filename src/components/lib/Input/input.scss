@@ -9,140 +9,139 @@ $border-color-hover: darken($--color--background, 10%);
   justify-content: flex-start;
   align-items: flex-start;
   width: inherit;
-}
-.BUI-Input__wrapper {
-  display: inline-flex;
-  position: relative;
-  transition: all 0.3s;
-  width: inherit;
-  &:hover {
-    &::before {
-      opacity: 1;
-    }
-    .BUI-Input {
-      background: $--color--background;
-    }
-  }
-  &:focus-within {
-    &::after {
-      right: 0;
-      left: 0;
-      opacity: 1;
-    }
-    .BUI-Input {
-      background: $--color--background;
-      &:hover {
-        border-color: $border-color-hover;
-      }
-      &:focus {
-        box-shadow: inset 0 1px 3px $box-shadow-color;
-        outline: none;
-      }
-      &[disabled],
-      &[readonly] {
-        border-color: rgba(0, 0, 0, 0.3);
-        color: rgba(0, 0, 0, 0.5);
-        cursor: not-allowed;
-      }
-    }
-    .BUI-Input__label {
-      transform: translateY(0px) scale(0.75);
-      color: $--color--primary;
-    }
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    display: block;
-    bottom: 0;
-    opacity: 0;
-    background-color: #888;
-    left: 0;
-    right: 0;
-    height: 1px;
-    transition: all 0.3s;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    display: block;
-    bottom: 0;
-    right: 50%;
-    left: 50%;
-    height: 2px;
-    opacity: 0;
-    background-color: $--color--primary;
-    transition: all 0.3s;
-  }
-
-  .BUI-Input__label {
+  .BUI-Input__wrapper {
     display: inline-flex;
-    position: absolute;
-    color: #666;
-    top: 6px;
-    font-size: 14px;
-    transform: translateY(30%) scale(1);
-    transform-origin: left top;
-    bottom: 6px;
+    position: relative;
     transition: all 0.3s;
-    left: 6px;
-    &--active {
-      @extend .BUI-Input__label;
-      transform: translateY(0px) scale(0.75);
-      color: $--color--primary;
+    width: inherit;
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      bottom: 0;
+      opacity: 0;
+      background-color: #888;
+      left: 0;
+      right: 0;
+      height: 1px;
+      transition: all 0.3s;
     }
-    &.focus {
-      transform: translateY(0px) scale(0.75);
-      color: rgba(0, 0, 0, 0.6);
-    }
-  }
-  &.noLabel {
-    .BUI-Input {
-      padding: 6px;
-    }
-  }
 
-  &.standard {
-    &:focus-within {
-      .BUI-Input {
-        box-shadow: 0 0 3px 0 fade-out($--color--primary, $amount: 1);
-        transition: box-shadow border-color 0.3s;
-        border-color: #e1e1e1;
-        &:focus {
-          border-color: lighten($color: $--color--primary, $amount: 0.5);
-          box-shadow: 0 0 3px 0
-            fade-out($color: lighten($color: $--color--primary, $amount: 0.5), $amount: 0.3);
+    &::after {
+      content: "";
+      position: absolute;
+      display: block;
+      bottom: 0;
+      right: 50%;
+      left: 50%;
+      height: 2px;
+      opacity: 0;
+      background-color: $--color--primary;
+      transition: all 0.3s;
+    }
+    .BUI-Input {
+      width: 100%;
+      transition: all 0.3s;
+      background: rgb(245, 245, 245);
+      border: 1px solid #e1e1e1;
+      padding: 18px 6px 6px 6px;
+      font: inherit;
+      line-height: 24px;
+      border-radius: 0;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      box-shadow: 0;
+      color: #333;
+      &__label {
+        display: inline-flex;
+        position: absolute;
+        color: #666;
+        top: 6px;
+        font-size: 14px;
+        transform: translateY(30%) scale(1);
+        transform-origin: left top;
+        bottom: 6px;
+        transition: all 0.3s;
+        left: 6px;
+        &--active {
+          @extend .BUI-Input__label;
+          transform: translateY(0px) scale(0.75);
+          color: $--color--primary;
         }
       }
     }
-    .BUI-Input {
-      border-radius: 8px;
+    &:hover {
+      &::before {
+        opacity: 1;
+      }
+      .BUI-Input {
+        background: $--color--background;
+      }
     }
-    &::before {
-      display: none;
+    &:focus-within {
+      &::after {
+        right: 0;
+        left: 0;
+        opacity: 1;
+      }
+      .BUI-Input {
+        background: $--color--background;
+        &:hover {
+          border-color: $border-color-hover;
+        }
+        &:focus {
+          box-shadow: inset 0 1px 3px $box-shadow-color;
+          outline: none;
+        }
+        &[disabled],
+        &[readonly] {
+          border-color: rgba(0, 0, 0, 0.3);
+          color: rgba(0, 0, 0, 0.5);
+          cursor: not-allowed;
+        }
+        &__label {
+          @extend .BUI-Input__label;
+          transform: translateY(0px) scale(0.75);
+          color: $--color--primary;
+        }
+      }
     }
-    &::after {
-      display: none;
+    &.noLabel {
+      .BUI-Input {
+        padding: 6px;
+      }
+    }
+    .BUI-Input__Wrapper--standard {
+      @extend .BUI-Input__wrapper;
+      &:focus-within {
+        .BUI-Input {
+          box-shadow: 0 0 3px 0 fade-out($--color--primary, $amount: 1);
+          transition: box-shadow border-color 0.3s;
+          border-color: #e1e1e1;
+          &:focus {
+            border-color: lighten($color: $--color--primary, $amount: 0.5);
+            box-shadow: 0 0 3px 0
+              fade-out($color: lighten($color: $--color--primary, $amount: 0.5), $amount: 0.3);
+          }
+        }
+      }
+      .BUI-Input {
+        border-radius: 8px;
+      }
+      &::before {
+        display: none;
+      }
+      &::after {
+        display: none;
+      }
     }
   }
-  .BUI-Input {
-    width: 100%;
-    transition: all 0.3s;
-    background: rgb(245, 245, 245);
-    border: 1px solid #e1e1e1;
-    padding: 18px 6px 6px 6px;
-    font: inherit;
-    line-height: 24px;
-    border-radius: 0;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    box-shadow: 0;
-    color: #333;
-    &:focus {
-      outline: none;
-      border-color: #d1d1d1;
+  .BUI-Input__error {
+    &-msg {
+      color: $--color--primary;
+    }
+    &-icon {
+      color: $--color--primary;
     }
   }
 }

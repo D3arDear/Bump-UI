@@ -1,6 +1,11 @@
 <template>
   <div :class="classes('', 'container', '')">
-    <div :class="[classes('', 'wrapper', ''), label ? '' : 'noLabel']">
+    <div
+      :class="[
+        classes('', 'wrapper', `${standard ? 'standard' : ''}`),
+        label ? '' : 'noLabel',
+      ]"
+    >
       <div
         v-if="label"
         :class="classes('', 'label', `${value ? 'active' : ''}`)"
@@ -25,9 +30,7 @@
     <template v-if="error">
       <div :class="classes('', 'error', '')">
         <Icon name="error" :class="classes('', 'error-icon', '')"></Icon>
-        <span class="errorMsg" :class="classes('', 'error-msg', '')">{{
-          error
-        }}</span>
+        <span :class="classes('', 'error-msg', '')">{{ error }}</span>
       </div>
     </template>
   </div>

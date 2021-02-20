@@ -9,6 +9,20 @@ $border-color-hover: darken($--color--background, 10%);
   justify-content: flex-start;
   align-items: flex-start;
   width: inherit;
+  &--error-right {
+    @extend .BUI-Input__container;
+    flex-direction: row;
+    align-items: center;
+    .BUI-Input__error {
+      margin-left: 6px;
+      &-msg {
+        color: $--color--primary;
+      }
+      &-icon {
+        color: $--color--primary;
+      }
+    }
+  }
   .BUI-Input__wrapper {
     display: inline-flex;
     position: relative;
@@ -111,29 +125,29 @@ $border-color-hover: darken($--color--background, 10%);
         padding: 6px;
       }
     }
-    .BUI-Input__Wrapper--standard {
-      @extend .BUI-Input__wrapper;
-      &:focus-within {
-        .BUI-Input {
-          box-shadow: 0 0 3px 0 fade-out($--color--primary, $amount: 1);
-          transition: box-shadow border-color 0.3s;
-          border-color: #e1e1e1;
-          &:focus {
-            border-color: lighten($color: $--color--primary, $amount: 0.5);
-            box-shadow: 0 0 3px 0
-              fade-out($color: lighten($color: $--color--primary, $amount: 0.5), $amount: 0.3);
-          }
+  }
+  .BUI-Input__wrapper--standard {
+    @extend .BUI-Input__wrapper;
+    &:focus-within {
+      .BUI-Input {
+        box-shadow: 0 0 3px 0 fade-out($--color--primary, $amount: 1);
+        transition: box-shadow border-color 0.3s;
+        border-color: #e1e1e1;
+        &:focus {
+          border-color: lighten($color: $--color--primary, $amount: 0.5);
+          box-shadow: 0 0 3px 0
+            fade-out($color: lighten($color: $--color--primary, $amount: 0.5), $amount: 0.3);
         }
       }
-      .BUI-Input {
-        border-radius: 8px;
-      }
-      &::before {
-        display: none;
-      }
-      &::after {
-        display: none;
-      }
+    }
+    .BUI-Input {
+      border-radius: 8px;
+    }
+    &::before {
+      display: none;
+    }
+    &::after {
+      display: none;
     }
   }
   .BUI-Input__error {

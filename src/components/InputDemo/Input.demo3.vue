@@ -1,9 +1,20 @@
 <demo>
-Label 属性
+error 属性
 </demo>
 <template>
-  <Input v-model:value="value" label="value"></Input>
-  <Input v-model:value="value" type="password" label="value"></Input>
+  <Input
+    v-model:value="value"
+    type="password"
+    label="value"
+    error="这里有问题"
+  ></Input>
+  <Input
+    v-model:value="value"
+    type="password"
+    label="value"
+    errorPosition="right"
+    error="这里有问题"
+  ></Input>
 </template>
 <script lang="ts">
 import Input from '../lib/Input/Input.vue'

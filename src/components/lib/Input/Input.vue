@@ -1,5 +1,13 @@
 <template>
-  <div :class="classes('', 'container', '')">
+  <div
+    :class="
+      classes(
+        '',
+        'container',
+        `${errorPosition === 'right' ? 'error-right' : ''}`
+      )
+    "
+  >
     <div
       :class="[
         classes('', 'wrapper', `${standard ? 'standard' : ''}`),
@@ -64,6 +72,13 @@ export default {
     error: {
       type: String
     },
+    errorPosition: {
+      type: String,
+      default: 'bottom',
+      validator: (value: string) => {
+        return ['bottom', 'right'].indexOf(value) >= 0
+      }
+    }
   },
   setup(props, context) {
     const { ...rest } = context.attrs

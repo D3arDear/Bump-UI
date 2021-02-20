@@ -1,31 +1,54 @@
 <template>
-  <div class="wrapper" :class="{ error }">
-    <input
-      ref="input"
-      :value="value"
-      type="text"
-      :disabled="disabled"
-      :readonly="readonly"
-      @change="updateValue"
-      @input="updateValue"
-      @focus="updateValue"
-      @blur="updateValue"
-    />
+  <div :class="classes('', 'container', '')">
+    <div :class="[classes('', 'wrapper', ''), label ? '' : 'noLabel']">
+      <div
+        v-if="label"
+        :class="classes('', 'label', `${value ? 'active' : ''}`)"
+      >
+        <span>{{ label }}</span>
+      </div>
+      <input
+        :class="classes('', '', '')"
+        ref="input"
+        :value="value"
+        :disabled="disabled"
+        :readonly="readonly"
+        v-bind="rest"
+        v-on="{
+          change: onChange,
+          input: onInput,
+          focus: onFocus,
+          blur: onBlur,
+        }"
+      />
+    </div>
     <template v-if="error">
-      <icon name="error" class="icon-error"></icon>
-      <span class="errorMsg">{{ error }}</span>
+      <div :class="classes('', 'error', '')">
+        <Icon name="error" :class="classes('', 'error-icon', '')"></Icon>
+        <span class="errorMsg" :class="classes('', 'error-msg', '')">{{
+          error
+        }}</span>
+      </div>
     </template>
   </div>
 </template>
 <script lang="ts">
 import { ref } from 'vue';
 import Icon from "../Icon.vue";
+import { classMaker } from '../common/classMaker';
 export default {
+  inheritAttrs: false,
   components: { Icon },
   name: "BUI-Input",
   props: {
     value: {
       type: [String, Date]
+    },
+    label: {
+      type: String,
+    },
+    standard: {
+      type: Boolean
     },
     disabled: {
       type: Boolean,
@@ -37,76 +60,45 @@ export default {
     },
     error: {
       type: String
-    }
+    },
   },
   setup(props, context) {
+    const { ...rest } = context.attrs
     const input = ref<HTMLInputElement>(null)
+    const focus = ref(false)
+    const classes = classMaker('BUI-Input')
 
     const setRawValue = (value) => {
       input.value = value;
     }
-    const updateValue = ($event) => {
-      context.emit('update:value', $event.target.value)
+    const updateValue = (value) => {
+      context.emit('update:value', value)
+    }
+    const onInput = ($event) => {
+      console.log('onInput')
+      updateValue($event.target.value)
+    }
+    const onFocus = () => {
+      focus.value = true
+    }
+    const onBlur = () => {
+      focus.value = false
+    }
+    const onChange = () => {
+      console.log('onChange')
     }
     return {
+      classes,
       setRawValue,
       context,
-      updateValue
+      updateValue,
+      onFocus, onBlur, onChange, onInput,
+      rest,
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-/* --button-height: 32px;
---font-size: 16px;
---button-bg: white;
---button-active-bg: #eee;
---border-radius: 2px;
---color: #333;
---border-color: #999;
---border-color-hover: #666; */
-@import "../style/theme.scss";
-$font-size: $--font--size--default;
-$box-shadow-color: $--color--background;
-$border-color-hover: darken($--color--background, 10%);
-.wrapper {
-  font-size: $font-size;
-  display: inline-block;
-  align-items: center;
-  vertical-align: middle;
-  &.error {
-    > input {
-      border-color: #ff000080;
-    }
-  }
-  .icon-error {
-    fill: #ff000080;
-  }
-  .errorMsg {
-    color: #ff000080;
-    font-size: $font-size;
-  }
-  > input {
-    height: 32px;
-    border-radius: 2px;
-    padding: 0 8px;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
-    background: #fafafa;
-    font-size: $font-size;
-    &:hover {
-      border-color: $border-color-hover;
-    }
-    &:focus {
-      box-shadow: inset 0 1px 3px $box-shadow-color;
-      outline: none;
-    }
-    &[disabled],
-    &[readonly] {
-      border-color: rgba(0, 0, 0, 0.3);
-      color: rgba(0, 0, 0, 0.5);
-      cursor: not-allowed;
-    }
-  }
-}
+@import "./input.scss";
 </style>

@@ -2,10 +2,10 @@
   <div class="InputDemo">
     <h1>Input 组件</h1>
     <Demo :component="InputDemo1">
-      <p>Input 的基本用法</p>
+      <p>Input 的基本用法 value 属性双向绑定</p>
     </Demo>
     <Demo :component="InputDemo2">
-      <p>双向绑定</p>
+      <p>接受 label 属性，会对 Input 的样式有较大的改变</p>
     </Demo>
     <Demo :component="InputDemo3">
       <p>

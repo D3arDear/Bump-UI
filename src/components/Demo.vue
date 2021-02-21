@@ -212,4 +212,13 @@ h2 {
     transform: translateY(3%);
   }
 }
+.demo-code {
+  pre {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    ::-webkit-scrollbar {
+      display: none; /* Chrome Safari */
+    }
+  }
+}
 </style>

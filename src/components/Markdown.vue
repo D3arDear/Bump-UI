@@ -15,7 +15,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 @import "highlight.js/styles/atom-one-dark-reasonable.css";
 pre {
   max-width: calc(100vw - 40px);

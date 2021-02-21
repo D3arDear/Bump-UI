@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss">
-.popover {
+.pager {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

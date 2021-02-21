@@ -14,6 +14,7 @@ export { default as Popover } from "./Popover/Popover.vue";
 export { default as Toast } from "./Toast/Toast.vue";
 export { default as Sticky } from "./Sticky/Sticky.vue";
 export { default as Dialog } from "./Dialog/Dialog.vue";
+export { openDialog as openDialog } from "./Dialog/openDialog";
 export { default as Tabs } from "./Tabs/Tabs.vue";
 export { default as Tab } from "./Tabs/Tab.vue";
 export { default as Collapse } from "./Collapse/Collapse.vue";

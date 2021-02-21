@@ -21,10 +21,10 @@
   </div>
 </template>
 <script>
-  import Button from "../lib/Button/Button.vue";
-  import Cascader from "../lib/Cascader/Cascader.vue";
+  import Button from "../../lib/Button/Button.vue";
+  import Cascader from "../../lib/Cascader/Cascader.vue";
   import db from './db.js'
-  import Popover from '../lib/Popover/Popover.vue'
+  import Popover from '../../lib/Popover/Popover.vue'
   function ajax (parentId = 0) {
     return new Promise((success, fail) => {
       setTimeout(() => {

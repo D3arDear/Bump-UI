@@ -37,7 +37,7 @@ table 用法
 </template>
   
 <script lang="ts">
-import Table from "../lib/Table/Table.vue";
+import Table from "../../lib/Table/Table.vue";
 import { reactive, ref } from 'vue';
 export default {
   components: {

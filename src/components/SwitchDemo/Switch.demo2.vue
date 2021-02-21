@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import Switch from "../lib/Switch/Switch.vue";
+import Switch from "../../lib/Switch/Switch.vue";
 const bool = ref(false);
 </script>
 

@@ -12,7 +12,7 @@ hideIfOnePage 控制是否隐藏分页器
   <p>这时候只有一页但是并没有隐藏</p>
 </template>
 <script lang="ts">
-import Pager from '../lib/Pager/Pager.vue'
+import Pager from '../../lib/Pager/Pager.vue'
 import { ref } from 'vue'
 export default {
   components: { Pager },

@@ -13,11 +13,11 @@
 </template>
 
 <script lang="ts" setup>
-import Layout from '../lib/Layout/Layout.vue'
-import Aside from '../lib/Layout/Aside.vue'
-import Header from '../lib/Layout/Header.vue'
-import Content from '../lib/Layout/Content.vue'
-import Footer from '../lib/Layout/Footer.vue'
+import Layout from '../../lib/Layout/Layout.vue'
+import Aside from '../../lib/Layout/Aside.vue'
+import Header from '../../lib/Layout/Header.vue'
+import Content from '../../lib/Layout/Content.vue'
+import Footer from '../../lib/Layout/Footer.vue'
 </script>
 
 <style lang="scss">

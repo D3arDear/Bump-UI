@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import Scroll from "../lib/Scroll/Scroll.vue";
+import Scroll from "../../lib/Scroll/Scroll.vue";
 export default {
   components: {
     Scroll

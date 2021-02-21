@@ -18,8 +18,8 @@
 
 <script lang="ts">
 import { ref } from 'vue';
-import Collapse from '../lib/Collapse/Collapse.vue'
-import CollapseItem from '../lib/Collapse/Collapse.item.vue'
+import Collapse from '../../lib/Collapse/Collapse.vue'
+import CollapseItem from '../../lib/Collapse/Collapse.item.vue'
 export default {
   components: { Collapse, CollapseItem },
   setup() {

@@ -14,15 +14,15 @@ Sticky 的基本用法
 </template>
 
 <script>
-  import Sticky from '../lib/Sticky/Sticky.vue'
-  import Button from '../lib/Button/Button.vue'
+  import Sticky from '../../lib/Sticky/Sticky.vue'
+  import Button from '../../lib/Button/Button.vue'
   export default {
     components: {Sticky,Button},
   };
 </script>
 <style scoped lang="scss">
-@import "../lib/style/_variables.scss";
-@import "../lib/style/helper.scss";
+@import "../../lib/style/_variables.scss";
+@import "../../lib/style/helper.scss";
 .container {
   border-radius: 8px;
   width: 100%;

@@ -6,7 +6,7 @@ standard 属性
   <Input v-model:value="value" type="password" label="value" standard></Input>
 </template>
 <script lang="ts">
-import Input from '../lib/Input/Input.vue'
+import Input from '../../lib/Input/Input.vue'
 import { ref } from 'vue'
 export default {
   components: {

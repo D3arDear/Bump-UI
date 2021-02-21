@@ -58,8 +58,8 @@
 </template>
 
 <script lang="ts" setup>
-import Row from '../lib/Grid/Row.vue'
-import Col from '../lib/Grid/Col.vue'
+import Row from '../../lib/Grid/Row.vue'
+import Col from '../../lib/Grid/Col.vue'
 </script>
 
 <style lang="scss">

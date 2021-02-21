@@ -7,7 +7,7 @@ pager 的默认用法
   </div>
 </template>
 <script lang="ts">
-import Pager from '../lib/Pager/Pager.vue'
+import Pager from '../../lib/Pager/Pager.vue'
 import { ref } from 'vue'
 export default {
   components: { Pager },

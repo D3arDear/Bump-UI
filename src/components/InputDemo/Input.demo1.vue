@@ -8,7 +8,7 @@
   <div>value: {{ value }}</div>
 </template>
 <script lang="ts">
-import Input from '../lib/Input/Input.vue'
+import Input from '../../lib/Input/Input.vue'
 import { ref } from 'vue'
 export default {
   setup(props, context) {

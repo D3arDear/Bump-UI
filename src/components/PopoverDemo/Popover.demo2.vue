@@ -32,8 +32,8 @@ hover 弹出 Popover
 
 
 <script lang="ts" setup>
-import Popover from "../lib/Popover/Popover.vue";
-import Button from '../lib/Button/Button.vue'
+import Popover from "../../lib/Popover/Popover.vue";
+import Button from '../../lib/Button/Button.vue'
 </script>
 
 <style lang="scss" scoped>

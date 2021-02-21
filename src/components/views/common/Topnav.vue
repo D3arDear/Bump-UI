@@ -21,8 +21,8 @@
 <script lang="ts">
 import { inject, Ref } from "vue";
 import SvgIcon from './logo.vue'
-import Icon from '../../lib/Icon.vue';
-import Button from '../../lib/Button/Button.vue';
+import Icon from '../../../lib/Icon.vue';
+import Button from '../../../lib/Button/Button.vue';
 export default {
   components: {
     SvgIcon,
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../../components/lib/style/theme.scss";
+@import "../../../lib/style/theme.scss";
 .Topnav {
   z-index: 30;
 }

@@ -20,7 +20,7 @@
   </div>
 </template>
 <script lang="ts">
-import Button from "../lib/Button/Button.vue";
+import Button from "../../lib/Button/Button.vue";
 export default {
   components: {
     Button,

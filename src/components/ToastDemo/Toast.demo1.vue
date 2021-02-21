@@ -46,8 +46,8 @@
 
 
 <script lang="ts">
-import Toast from "../lib/Toast/Toast.vue";
-import Button from '../lib/Button/Button.vue'
+import Toast from "../../lib/Toast/Toast.vue";
+import Button from '../../lib/Button/Button.vue'
 import { ref } from 'vue';
 export default {
   components: { Toast, Button },

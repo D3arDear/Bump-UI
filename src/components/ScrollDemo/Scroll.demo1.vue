@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import Scroll from "../lib/Scroll/Scroll.vue";
+import Scroll from "../../lib/Scroll/Scroll.vue";
 </script>
 
 <style lang="scss" scoped>

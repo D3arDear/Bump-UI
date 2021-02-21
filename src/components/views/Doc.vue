@@ -94,8 +94,8 @@
 <script lang="ts">
 import { inject, Ref } from "vue";
 import Topnav from "./common/Topnav.vue";
-import Scroll from '../lib/Scroll/Scroll.vue'
-import Sticky from '../lib/Sticky/Sticky.vue';
+import Scroll from '../../lib/Scroll/Scroll.vue'
+import Sticky from '../../lib/Sticky/Sticky.vue';
 
 export default {
   components: { Topnav, Scroll, Sticky },
@@ -111,7 +111,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../components/lib/style/theme.scss";
+@import "../../lib/style/theme.scss";
 
 .contentWrapper {
   background: $--color--background;

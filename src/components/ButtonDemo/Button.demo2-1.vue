@@ -60,8 +60,8 @@
   </div>
 </template>
 <script lang="ts">
-import Icon from '../lib/Icon.vue'
-import Button from "../lib/Button/Button.vue";
+import Icon from '../../lib/Icon.vue'
+import Button from "../../lib/Button/Button.vue";
 export default {
   components: {
     Button,

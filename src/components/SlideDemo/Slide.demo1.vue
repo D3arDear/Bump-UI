@@ -17,8 +17,8 @@
   </div>
 </template>
 <script lang="ts">
-import Slides from '../lib/Slides/Slides.vue'
-import SlidesItem from '../lib/Slides/Slides-item.vue'
+import Slides from '../../lib/Slides/Slides.vue'
+import SlidesItem from '../../lib/Slides/Slides-item.vue'
 import { ref } from 'vue';
 export default {
   name: "demo",

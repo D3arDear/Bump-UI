@@ -17,7 +17,7 @@ error 属性
   ></Input>
 </template>
 <script lang="ts">
-import Input from '../lib/Input/Input.vue'
+import Input from '../../lib/Input/Input.vue'
 import { ref } from 'vue'
 export default {
   components: {

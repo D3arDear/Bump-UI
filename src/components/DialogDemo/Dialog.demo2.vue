@@ -9,8 +9,8 @@
   </section>
 </template>
 <script lang="ts" setup>
-import Button from "../lib/Button/Button.vue";
-import { openDialog } from "../lib/Dialog/openDialog";
+import Button from "../../lib/Button/Button.vue";
+import { openDialog } from "../../lib/Dialog/openDialog";
 const showDialog = () => {
   openDialog({
     title: "标题",

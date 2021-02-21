@@ -49,7 +49,7 @@
 </template>
   
 <script lang="ts">
-import Icon from './lib/Icon.vue'
+import Icon from '../lib/Icon.vue'
 import "highlight.js/styles/atom-one-dark.css";
 import { Component, computed, onMounted, PropType, ref } from "vue";
 
@@ -93,8 +93,8 @@ export default {
 </script>
   
 <style lang="scss" scoped>
-@import "./lib/style/_variables.scss";
-@import "./lib/style/helper.scss";
+@import "../lib/style/_variables.scss";
+@import "../lib/style/helper.scss";
 .demo {
   width: 100%;
   transition: all 300ms;

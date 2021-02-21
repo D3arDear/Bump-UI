@@ -1,7 +1,7 @@
 <template>
   <div class="cascader" ref="cascader" v-click-outside="close">
     <div class="trigger" @click="toggle">
-      {{ result() || "&nbsp;" }}
+      {{ result || "&nbsp;" }}
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
       <cascader-items
@@ -17,127 +17,119 @@
   </div>
 </template>
 
-<script lang='ts'>
-import CascaderItems from './Cascader.Items.vue'
-// import ClickOutside from '../common/clickOutside'
-import { computed, PropType, ref } from 'vue'
-
-interface ISelectedItem {
-  name: string
-  id: number
-  parent_id: number
-}
-
-export default {
-  name: 'BUI-Cascader',
-  components: { CascaderItems },
-  // directives: { ClickOutside },
-  props: {
-    source: {
-      type: Array
-    },
-    popoverHeight: {
-      type: String
-    },
-    selected: {
-      type: Array as PropType<ISelectedItem[]>,
-      default: () => { return [] }
-    },
-    loadData: {
-      type: Function
-    }
-  },
-  setup(props, context) {
-
-    const popoverVisible = ref(false)
-    const loadingItem = ref({})
-    const open = () => {
-      popoverVisible.value = true
-    }
-    const close = () => {
-      popoverVisible.value = false
-    }
-    const toggle = () => {
-      if (popoverVisible.value === false) {
-        open()
-      } else {
-        close()
+<script>
+  import CascaderItems from './Cascader.Items.vue'
+  import ClickOutside from '../common/click-outside.js'
+  export default {
+    name: 'BUI-Cascader', 
+    components: {CascaderItems},
+    directives: {ClickOutside},
+    props: { source: { type: Array
+      },
+      popoverHeight: {
+        type: String
+      },
+      selected: {
+        type: Array,
+        default: () => {return []}
+      },
+      loadData: {
+        type: Function
       }
-    }
-
-    const onUpdateSelected = (newSelected) => {
-      context.emit('update:selected', newSelected)
-      let lastItem = newSelected[newSelected.length - 1]
-      let simplest = (children, id) => {
-        return children.filter(item => item.id === id)[0]
+    },
+    data () {
+      return {
+        popoverVisible: false,
+        loadingItem: {},
       }
-      let complex = (children, id) => {
-        let noChildren = []
-        let hasChildren = []
-        children.forEach(item => {
-          if (item.children) {
-            hasChildren.push(item)
-          } else {
-            noChildren.push(item)
-          }
-        })
-        let found = simplest(noChildren, id)
-        if (found) {
-          return found
+    },
+    updated () {
+    },
+    methods: {
+      open () {
+        this.popoverVisible = true
+      },
+      close () {
+        this.popoverVisible = false
+      },
+      toggle () {
+        if (this.popoverVisible === true) {
+          this.close()
         } else {
-          found = simplest(hasChildren, id)
-          if (found) { return found }
-          else {
-            for (let i = 0; i < hasChildren.length; i++) {
-              found = complex(hasChildren[i].children, id)
-              if (found) {
-                return found
-              }
+          this.open()
+        }
+      },
+      onUpdateSelected (newSelected) {
+        this.$emit('update:selected', newSelected)
+        let lastItem = newSelected[newSelected.length - 1]
+        let simplest = (children, id) => {
+          return children.filter(item => item.id === id)[0]
+        }
+        let complex = (children, id) => {
+          let noChildren = []
+          let hasChildren = []
+          children.forEach(item => {
+            if (item.children) {
+              hasChildren.push(item)
+            } else {
+              noChildren.push(item)
             }
-            return undefined
+          })
+          let found = simplest(noChildren, id)
+          if (found) {
+            return found
+          } else {
+            found = simplest(hasChildren, id)
+            if (found) { return found }
+            else {
+              for (let i = 0; i < hasChildren.length; i++) {
+                found = complex(hasChildren[i].children, id)
+                if (found) {
+                  return found
+                }
+              }
+              return undefined
+            }
           }
         }
+        let updateSource = (result) => {
+          this.loadingItem = {}
+          let copy = JSON.parse(JSON.stringify(this.source))
+          let toUpdate = complex(copy, lastItem.id)
+          toUpdate.children = result
+          this.$emit('update:source', copy)
+        }
+        if (!lastItem.isLeaf && this.loadData) {
+          this.loadData(lastItem, updateSource) // 回调:把别人传给我的函数调用一下
+          // 调回调的时候传一个函数,这个函数理论应该被调用
+          this.loadingItem = lastItem
+        }
       }
-      let updateSource = (sourceResult) => {
-        loadingItem.value = {}
-        let copy = JSON.parse(JSON.stringify(props.source))
-        let toUpdate = complex(copy, lastItem.id)
-        toUpdate.children = sourceResult
-        context.emit('update:source', copy)
+    },
+    computed: {
+      result () {
+        return this.selected.map((item) => item.name).join('/')
       }
-      if (!lastItem.isLeaf && props.loadData) {
-        props.loadData(lastItem, updateSource) // 回调:把别人传给我的函数调用一下
-        // 调回调的时候传一个函数,这个函数理论应该被调用
-        loadingItem.value = lastItem
-      }
-    }
-    const result = () => {
-      return props.selected.map((item) => item.name).join('/')
-    }
-
-    return {
-      loadingItem,
-      onUpdateSelected,
-      result,
-      toggle
     }
   }
-}
 </script>
 
 <style scoped lang="scss">
+$input-height: 32px;
+$border-color: #999;
+$border-radius: 8px;
 .cascader {
   display: inline-block;
   position: relative;
   .trigger {
     background: white;
-    height: 20px;
+    height: $input-height;
     display: inline-flex;
     align-items: center;
     padding: 0 1em;
     min-width: 10em;
-    border: 1px solid #666;
-    border-radius: 8px;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
   }
   .popover-wrapper {
     position: absolute;
@@ -147,6 +139,7 @@ export default {
     display: flex;
     margin-top: 8px;
     z-index: 1;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   }
 }
 </style>

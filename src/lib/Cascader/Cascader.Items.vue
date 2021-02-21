@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="right" v-if="rightItems">
-      <gulu-cascader-items
+      <BUI-CascaderItems
         ref="right"
         :items="rightItems"
         :height="height"
@@ -27,80 +27,71 @@
         :level="level + 1"
         :selected="selected"
         @update:selected="onUpdateSelected"
-      ></gulu-cascader-items>
+      ></BUI-CascaderItems>
     </div>
   </div>
 </template>
 
-<script lang='ts'>
-import { computed, PropType } from 'vue'
-import Icon from '../Icon.vue'
-interface ISelectedItem {
-  name: string
-  id: number
-  parent_id: number
-}
-
-export default {
-  name: "BUI-CascaderItems",
-  components: { Icon },
-  props: {
-    items: {
-      type: Array as PropType<ISelectedItem[]>
-    },
-    height: {
-      type: String
-    },
-    loadingItem: {
-      type: Object,
-      default: () => ({})
-    },
-    selected: {
-      type: Array,
-      default: () => []
-    },
-    loadData: {
-      type: Function
-    },
-    level: {
-      type: Number,
-      default: 0
-    }
-  },
-  setup(props, context) {
-    const { selected, level, items } = props
-    const rightItem = computed(() => {
-      if (selected[level]) {
-        let selected = items.filter((item) => item.name === selected[level].name)
-        if (selected && selected[0].children && selected[0].children.length > 0) {
-          return selected[0].children
-        }
+<script>
+  import Icon from '../Icon.vue'
+  export default {
+    name: "BUI-CascaderItems",
+    components: {Icon},
+    props: {
+      items: {
+        type: Array
+      },
+      height: {
+        type: String
+      },
+      loadingItem: {
+        type: Object,
+        default: () => ({})
+      },
+      selected: {
+        type: Array,
+        default: () => []
+      },
+      loadData: {
+        type: Function
+      },
+      level: {
+        type: Number,
+        default: 0
       }
-    })
-    const rightArrowVisible = (item) => {
-      return props.loadData ? !item.isLeaf : item.children
+    },
+    computed: {
+      rightItems () {
+        if (this.selected[this.level]) {
+          let selected = this.items.filter((item) => item.name === this.selected[this.level].name)
+          if (selected && selected[0].children && selected[0].children.length > 0) {
+            return selected[0].children
+          }
+        }
+      },
+    },
+    mounted () {
+    },
+    methods: {
+      rightArrowVisible (item) {
+        return this.loadData ? !item.isLeaf : item.children
+      },
+      onClickLabel (item) {
+        let copy = JSON.parse(JSON.stringify(this.selected))
+        copy[this.level] = item
+        copy.splice(this.level + 1) // 一句话
+        this.$emit('update:selected', copy)
+      },
+      onUpdateSelected (newSelected) {
+        this.$emit('update:selected', newSelected)
+      }
     }
-    const onClickLabel = (item) => {
-      let copy = JSON.parse(JSON.stringify(selected))
-      copy[level] = item
-      copy.splice(props.level + 1) // 一句话
-      context.emit('update:selected', copy)
-    }
-    const onUpdateSelected = (newSelected) => {
-      context.emit('update:selected', newSelected)
-    }
-
-    return {
-      rightItem,
-      rightArrowVisible,
-      onClickLabel,
-      onUpdateSelected
-    }
-  },
-}
+  }
 </script>
 
 <style scoped lang="scss">
+$border-color-light: #aaa;
+$grey: grey;
 .cascaderItem {
   display: flex;
   align-items: flex-start;
@@ -113,7 +104,7 @@ export default {
   }
   .right {
     height: 100%;
-    border-left: 1px solid #ddd;
+    border-left: 1px solid $border-color-light;
   }
   .label {
     padding: 0.5em 1em;
@@ -122,7 +113,7 @@ export default {
     cursor: pointer;
     white-space: nowrap;
     &:hover {
-      background: #666;
+      background: $grey;
     }
     > .name {
       margin-right: 1em;

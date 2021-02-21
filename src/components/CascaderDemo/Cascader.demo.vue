@@ -1,5 +1,5 @@
 <template>
-  <div class="button-demo">
+  <div class="cascader-demo">
     <h1>Cascader 组件</h1>
     <Demo :component="CascaderDemo1">
       <p>这是 Cascader 功能</p>
@@ -22,11 +22,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.button-demo {
+.cascader-demo {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  width: 100%;
   &__section {
     display: flex;
     flex-direction: column;

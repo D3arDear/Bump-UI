@@ -3,7 +3,7 @@
     <slot></slot>
   </div>
 </template>
-<script lang='ts' >
+<script lang='ts'>
 import { onMounted, reactive } from 'vue';
 import { classMaker } from '../common/classMaker';
 export default {
@@ -39,17 +39,14 @@ export default {
   }
 }
 
-.BUI-Layout-Sider {
-  width: 200px;
-}
 .sider.slide-enter,
 .sider.slide-leave-to {
   margin-left: -200px;
 }
 .header {
-  height: 100px;
+  height: 50px;
 }
 .footer {
-  height: 50px;
+  height: 100px;
 }
 </style>

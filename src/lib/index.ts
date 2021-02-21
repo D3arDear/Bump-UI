@@ -6,7 +6,7 @@ export { default as Footer } from "./Layout/Footer.vue";
 export { default as Col } from "./Grid/Col.vue";
 export { default as Row } from "./Grid/Row.vue";
 
-export { default as Icon } from "./Icon/Icon.vue";
+export { default as Icon } from "/Icon.vue";
 export { default as Switch } from "./Switch/Switch.vue";
 export { default as Button } from "./Button/Button.vue";
 export { default as Input } from "./Input/Input.vue";
@@ -19,5 +19,6 @@ export { default as Tabs } from "./Tabs/Tabs.vue";
 export { default as Tab } from "./Tabs/Tab.vue";
 export { default as Collapse } from "./Collapse/Collapse.vue";
 export { default as Scroll } from "./Scroll/Scroll.vue";
-export { default as Slide } from "./Scroll/Slide.vue";
-export { default as Pager } from "./Scroll/Pager.vue";
+export { default as Slide } from "./Slides/Slides.vue";
+export { default as SlideItem } from "./Slides/Slides-item.vue";
+export { default as Pager } from "./Pager/Pager.vue";

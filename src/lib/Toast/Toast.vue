@@ -113,11 +113,11 @@ export default {
 @import "../style/theme.scss";
 $font-size: $--font--size--default;
 $toast-min-height: 40px;
-$toast-bg: rgba($--color--background, 0.5);
+$toast-bg: rgba($--color--background, 0.95);
 $box-shadow: shadow-generator(
   $light-direction,
   $--color--background,
-  $--blur-range-3
+  $--blur-range-1
 );
 
 @keyframes slide-down {
@@ -153,7 +153,7 @@ $box-shadow: shadow-generator(
   left: 50%;
   transform: translateX(-50%);
   $animation-duration: 300ms;
-  z-index: 21;
+  z-index: 31;
   &__close {
     display: inline-flex;
     min-height: $toast-min-height;

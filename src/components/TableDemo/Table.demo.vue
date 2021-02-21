@@ -1,7 +1,10 @@
 <template>
   <div class="table">
     <h1>Table 组件</h1>
-    <Demo :component="TableDemo1">
+    <!-- <Demo :component="TableDemo1">
+      <p>Table 的基本用法 value 控制 Table 开关状态</p>
+    </Demo> -->
+    <Demo :component="TableDemo2">
       <p>Table 的基本用法 value 控制 Table 开关状态</p>
     </Demo>
   </div>
@@ -10,12 +13,13 @@
 <script lang="ts" scoped>
 import Demo from "../Demo.vue";
 import TableDemo1 from './Table.demo1.vue'
+import TableDemo2 from './Table.demo2.vue'
 export default {
   name: "SwitchDemo",
   components: { Demo },
   setup() {
     return {
-      TableDemo1,
+      TableDemo2,
     };
   },
 }

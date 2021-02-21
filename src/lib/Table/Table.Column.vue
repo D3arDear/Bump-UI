@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  name: "ZealotTableColumn",
+  name: "BUI-TableColumn", 
   props: {
     text: {
       type: String,

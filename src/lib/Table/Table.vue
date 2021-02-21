@@ -49,7 +49,7 @@
                 </span>
               </div>
             </th>
-            <th v-if="$slots.default" ref="actionsHeader"></th>
+            <th v-if="context.slots.default()" ref="actionsHeader"></th>
           </tr>
         </thead>
         <tbody>
@@ -94,8 +94,9 @@
                   </template>
                 </td>
               </template>
-              <td v-if="$slots.default">
-                <div ref="actions" style="display: inline-block">
+              <td v-if="context.slots.default()">
+                <div :ref="setActionRef" style="display: inline-block">
+                  {{ actions }}
                   <slot :item="item"></slot>
                 </div>
               </td>
@@ -127,8 +128,12 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import Icon from "../Icon.vue";
+import { computed, onBeforeUpdate, onMounted, onUpdated, PropType, reactive, ref, watchEffect } from 'vue';
+interface IDataSource {
+  id: number
+}
 export default {
   name: "BUI-Table",
   components: {
@@ -137,12 +142,6 @@ export default {
       functional: true,
       render: (h, context) => context.props.vnodes
     }
-  },
-  data() {
-    return {
-      expendedIDs: [],
-      columns: []
-    };
   },
   props: {
     checkable: {
@@ -168,7 +167,7 @@ export default {
       default: false
     },
     selectedItems: {
-      type: Array,
+      type: Array as PropType<IDataSource[]>,
       default: () => []
     },
     compact: {
@@ -176,15 +175,8 @@ export default {
       default: false
     },
     dataSource: {
-      type: Array,
+      type: Array as PropType<IDataSource[]>,
       required: true,
-      validator(array) {
-        if (array.filter(item => item.id === undefined).length > 0) {
-          return false;
-        } else {
-          return true;
-        }
-      }
     },
     numberVisible: {
       type: Boolean,
@@ -195,30 +187,36 @@ export default {
       default: false
     }
   },
-  watch: {
-    selectedItems() {
-      if (this.selectedItems.length === this.dataSource.length) {
-        this.$refs.allChecked.indeterminate = false;
-      } else if (this.selectedItems.length === 0) {
-        this.$refs.allChecked.indeterminate = false;
-      } else {
-        this.$refs.allChecked.indeterminate = true;
+  setup(props, context) {
+    const expendedIDs = ref([])
+    const columns = ref([])
+    const table = ref<HTMLTableElement>(null)
+    const wrapper = ref<HTMLDivElement>(null)
+    const tableWrapper = ref<HTMLDivElement>(null)
+    const actions = reactive<HTMLDivElement[]>([])
+    const actionsHeader = ref<HTMLDivElement>(null)
+    const allChecked = ref<HTMLInputElement>(null)
+
+    const setActionRef = (el) => {
+      if (el) {
+        actions.push(el)
       }
     }
-  },
-  methods: {
-    inExpendedIds(id) {
-      return this.expendedIDs.indexOf(id) >= 0;
-    },
-    expendItem(id) {
-      if (this.inExpendedIds(id)) {
-        this.expendedIDs.splice(this.expendedIDs.indexOf(id), 1);
+
+
+    const expendItem = (id) => {
+      if (inExpendedIds(id)) {
+        expendedIDs.value.splice(expendedIDs.value.indexOf(id), 1);
       } else {
-        this.expendedIDs.push(id);
+        expendedIDs.value.push(id);
       }
-    },
-    changeOrderBy(key) {
-      const copy = JSON.parse(JSON.stringify(this.orderBy));
+    }
+    const inExpendedIds = (id) => {
+      return expendedIDs.value.indexOf(id) >= 0;
+    }
+    const changeOrderBy = (key) => {
+      console.log(key)
+      const copy = JSON.parse(JSON.stringify(props.orderBy));
       let oldValue = copy[key];
       if (oldValue === "asc") {
         copy[key] = "desc";
@@ -227,74 +225,30 @@ export default {
       } else {
         copy[key] = "asc";
       }
-      this.$emit("update:orderBy", copy);
-    },
-    inSelectedItems(item) {
-      return this.selectedItems.filter(i => i.id === item.id).length > 0;
-    },
-    onChangeItem(item, index, e) {
+      console.log(copy)
+      context.emit("update:orderBy", copy);
+    }
+    const inSelectedItems = (item) => {
+      return props.selectedItems.filter(i => i.id === item.id).length > 0;
+    }
+    const onChangeItem = (item, index, e) => {
       let selected = e.target.checked;
-      let copy = JSON.parse(JSON.stringify(this.selectedItems));
+      let copy = JSON.parse(JSON.stringify(props.selectedItems));
       if (selected) {
         copy.push(item);
       } else {
         copy = copy.filter(i => i.id !== item.id);
       }
-      this.$emit("update:selectedItems", copy);
-    },
-    onChangeAllItems(e) {
+      context.emit("update:selectedItems", copy);
+    }
+    const onChangeAllItems = (e) => {
       let selected = e.target.checked;
-      this.$emit("update:selectedItems", selected ? this.dataSource : []);
+      context.emit("update:selectedItems", selected ? props.dataSource : []);
     }
-  },
-  mounted() {
-    this.columns = this.$slots.default.map(node => {
-      let { text, field, width } = node.componentOptions.propsData;
-      let render = node.data.scopedSlots && node.data.scopedSlots.default;
-      return {
-        text,
-        field,
-        width,
-        render
-      };
-    });
-    // let result = this.columns[0].render({ value: "bren" });
-    // console.log(result);
-    let table2 = this.$refs.table.cloneNode(false);
-    this.table2 = table2;
-    table2.classList.add("BUI-table-copy");
-    let tHead = this.$refs.table.children[0];
-    let { height } = tHead.getBoundingClientRect();
-    this.$refs.wrapper.style.paddingTop = height + "px";
-    this.$refs.tableWrapper.style.height = this.height - height + "px";
-    table2.appendChild(tHead);
-    this.$refs.wrapper.appendChild(table2);
-    if (this.$scopedSlots.default) {
-      let div = this.$refs.actions[0];
-      let { width } = div.getBoundingClientRect();
-      let parent = div.parentNode;
-      let style = getComputedStyle(parent);
-      let paddingLeft = style.getPropertyValue("padding-left");
-      let paddingRight = style.getPropertyValue("padding-Right");
-      let borderLeft = style.getPropertyValue("border-left-width");
-      let borderRight = style.getPropertyValue("border-right-width");
-      let width2 =
-        width +
-        parseInt(paddingLeft) +
-        parseInt(paddingRight) +
-        parseInt(borderLeft) +
-        parseInt(borderRight) +
-        "px";
-      this.$refs.actionsHeader.style.width = width2;
-      this.$refs.actions.map(div => {
-        div.parentNode.style.width = width2;
-      });
-    }
-  },
-  computed: {
-    areAllItemsSelected() {
-      const a = this.dataSource.map(item => item.id).sort();
-      const b = this.selectedItems.map(item => item.id).sort();
+
+    const areAllItemsSelected = computed(() => {
+      const a = props.dataSource.map(item => item.id).sort();
+      const b = props.selectedItems.map(item => item.id).sort();
       if (a.length !== b.length) {
         return false;
       }
@@ -305,18 +259,93 @@ export default {
           break;
         }
       return equal;
-    },
-    expendedCellColSpan() {
+    })
+
+    const expendedCellColSpan = () => {
       let result = 0;
-      if (this.checkable) {
+      if (props.checkable) {
         result += 1;
       }
-      if (this.expendField) {
+      if (props.expendField) {
         result += 1;
       }
       return result;
     }
-  }
+    console.log(actions)
+
+    onMounted(() => {
+      console.log(actions)
+      columns.value = context.slots.default().map(node => {
+        let { text, field, width } = node.props;
+        let render = node.props.slotScope;
+        return {
+          text,
+          field,
+          width,
+          render,
+        };
+      });
+      console.log(columns.value)
+      // console.log(columns.value)
+      // let result = columns.value[0].render({ value: "bren" });
+      let table2 = table.value.cloneNode(false);
+      table2.classList.add("BUI-table-copy");
+      let tHead = table.value.children[0];
+      let { height } = tHead.getBoundingClientRect();
+      wrapper.value.style.paddingTop = height + "px";
+      tableWrapper.value.style.height = props.height - height + "px";
+      table2.appendChild(tHead);
+      wrapper.value.appendChild(table2);
+      if (context.slots.default()) {
+        let div = actions[0];
+        let { width } = div.getBoundingClientRect();
+        let parent = div.parentElement;
+        let style = getComputedStyle(parent);
+        let paddingLeft = style.getPropertyValue("padding-left");
+        let paddingRight = style.getPropertyValue("padding-Right");
+        let borderLeft = style.getPropertyValue("border-left-width");
+        let borderRight = style.getPropertyValue("border-right-width");
+        let width2 =
+          width +
+          parseInt(paddingLeft) +
+          parseInt(paddingRight) +
+          parseInt(borderLeft) +
+          parseInt(borderRight) +
+          "px";
+        actionsHeader.value.style.width = width2;
+        actions.map(div => {
+          div.parentElement.style.width = width2;
+          console.log(div.parentElement)
+        });
+      }
+    })
+    onMounted(() => {
+      watchEffect(() => {
+        if (props.selectedItems.length === props.dataSource.length) {
+          allChecked.value.indeterminate = false;
+        } else if (props.selectedItems.length === 0) {
+          allChecked.value.indeterminate = false;
+        } else {
+          allChecked.value.indeterminate = true;
+        }
+      }, { flush: 'post' })
+
+    })
+    return {
+      context,
+      expendedIDs,
+      columns,
+      inSelectedItems,
+      inExpendedIds,
+      expendItem,
+      wrapper, tableWrapper, table, actionsHeader, allChecked, setActionRef,
+      areAllItemsSelected,
+      expendedCellColSpan,
+      onChangeAllItems,
+      changeOrderBy,
+      onChangeItem
+    };
+  },
 };
 </script>
 

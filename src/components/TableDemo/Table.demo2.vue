@@ -1,27 +1,39 @@
-<demo>
-table 用法
-</demo>
-
 <template>
   <div>
-    <div style="margin: 20px">
-      <Table :data-source="souorceData" bordered compact :striped="false">
-        <TableColumn text="id" field="id"></TableColumn>
-        <TableColumn text="姓名" field="name" :width="100" />
-        <TableColumn text="分数" field="score"></TableColumn>
-        <TableColumn text="排名" field="rank"></TableColumn>
-        <TableColumn text="描述" field="description"></TableColumn>
-      </Table>
-    </div>
+    <Table
+      :data-source="sourceData"
+      bordered
+      v-model:selected-items="selected"
+      v-model:orderBy="orderBy"
+      :loading="loading"
+      :height="400"
+      expend-field=""
+      checkable
+    >
+      <TableColumn text="id" field="id" :width="50"></TableColumn>
+      <TableColumn text="姓名" field="name" :width="100">
+        <template v-slot="props">
+          <a>{{ props.value }}</a>
+        </template>
+      </TableColumn>
+      <TableColumn text="分数" field="score" :width="100"></TableColumn>
+      <TableColumn text="排名" field="rank" :width="100"></TableColumn>
+      <template slot-scope="xxx">
+        <button @click="edit(xxx.item)">编辑</button>
+        <button @click="view(xxx.item)">查看</button>
+        <button>删除</button>
+      </template>
+    </Table>
   </div>
 </template>
-  
 <script lang="ts">
 import Table from "../../lib/Table/Table.vue";
 import { reactive, ref } from 'vue';
+import TableColumn from '../../lib/Table/Table.Column.vue';
 export default {
   components: {
-    Table
+    Table,
+    TableColumn
   },
   setup() {
     const error = ref('')

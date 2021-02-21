@@ -3,6 +3,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import { router } from "./router";
 import Markdown from "./components/Markdown.vue";
+import "./lib/style/theme.scss";
 import "github-markdown-css";
 import VueHighlightJS from "vue3-highlightjs";
 import "highlight.js/styles/atom-one-dark-reasonable.css";

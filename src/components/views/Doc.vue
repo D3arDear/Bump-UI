@@ -123,6 +123,7 @@ export default {
 .content {
   height: 100%;
   min-height: calc(100vh - 50px);
+  margin: 0;
   position: relative;
   background: $--color--background;
   .blackWrapper {

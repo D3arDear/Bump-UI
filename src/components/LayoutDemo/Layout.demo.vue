@@ -13,7 +13,7 @@
 <script lang="ts" scoped>
 import Demo from "../Demo.vue";
 import LayoutDemo1 from './Layout.demo1.vue'
-import LayoutDemo2 from './Layout.demo1.vue'
+import LayoutDemo2 from './Layout.demo2.vue'
 export default {
   name: "LayoutDemo",
   components: { Demo },

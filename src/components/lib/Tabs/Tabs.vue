@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted, ref, watchEffect } from "vue";
+import { computed, onMounted, ref, VNode, watchEffect } from "vue";
 import { classMaker } from "../common/classMaker";
 import Tab from "./Tab.vue";
 export default {
@@ -62,8 +62,8 @@ export default {
     });
     const defaults = context.slots.default();
     defaults.forEach((tag) => {
-      console.log(tag)
-      if (tag.type !== Tab) {
+      // @ts-ignore
+      if (tag.type.name !== Tab.name) {
         throw new Error("Tabs 的子标签必须是 Tab");
       }
     });
@@ -88,6 +88,7 @@ export default {
       container,
       selectedClass,
       current,
+      Tab
     };
   },
 };

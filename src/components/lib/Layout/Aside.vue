@@ -1,9 +1,9 @@
 <template>
   <transition name="slide">
-    <div :class="classes('Sider', '', '')" v-if="visible">
+    <div :class="classes('Aside', '', '')" v-if="visible">
       <slot></slot>
       <button
-        :class="classes('Sider', 'actions', '')"
+        :class="classes('Aside', 'actions', '')"
         @click="visible = !visible"
       >
         <Icon name="exit" />
@@ -17,7 +17,7 @@ import Button from '../Button/Button.vue'
 import Icon from '../Icon.vue';
 import { classMaker } from '../common/classMaker';
 export default {
-  name: "BUI-Sider",
+  name: "BUI-Aside",
   components: {
     Button,
     Icon
@@ -35,7 +35,7 @@ export default {
 
 <style lang="scss">
 @import "../style/theme.scss";
-.BUI-Layout-Sider {
+.BUI-Layout-Aside {
   position: relative;
   &__actions {
     background: none;

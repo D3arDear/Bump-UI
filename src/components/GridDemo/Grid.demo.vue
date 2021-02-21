@@ -1,13 +1,13 @@
 <template>
   <div class="GridDemo">
     <h1>Grid 组件</h1>
-    <Demo :component="GridDemo1" defaultVisible>
+    <Demo :component="GridDemo1">
       <p>Grid 的基本用法</p>
     </Demo>
-    <Demo :component="GridDemo2" defaultVisible>
+    <Demo :component="GridDemo2">
       <p>设置 gutter 属性</p>
     </Demo>
-    <Demo :component="GridDemo3" defaultVisible>
+    <Demo :component="GridDemo3">
       <p>offset设置空隙</p>
     </Demo>
   </div>

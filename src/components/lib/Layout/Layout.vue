@@ -15,7 +15,8 @@ export default {
     })
     onMounted(() => {
       context.slots.default().forEach(vm => {
-        if (vm.type.name === "BUI-Sider") {
+        // @ts-ignore
+        if (vm.type.name === "BUI-Aside") {
           layoutClass.hasSider = true;
         }
       });

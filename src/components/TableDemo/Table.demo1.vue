@@ -10,8 +10,8 @@
     >
       <TableColumn text="id" field="id" :width="50"></TableColumn>
       <TableColumn text="姓名" field="name" :width="100">
-        <template v-slot="props">
-          <a>{{ props.name }}</a>
+        <template v-slot:default>
+          <a>{{ "test" }}</a>
         </template>
       </TableColumn>
       <TableColumn text="分数" field="score" :width="100"></TableColumn>
@@ -30,13 +30,13 @@ export default {
   },
   setup() {
     const error = ref('')
-    const selected = reactive([])
+    const selected = ref([])
     const loading = ref(false)
-    const orderBy = reactive({
+    const orderBy = ref({
       score: "desc",
       rank: "desc"
     })
-    const sourceData = reactive([
+    const sourceData = ref([
       {
         id: 1,
         name: "Brendan",

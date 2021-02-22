@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    <slot></slot>
+  </div>
 </template>
 <script>
 export default {
@@ -15,6 +17,9 @@ export default {
     },
     width: {
       type: Number
+    },
+    value: {
+      type: String
     }
   }
 };

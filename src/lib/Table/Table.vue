@@ -49,7 +49,7 @@
                 </span>
               </div>
             </th>
-            <th v-if="context.slots.default()" ref="actionsHeader"></th>
+            <th v-if="context.slots.actions" ref="actionsHeader"></th>
           </tr>
         </thead>
         <tbody>
@@ -82,19 +82,23 @@
               <td v-if="numberVisible" :style="{ width: '50px' }">
                 {{ index + 1 }}
               </td>
-              <template v-for="column in columns" :key="column.field">
+              <template v-for="(column, index) in columns" :key="column.field">
                 <td :style="{ width: column.width + 'px' }">
-                  <template v-if="column.render">
-                    <vnodes
-                      :vnodes="column.render({ value: item[column.field] })"
-                    ></vnodes>
+                  <template
+                    v-if="column.render"
+                    :ref="
+                      (el) => {
+                        columnRef[index] = el;
+                      }
+                    "
+                  >
                   </template>
                   <template v-else>
                     {{ item[column.field] }}
                   </template>
                 </td>
               </template>
-              <td v-if="context.slots.default()">
+              <td v-if="context.slots.action">
                 <div
                   :ref="
                     (el) => {
@@ -136,6 +140,7 @@
 <script lang="ts">
 import Icon from "../Icon.vue";
 import { computed, createApp, h, onBeforeUpdate, onMounted, onUpdated, PropType, reactive, ref, watchEffect } from 'vue';
+import TableColumn from './Table.Column.vue';
 interface IDataSource {
   id: number
 }
@@ -201,24 +206,18 @@ export default {
     const actions = ref<HTMLDivElement[]>([])
     const actionsHeader = ref<HTMLDivElement>(null)
     const allChecked = ref<HTMLInputElement>(null)
+    const columnRef = ref<HTMLTemplateElement[]>([])
 
     onBeforeUpdate(() => {
       actions.value = []
+      columnRef.value = []
     })
 
     const expendItem = (id) => {
-      console.log('进来之前他是个什么状态', expendedIDs)
-      console.log(id)
       if (inExpendedIds(id)) {
-        // console.log('有了')
         expendedIDs.value.splice(expendedIDs.value.indexOf(id), 1)
-        // console.log('这里有没有', expendedIDs)
-        // console.log('从这里删', expendedIDs.value.indexOf(id))
-        console.log(expendedIDs.value)
       } else {
-        // console.log('没有')
         expendedIDs.value.push(id);
-        // console.log(expendedIDs)
       }
     }
     const inExpendedIds = (id) => {
@@ -282,11 +281,25 @@ export default {
     // const columnsVnode = (column) => {
     //   h()
     // }
+    const vnodeComponent = (props, vnode, value, index) => {
+      const column = createApp({
+        render() {
+          return h(TableColumn, props, {
+            default() {
+              return h(vnode, 'Overwrite "header" slot with this content in PageComponent')
+            }
+          })
+        }
+      })
+      column.mount(columnRef.value[index])
+    }
 
     onMounted(() => {
-      columns.value = context.slots.default().map(node => {
+      columns.value = context.slots.default().map((node, index) => {
         let { text, field, width } = node.props;
-        let render = node.props.slotScope;
+        // let render = node.children
+        let render = node.slots
+        // vnodeComponent({ ...node.props }, render, 'test', index)
         return {
           text,
           field,
@@ -297,14 +310,16 @@ export default {
       // console.log(columns.value)
       // let result = columns.value[0].render({ value: "bren" });
       let table2 = table.value.cloneNode(false);
+      // @ts-ignore
       table2.classList.add("BUI-table-copy");
       let tHead = table.value.children[0];
-      let { height } = tHead.getBoundingClientRect();
-      wrapper.value.style.paddingTop = height + "px";
-      tableWrapper.value.style.height = props.height - height + "px";
+      let headHeight = tHead.getBoundingClientRect().height;
+      console.log(headHeight)
+      wrapper.value.style.paddingTop = props.height ? headHeight + "px" : headHeight * (props.compact ? 3 : 2) + "px";
+      tableWrapper.value.style.height = props.height - headHeight + "px";
       table2.appendChild(tHead);
       wrapper.value.appendChild(table2);
-      if (context.slots.default()) {
+      if (context.slots.actions) {
         let div = actions.value[0];
         let { width } = div.getBoundingClientRect();
         let parent = div.parentElement;
@@ -325,8 +340,6 @@ export default {
           div.parentElement.style.width = width2;
         });
       }
-    })
-    onMounted(() => {
       watchEffect(() => {
         if (props.checkable) {
           if (props.selectedItems.length === props.dataSource.length) {
@@ -338,7 +351,6 @@ export default {
           }
         }
       }, { flush: 'post' })
-
     })
     return {
       context,
@@ -347,12 +359,13 @@ export default {
       inSelectedItems,
       inExpendedIds,
       expendItem,
-      wrapper, tableWrapper, table, actionsHeader, allChecked, actions,
+      wrapper, tableWrapper, table, actionsHeader, allChecked, actions, columnRef,
       areAllItemsSelected,
       expendedCellColSpan,
       onChangeAllItems,
       changeOrderBy,
-      onChangeItem
+      onChangeItem,
+      vnodeComponent
     };
   },
 };

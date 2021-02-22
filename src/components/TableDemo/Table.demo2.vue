@@ -1,14 +1,18 @@
+<demo>
+基本用法
+</demo>
 <template>
   <div>
     <Table
       :data-source="sourceData"
       bordered
-      v-model:selected-items="selected"
+      v-model:selectedItems="selected"
       v-model:orderBy="orderBy"
       :loading="loading"
       :height="400"
       expend-field=""
       checkable
+      compact
     >
       <TableColumn text="id" field="id" :width="50"></TableColumn>
       <TableColumn text="姓名" field="name" :width="100">
@@ -32,7 +36,7 @@ export default {
   },
   setup() {
     const error = ref('')
-    const selected = reactive([])
+    const selected = ref([])
     const loading = ref(false)
     const orderBy = reactive({
       score: "desc",

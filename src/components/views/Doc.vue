@@ -247,18 +247,23 @@ export default {
     align-items: flex-start;
     background: $--color--background;
     .main-content {
-      width: 960px;
       margin: auto;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
       flex: 1;
-      @media (min-width: 1024px) {
-        width: 960px;
+      @media (min-width: 1200px) {
+        width: 900px;
+      }
+      @media (max-width: 1200px) {
+        width: 800px;
       }
       @media (max-width: 1024px) {
         width: 700px;
+      }
+      @media (max-width: 1024px) {
+        width: 500px;
       }
       @media (max-width: 768px) {
         width: 100%;

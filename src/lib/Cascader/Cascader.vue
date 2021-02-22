@@ -1,7 +1,7 @@
 <template>
   <div class="cascader" ref="cascader" v-click-outside="close">
-    <div class="trigger" @click="toggle">
-      {{ result || "&nbsp;" }}
+    <div class="trigger">
+      <Input v-model:value="result" readonly @click="toggle" />
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
       <cascader-items
@@ -21,9 +21,10 @@
 import CascaderItems from './Cascader.Items.vue'
 import ClickOutside from '../common/click-outside.js'
 import { computed, ref } from 'vue'
+import Input from '../Input/Input.vue'
 export default {
   name: 'BUI-Cascader',
-  components: { CascaderItems },
+  components: { CascaderItems, Input },
   directives: { ClickOutside },
   props: {
     source:
@@ -129,14 +130,10 @@ $border-radius: 8px;
   display: inline-block;
   position: relative;
   .trigger {
-    background: white;
     height: $input-height;
     display: inline-flex;
     align-items: center;
-    padding: 0 1em;
     min-width: 10em;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
   }
   .popover-wrapper {
     position: absolute;

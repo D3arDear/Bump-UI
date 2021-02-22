@@ -64,8 +64,10 @@ $border-color-hover: darken($--color--background, 10%);
       border-radius: 0;
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
-      box-shadow: 0;
-      color: #333;
+      box-shadow: none;
+      color: ContrastText($--color--background);
+      box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-2, false);
+      transition: all 300ms;
       &__label {
         display: inline-flex;
         position: absolute;
@@ -104,7 +106,13 @@ $border-color-hover: darken($--color--background, 10%);
           border-color: $border-color-hover;
         }
         &:focus {
-          box-shadow: inset 0 1px 3px $box-shadow-color;
+          box-shadow: shadow-generator(
+              $light-direction,
+              $--color--background,
+              $--blur-range-2,
+              true
+            ),
+            shadow-generator($light-direction, $--color--background, $--blur-range-3, false);
           outline: none;
         }
         &[disabled],
@@ -151,6 +159,7 @@ $border-color-hover: darken($--color--background, 10%);
     }
   }
   .BUI-Input__error {
+    margin-top: 4px;
     &-msg {
       color: $--color--primary;
     }

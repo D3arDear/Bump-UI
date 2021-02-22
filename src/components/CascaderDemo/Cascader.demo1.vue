@@ -32,7 +32,7 @@ function ajax(parentId = 0) {
         }
       })
       success(result)
-    }, 3000)
+    }, 1000)
   })
 }
 export default {
@@ -47,6 +47,7 @@ export default {
     const source = ref([])
     onMounted(() => {
       ajax(0).then(result => {
+        console.log(result)
         source.value = result
       })
     })

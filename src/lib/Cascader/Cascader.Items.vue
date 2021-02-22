@@ -62,6 +62,8 @@ export default {
     }
   },
   setup(props, context) {
+    console.log('items', props.items)
+    console.log('selected', props.selected)
     const rightItems = computed(() => {
       if (props.selected[props.level]) {
         let selected = props.items.filter((item) => item.name === props.selected[props.level].name)
@@ -103,15 +105,19 @@ $grey: grey;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  flex-direction: row;
   height: 100px;
   .left {
-    height: 100%;
+    width: auto;
+    height: 200px;
     padding: 0.3em 0;
     overflow: auto;
   }
   .right {
-    height: 100%;
+    width: auto;
+    height: 200px;
     border-left: 1px solid $border-color-light;
+    overflow: auto;
   }
   .label {
     padding: 0.5em 1em;

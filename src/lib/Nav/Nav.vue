@@ -1,5 +1,5 @@
 <template>
-  <div class="z-nav" :class="{ vertical: vertical }">
+  <div class="BUI-Nav" :class="{ vertical: vertical }">
     <slot></slot>
   </div>
 </template>
@@ -77,9 +77,10 @@ export default {
 
 <style lang="scss">
 @import "../style/theme.scss";
-.z-nav {
+.BUI-Nav {
   color: ContrastText($--color--background);
   display: flex;
+  border-radius: $--border-radius--default;
   box-shadow: shadow-generator(
     $light-direction,
     $--color--background,

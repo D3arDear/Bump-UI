@@ -1,6 +1,6 @@
 <template>
   <div
-    class="z-nav-item"
+    class="BUI-Nav-Item"
     :class="{ selected, vertical }"
     @click="onClick"
     :data-name="name"
@@ -47,9 +47,11 @@ export default {
 
 <style lang="scss" scoped>
 @import "../style/theme.scss";
-.z-nav-item {
+.BUI-Nav-Item {
   padding: 10px 20px;
   position: relative;
+  border-radius: $--border-radius--default;
+  color: ContrastText($--color--background);
   &:not(.vertical) {
     &.selected {
       &::after {
@@ -57,7 +59,7 @@ export default {
         position: absolute;
         bottom: 0;
         left: 0;
-        border-bottom: 2px solid $--color--primary;
+        border-bottom: 2px solid ContrastText($--color--background);
         width: 100%;
       }
     }
@@ -72,7 +74,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
-.z-sub-nav .z-nav-item:not(.vertical) {
+.BUI-Sub-Nav .BUI-Nav-Item:not(.vertical) {
   &.selected {
     color: $--color--primary;
     &::after {

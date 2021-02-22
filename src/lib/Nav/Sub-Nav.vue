@@ -1,8 +1,12 @@
 <template>
-  <div class="z-sub-nav" :class="{ active, vertical }" v-click-outside="close">
-    <span class="z-sub-nav-label" @click="onClick">
+  <div
+    class="BUI-Sub-Nav"
+    :class="{ active, vertical }"
+    v-click-outside="close"
+  >
+    <span class="BUI-Sub-Nav__label" @click="onClick">
       <slot name="title"></slot>
-      <span class="z-sub-nav-icon" :class="{ open, vertical }">
+      <span class="BUI-Sub-Nav__icon" :class="{ open, vertical }">
         <Icon name="right"></Icon>
       </span>
     </span>
@@ -13,15 +17,17 @@
         @leave="leave"
         @after-leave="afterLeave"
       >
-        <div class="z-sub-nav-popover" v-show="open" :class="{ vertical }">
+        <div class="BUI-Sub-Nav__popover" v-show="open" :class="{ vertical }">
           <slot></slot>
         </div>
       </transition>
     </template>
     <template v-else>
-      <div class="z-sub-nav-popover" v-show="open">
-        <slot></slot>
-      </div>
+      <transition name="BUI-animation--slide-top">
+        <div class="BUI-Sub-Nav__popover" v-show="open">
+          <slot></slot>
+        </div>
+      </transition>
     </template>
   </div>
 </template>
@@ -81,10 +87,6 @@ export default {
       });
     }
 
-    const afterEnter = (el) => {
-      el.style.height = "auto";
-    }
-
     const leave = (el, done) => {
       let { height } = el.getBoundingClientRect();
       el.style.height = `${height}px`;
@@ -98,6 +100,11 @@ export default {
     const afterLeave = (el) => {
       el.style.height = "auto";
     }
+
+    const afterEnter = (el) => {
+      el.style.height = "auto";
+    }
+
     const onClick = () => {
       open.value = !open.value;
     }
@@ -131,8 +138,22 @@ export default {
 
 <style lang="scss" scoped>
 @import "../style/theme.scss";
-.z-sub-nav {
+.BUI-animation--slide-top {
+  &-enter-active,
+  &-leave-active {
+    opacity: 1;
+    transition: all 300ms ease-in-out;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(-20%);
+  }
+}
+
+.BUI-Sub-Nav {
   position: relative;
+  border-radius: $--border-radius--default;
   &:not(.vertical) {
     &.active {
       position: relative;
@@ -141,19 +162,20 @@ export default {
         position: absolute;
         bottom: 0;
         left: 0;
-        border-bottom: 2px solid $--color--primary;
+        border-bottom: 2px solid darken($--color--background, 10%);
         width: 100%;
       }
     }
   }
-  &-label {
+  &__label {
     padding: 10px 20px;
     display: block;
+    border-radius: $--border-radius--default;
   }
-  &-icon {
+  &__icon {
     display: none;
   }
-  &-popover {
+  &__popover {
     margin-top: 8px;
     background: $--color--background;
     position: absolute;
@@ -162,7 +184,7 @@ export default {
     box-shadow: shadow-generator(
       $light-direction,
       $--color--background,
-      $--blur-range-0,
+      $--blur-range-4,
       false
     );
     white-space: nowrap;
@@ -173,21 +195,20 @@ export default {
     transition: all 0.3s;
     &.vertical {
       position: static;
-      box-shadow: none;
-      border-top: 1px solid $--color--primary;
-      border-bottom: 1px solid $--color--primary;
+      border-top: 1px solid darken($--color--background, 10%);
+      border-bottom: 1px solid darken($--color--background, 10%);
       transition: all 0.3s;
       overflow: hidden;
     }
   }
 }
-.z-sub-nav .z-sub-nav {
+.BUI-Sub-Nav .BUI-Sub-Nav {
   &.active {
     &::after {
       display: none;
     }
   }
-  .z-sub-nav-popover {
+  .BUI-Sub-Nav__popover {
     top: 0;
     left: 100%;
     margin-left: 8px;
@@ -195,12 +216,12 @@ export default {
       margin-left: 0;
     }
   }
-  .z-sub-nav-label {
+  .BUI-Sub-Nav__label {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .z-sub-nav-icon {
+  .BUI-Sub-Nav__icon {
     display: inline-flex;
     margin-left: 1em;
     transition: transform 0.3s;

@@ -4,18 +4,23 @@
     <Demo :component="NavDemo1" defaultVisible>
       <p>Nav 基本用法</p>
     </Demo>
+    <Demo :component="NavDemo2" defaultVisible>
+      <p>接受 vertical 属性，显示垂直样式。</p>
+    </Demo>
   </div>
 </template>
 
 <script lang="ts" scoped>
 import Demo from "../Demo.vue";
 import NavDemo1 from './Nav.demo1.vue'
+import NavDemo2 from './Nav.demo2.vue'
 export default {
   name: "SwitchDemo",
   components: { Demo },
   setup() {
     return {
-      NavDemo1
+      NavDemo1,
+      NavDemo2
     };
   },
 }

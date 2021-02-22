@@ -10,7 +10,7 @@
       @update:orderBy="changeOrderBy"
       :orderBy="orderBy"
       :loading="loading"
-      :height="400"
+      :height="300"
       expend-field=""
       checkable
       compact

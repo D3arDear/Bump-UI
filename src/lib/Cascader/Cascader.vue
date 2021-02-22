@@ -17,101 +17,108 @@
   </div>
 </template>
 
-<script>
-  import CascaderItems from './Cascader.Items.vue'
-  import ClickOutside from '../common/click-outside.js'
-  export default {
-    name: 'BUI-Cascader', 
-    components: {CascaderItems},
-    directives: {ClickOutside},
-    props: { source: { type: Array
-      },
-      popoverHeight: {
-        type: String
-      },
-      selected: {
-        type: Array,
-        default: () => {return []}
-      },
-      loadData: {
-        type: Function
-      }
+<script lang="ts">
+import CascaderItems from './Cascader.Items.vue'
+import ClickOutside from '../common/click-outside.js'
+import { computed, ref } from 'vue'
+export default {
+  name: 'BUI-Cascader',
+  components: { CascaderItems },
+  directives: { ClickOutside },
+  props: {
+    source:
+    {
+      type: Array
     },
-    data () {
-      return {
-        popoverVisible: false,
-        loadingItem: {},
-      }
+    popoverHeight: {
+      type: String
     },
-    updated () {
+    selected: {
+      type: Array,
+      default: () => { return [] }
     },
-    methods: {
-      open () {
-        this.popoverVisible = true
-      },
-      close () {
-        this.popoverVisible = false
-      },
-      toggle () {
-        if (this.popoverVisible === true) {
-          this.close()
-        } else {
-          this.open()
-        }
-      },
-      onUpdateSelected (newSelected) {
-        this.$emit('update:selected', newSelected)
-        let lastItem = newSelected[newSelected.length - 1]
-        let simplest = (children, id) => {
-          return children.filter(item => item.id === id)[0]
-        }
-        let complex = (children, id) => {
-          let noChildren = []
-          let hasChildren = []
-          children.forEach(item => {
-            if (item.children) {
-              hasChildren.push(item)
-            } else {
-              noChildren.push(item)
-            }
-          })
-          let found = simplest(noChildren, id)
-          if (found) {
-            return found
-          } else {
-            found = simplest(hasChildren, id)
-            if (found) { return found }
-            else {
-              for (let i = 0; i < hasChildren.length; i++) {
-                found = complex(hasChildren[i].children, id)
-                if (found) {
-                  return found
-                }
-              }
-              return undefined
-            }
-          }
-        }
-        let updateSource = (result) => {
-          this.loadingItem = {}
-          let copy = JSON.parse(JSON.stringify(this.source))
-          let toUpdate = complex(copy, lastItem.id)
-          toUpdate.children = result
-          this.$emit('update:source', copy)
-        }
-        if (!lastItem.isLeaf && this.loadData) {
-          this.loadData(lastItem, updateSource) // 回调:把别人传给我的函数调用一下
-          // 调回调的时候传一个函数,这个函数理论应该被调用
-          this.loadingItem = lastItem
-        }
-      }
-    },
-    computed: {
-      result () {
-        return this.selected.map((item) => item.name).join('/')
+    loadData: {
+      type: Function
+    }
+  },
+  setup(props, context) {
+    const popoverVisible = ref(false)
+    const loadingItem = ref({})
+    const cascader = ref<HTMLDivElement>(null)
+
+    const open = () => {
+      popoverVisible.value = true
+    }
+    const close = () => {
+      popoverVisible.value = false
+    }
+
+    const toggle = () => {
+      if (popoverVisible.value === true) {
+        close()
+      } else {
+        open()
       }
     }
-  }
+    const onUpdateSelected = (newSelected) => {
+      context.emit('update:selected', newSelected)
+      let lastItem = newSelected[newSelected.length - 1]
+      let simplest = (children, id) => {
+        return children.filter(item => item.id === id)[0]
+      }
+      let complex = (children, id) => {
+        let noChildren = []
+        let hasChildren = []
+        children.forEach(item => {
+          if (item.children) {
+            hasChildren.push(item)
+          } else {
+            noChildren.push(item)
+          }
+        })
+        let found = simplest(noChildren, id)
+        if (found) {
+          return found
+        } else {
+          found = simplest(hasChildren, id)
+          if (found) { return found }
+          else {
+            for (let i = 0; i < hasChildren.length; i++) {
+              found = complex(hasChildren[i].children, id)
+              if (found) {
+                return found
+              }
+            }
+            return undefined
+          }
+        }
+      }
+      let updateSource = (result) => {
+        loadingItem.value = {}
+        let copy = JSON.parse(JSON.stringify(props.source))
+        let toUpdate = complex(copy, lastItem.id)
+        toUpdate.children = result
+        context.emit('update:source', copy)
+      }
+      if (!lastItem.isLeaf && props.loadData) {
+        props.loadData(lastItem, updateSource) // 回调:把别人传给我的函数调用一下
+        // 调回调的时候传一个函数,这个函数理论应该被调用
+        loadingItem.value = lastItem
+      }
+    }
+    const result = computed(() => {
+      return props.selected.map((item) => item.name).join('/')
+    })
+
+    return {
+      popoverVisible,
+      loadingItem,
+      cascader,
+      open, close, toggle, onUpdateSelected,
+      result
+    }
+  },
+}
 </script>
 
 <style scoped lang="scss">

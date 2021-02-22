@@ -32,61 +32,68 @@
   </div>
 </template>
 
-<script>
-  import Icon from '../Icon.vue'
-  export default {
-    name: "BUI-CascaderItems",
-    components: {Icon},
-    props: {
-      items: {
-        type: Array
-      },
-      height: {
-        type: String
-      },
-      loadingItem: {
-        type: Object,
-        default: () => ({})
-      },
-      selected: {
-        type: Array,
-        default: () => []
-      },
-      loadData: {
-        type: Function
-      },
-      level: {
-        type: Number,
-        default: 0
-      }
+<script lang="ts">
+import { computed } from 'vue'
+import Icon from '../Icon.vue'
+export default {
+  name: "BUI-CascaderItems",
+  components: { Icon },
+  props: {
+    items: {
+      type: Array
     },
-    computed: {
-      rightItems () {
-        if (this.selected[this.level]) {
-          let selected = this.items.filter((item) => item.name === this.selected[this.level].name)
-          if (selected && selected[0].children && selected[0].children.length > 0) {
-            return selected[0].children
-          }
+    height: {
+      type: String
+    },
+    loadingItem: {
+      type: Object,
+      default: () => ({})
+    },
+    selected: {
+      type: Array,
+      default: () => []
+    },
+    loadData: {
+      type: Function
+    },
+    level: {
+      type: Number,
+      default: 0
+    }
+  },
+  setup(props, context) {
+    const rightItems = computed(() => {
+      if (props.selected[props.level]) {
+        let selected = props.items.filter((item) => item.name === props.selected[props.level].name)
+        if (selected && selected[0].children && selected[0].children.length > 0) {
+          return selected[0].children
         }
-      },
-    },
-    mounted () {
-    },
-    methods: {
-      rightArrowVisible (item) {
-        return this.loadData ? !item.isLeaf : item.children
-      },
-      onClickLabel (item) {
-        let copy = JSON.parse(JSON.stringify(this.selected))
-        copy[this.level] = item
-        copy.splice(this.level + 1) // 一句话
-        this.$emit('update:selected', copy)
-      },
-      onUpdateSelected (newSelected) {
-        this.$emit('update:selected', newSelected)
       }
+    })
+
+    const rightArrowVisible = (item) => {
+      return props.loadData ? !item.isLeaf : item.children
+    }
+
+    const onClickLabel = (item) => {
+      let copy = JSON.parse(JSON.stringify(props.selected))
+      copy[props.level] = item
+      copy.splice(props.level + 1) // 一句话
+      context.emit('update:selected', copy)
+    }
+
+    const onUpdateSelected = (newSelected) => {
+      context.emit('update:selected', newSelected)
+    }
+
+    return {
+      rightItems,
+      rightArrowVisible,
+      onClickLabel,
+      onUpdateSelected
     }
   }
+}
 </script>
 
 <style scoped lang="scss">

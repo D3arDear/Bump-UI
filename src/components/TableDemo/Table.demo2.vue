@@ -13,16 +13,11 @@
       <TableColumn text="id" field="id" :width="50"></TableColumn>
       <TableColumn text="姓名" field="name" :width="100">
         <template v-slot="props">
-          <a>{{ props.value }}</a>
+          <a>{{ props.name }}</a>
         </template>
       </TableColumn>
       <TableColumn text="分数" field="score" :width="100"></TableColumn>
       <TableColumn text="排名" field="rank" :width="100"></TableColumn>
-      <template slot-scope="xxx">
-        <button @click="edit(xxx.item)">编辑</button>
-        <button @click="view(xxx.item)">查看</button>
-        <button>删除</button>
-      </template>
     </Table>
   </div>
 </template>

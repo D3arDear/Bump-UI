@@ -1,9 +1,9 @@
 <template>
   <div class="table">
     <h1>Table 组件</h1>
-    <!-- <Demo :component="TableDemo1">
+    <Demo :component="TableDemo1">
       <p>Table 的基本用法 value 控制 Table 开关状态</p>
-    </Demo> -->
+    </Demo>
     <Demo :component="TableDemo2">
       <p>Table 的基本用法 value 控制 Table 开关状态</p>
     </Demo>
@@ -19,7 +19,7 @@ export default {
   components: { Demo },
   setup() {
     return {
-      TableDemo2,
+      TableDemo2, TableDemo1
     };
   },
 }

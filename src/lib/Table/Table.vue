@@ -95,8 +95,14 @@
                 </td>
               </template>
               <td v-if="context.slots.default()">
-                <div :ref="setActionRef" style="display: inline-block">
-                  {{ actions }}
+                <div
+                  :ref="
+                    (el) => {
+                      actions[index] = el;
+                    }
+                  "
+                  style="display: inline-block"
+                >
                   <slot :item="item"></slot>
                 </div>
               </td>
@@ -107,10 +113,9 @@
                 v-if="inExpendedIds(item.id)"
                 :key="`${item.id}-expend`"
               >
-                <td
-                  v-for="n in expendedCellColSpan"
-                  class="descriptionHolder"
-                ></td>
+                <td v-for="n in expendedCellColSpan" class="descriptionHolder">
+                  {{ n }}
+                </td>
                 <td
                   class="description"
                   :colspan="columns.length + expendedCellColSpan"
@@ -130,7 +135,7 @@
 </template>
 <script lang="ts">
 import Icon from "../Icon.vue";
-import { computed, onBeforeUpdate, onMounted, onUpdated, PropType, reactive, ref, watchEffect } from 'vue';
+import { computed, createApp, h, onBeforeUpdate, onMounted, onUpdated, PropType, reactive, ref, watchEffect } from 'vue';
 interface IDataSource {
   id: number
 }
@@ -197,16 +202,11 @@ export default {
     const actionsHeader = ref<HTMLDivElement>(null)
     const allChecked = ref<HTMLInputElement>(null)
 
-    const setActionRef = (el) => {
-      if (el) {
-        actions.push(el)
-      }
-    }
-
 
     const expendItem = (id) => {
       if (inExpendedIds(id)) {
-        expendedIDs.value.splice(expendedIDs.value.indexOf(id), 1);
+        console.log(id)
+        expendedIDs.value = expendedIDs.value.splice(expendedIDs.value.indexOf(id), 1);
       } else {
         expendedIDs.value.push(id);
       }
@@ -215,7 +215,6 @@ export default {
       return expendedIDs.value.indexOf(id) >= 0;
     }
     const changeOrderBy = (key) => {
-      console.log(key)
       const copy = JSON.parse(JSON.stringify(props.orderBy));
       let oldValue = copy[key];
       if (oldValue === "asc") {
@@ -225,7 +224,6 @@ export default {
       } else {
         copy[key] = "asc";
       }
-      console.log(copy)
       context.emit("update:orderBy", copy);
     }
     const inSelectedItems = (item) => {
@@ -271,10 +269,11 @@ export default {
       }
       return result;
     }
-    console.log(actions)
+    // const columnsVnode = (column) => {
+    //   h()
+    // }
 
     onMounted(() => {
-      console.log(actions)
       columns.value = context.slots.default().map(node => {
         let { text, field, width } = node.props;
         let render = node.props.slotScope;
@@ -285,7 +284,6 @@ export default {
           render,
         };
       });
-      console.log(columns.value)
       // console.log(columns.value)
       // let result = columns.value[0].render({ value: "bren" });
       let table2 = table.value.cloneNode(false);
@@ -315,18 +313,19 @@ export default {
         actionsHeader.value.style.width = width2;
         actions.map(div => {
           div.parentElement.style.width = width2;
-          console.log(div.parentElement)
         });
       }
     })
     onMounted(() => {
       watchEffect(() => {
-        if (props.selectedItems.length === props.dataSource.length) {
-          allChecked.value.indeterminate = false;
-        } else if (props.selectedItems.length === 0) {
-          allChecked.value.indeterminate = false;
-        } else {
-          allChecked.value.indeterminate = true;
+        if (props.checkable) {
+          if (props.selectedItems.length === props.dataSource.length) {
+            allChecked.value.indeterminate = false;
+          } else if (props.selectedItems.length === 0) {
+            allChecked.value.indeterminate = false;
+          } else {
+            allChecked.value.indeterminate = true;
+          }
         }
       }, { flush: 'post' })
 
@@ -338,7 +337,7 @@ export default {
       inSelectedItems,
       inExpendedIds,
       expendItem,
-      wrapper, tableWrapper, table, actionsHeader, allChecked, setActionRef,
+      wrapper, tableWrapper, table, actionsHeader, allChecked, actions,
       areAllItemsSelected,
       expendedCellColSpan,
       onChangeAllItems,

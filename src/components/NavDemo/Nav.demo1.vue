@@ -10,11 +10,11 @@ Nav 的基本用法
         <NavItem name="culture">企业文化</NavItem>
         <NavItem name="developer">开发团队</NavItem>
         <SubNav name="contacts">
-          <template slot="title">联系方式</template>
+          <template v-slot:title>联系方式</template>
           <NavItem name="wechat">微信</NavItem>
           <NavItem name="qq">QQ</NavItem>
           <SubNav name="phone">
-            <template slot="phone">电话</template>
+            <template v-slot:title>电话</template>
             <NavItem name="telephone">固话</NavItem>
             <NavItem name="mobilePhone">手机</NavItem>
           </SubNav>

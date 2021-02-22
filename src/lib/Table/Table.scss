@@ -1,5 +1,9 @@
 @import "../style/theme.scss";
 $grey: darken($--color--background, 10%);
+
+.BUI-table-wrapper {
+  box-shadow: shadow-Generator($light-direction, $--color--background, $--blur-range-0);
+}
 .BUI-table {
   border-collapse: collapse;
   width: 100%;
@@ -78,7 +82,7 @@ $grey: darken($--color--background, 10%);
   }
   &-loading {
     position: absolute;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba($--color--background, 0.8);
     top: 0;
     left: 0;
     width: 100%;
@@ -97,7 +101,7 @@ $grey: darken($--color--background, 10%);
     position: absolute;
     top: 0;
     left: 0;
-    background: white;
+    background: lighten($--color--background, 5%);
   }
   &-expendIcon {
     width: 15px;

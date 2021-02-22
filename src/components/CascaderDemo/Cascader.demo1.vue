@@ -5,9 +5,9 @@
   <div>
     <div style="padding: 20px">
       <Cascader
-        :source.sync="source"
+        v-model:source="source"
         popover-height="200px"
-        :selected.sync="selected"
+        v-model:selected="selected"
         :load-data="loadData"
       ></Cascader>
     </div>

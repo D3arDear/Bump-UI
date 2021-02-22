@@ -371,5 +371,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "Table.scss";
+@import "./Table.scss";
 </style>

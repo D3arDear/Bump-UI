@@ -5,14 +5,14 @@
         <span class="name">{{ item.name }}</span>
         <span class="icons">
           <template v-if="item.name === loadingItem.name">
-            <icon class="loading" name="loading"></icon>
+            <Icon class="loading" name="loading"></Icon>
           </template>
           <template v-else>
-            <icon
+            <Icon
               class="next"
               v-if="rightArrowVisible(item)"
               name="right"
-            ></icon>
+            ></Icon>
           </template>
         </span>
       </div>
@@ -99,6 +99,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../style/theme.scss";
 $border-color-light: #aaa;
 $grey: grey;
 .cascaderItem {
@@ -107,17 +108,58 @@ $grey: grey;
   justify-content: flex-start;
   flex-direction: row;
   height: 100px;
+  background: $--color--background;
+  border-radius: $--border-radius--default;
+  box-shadow: shadow-generator(
+    $light-direction,
+    $--color--background,
+    $--blur-range-1,
+    false
+  );
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f6f6f600;
+    border-radius: 1px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba($--color--background, 0.5);
+    border-radius: 1px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #747474;
+  }
+  ::-webkit-scrollbar-corner {
+    background: $--color--background;
+  }
   .left {
     width: auto;
-    height: 200px;
     padding: 0.3em 0;
     overflow: auto;
+    border-radius: $--border-radius--default;
+    height: 100%;
+    background: $--color--background;
+    box-shadow: shadow-generator(
+      $light-direction,
+      $--color--background,
+      $--blur-range-3,
+      false
+    );
   }
   .right {
     width: auto;
-    height: 200px;
-    border-left: 1px solid $border-color-light;
     overflow: auto;
+    border-radius: $--border-radius--default;
+    margin-left: 1em;
+    height: 100%;
+    background: $--color--background;
+    box-shadow: shadow-generator(
+      $light-direction,
+      $--color--background,
+      $--blur-range-3,
+      false
+    );
   }
   .label {
     padding: 0.5em 1em;

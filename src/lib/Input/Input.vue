@@ -12,6 +12,7 @@
       :class="[
         classes('', 'wrapper', `${standard ? 'standard' : ''}`),
         label ? '' : 'noLabel',
+        focused ? 'focused' : '',
       ]"
     >
       <div
@@ -54,6 +55,10 @@ export default {
   props: {
     value: {
       type: [String, Date]
+    },
+    focused: {
+      type: Boolean,
+      default: false
     },
     label: {
       type: String,

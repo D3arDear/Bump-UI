@@ -1,7 +1,12 @@
 <template>
   <div class="cascader" ref="cascader" v-click-outside="close">
     <div class="trigger">
-      <Input v-model:value="result" readonly @click="toggle" />
+      <Input
+        v-model:value="result"
+        readonly
+        :focused="popoverVisible"
+        @click="toggle"
+      />
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
       <cascader-items
@@ -27,11 +32,13 @@ export default {
   components: { CascaderItems, Input },
   directives: { ClickOutside },
   props: {
-    source:
-    {
+    source: {
       type: Array
     },
     popoverHeight: {
+      type: String
+    },
+    inputLabel: {
       type: String
     },
     selected: {
@@ -123,6 +130,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../style/theme.scss";
 $input-height: 32px;
 $border-color: #999;
 $border-radius: 8px;
@@ -139,11 +147,13 @@ $border-radius: 8px;
     position: absolute;
     top: 100%;
     left: 0;
-    background: white;
     display: flex;
     margin-top: 8px;
     z-index: 1;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    border-radius: $--border-radius--default;
+    & + & {
+      margin-left: 1em;
+    }
   }
 }
 </style>

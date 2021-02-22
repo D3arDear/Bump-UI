@@ -71,12 +71,6 @@ export default {
       { id: 19, name: "Peter", score: 95, rank: 8 },
       { id: 20, name: "Tony", score: 94, rank: 9 }
     ])
-    const edit = (item) => {
-      alert(`开始编辑${item.id}`);
-    }
-    const view = (item) => {
-      alert(`开始查看${item.id}`);
-    }
     const changeOrderBy = (event) => {
       loading.value = true
       setTimeout(() => {
@@ -96,7 +90,7 @@ export default {
       }, 3000)
     }
     return {
-      edit, view, orderBy, sourceData, error, selected, loading, changeOrderBy
+      orderBy, sourceData, error, selected, loading, changeOrderBy
     }
   }
 

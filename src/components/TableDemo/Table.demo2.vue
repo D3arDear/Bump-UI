@@ -7,7 +7,8 @@
       :data-source="sourceData"
       bordered
       v-model:selectedItems="selected"
-      v-model:orderBy="orderBy"
+      @update:orderBy="changeOrderBy"
+      :orderBy="orderBy"
       :loading="loading"
       :height="400"
       expend-field=""
@@ -42,7 +43,7 @@ export default {
       score: "desc",
       rank: "desc"
     })
-    const sourceData = reactive([
+    const sourceData = ref([
       {
         id: 1,
         name: "Brendan",
@@ -80,14 +81,26 @@ export default {
       { id: 19, name: "Peter", score: 95, rank: 8 },
       { id: 20, name: "Tony", score: 94, rank: 9 }
     ])
-    const edit = (item) => {
-      alert(`开始编辑${item.id}`);
-    }
-    const view = (item) => {
-      alert(`开始查看${item.id}`);
+    const changeOrderBy = (event) => {
+      loading.value = true
+      setTimeout(() => {
+        let changedField = ''
+        Object.keys(orderBy).forEach(field => {
+          if (orderBy[field] !== event[field]) {
+            changedField = field
+          }
+        })
+        if (event[changedField] === 'desc') {
+          sourceData.value = sourceData.value.sort((a, b) => a[changedField] - b[changedField])
+        } else if (event[changedField] === 'asc') {
+          sourceData.value = sourceData.value.sort((a, b) => b[changedField] - a[changedField])
+        }
+        orderBy[changedField] = event[changedField]
+        loading.value = false
+      }, 3000)
     }
     return {
-      edit, view, orderBy, sourceData, error, selected, loading
+      orderBy, sourceData, error, selected, loading, changeOrderBy,
     }
   }
 

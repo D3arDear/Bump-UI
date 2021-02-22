@@ -1,3 +1,6 @@
+<demo>
+基本用法
+</demo>
 <template>
   <div>
     <Table

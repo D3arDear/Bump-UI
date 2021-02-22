@@ -10,7 +10,8 @@
     <Demo :component="ButtonDemo2">
       <p>
         可以接受一个 linearColor 对象，包含 colors:string[] (required)
-        两个颜色决定渐变颜色，angle:number (required) 决定渐变角度
+        两个颜色决定渐变颜色，angle:number (required)
+        决定渐变角度。一般用于需要特别突出的按钮。
       </p>
     </Demo>
     <Demo :component="ButtonDemo3">

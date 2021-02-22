@@ -1,5 +1,5 @@
 <demo>
-基本用法
+紧凑型样式
 </demo>
 <template>
   <div>

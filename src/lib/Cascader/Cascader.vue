@@ -24,8 +24,11 @@
 
 <script lang="ts">
 import CascaderItems from './Cascader.Items.vue'
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, PropType, ref } from 'vue'
 import Input from '../Input/Input.vue'
+interface IItems {
+  name: string
+}
 export default {
   name: 'BUI-Cascader',
   components: { CascaderItems, Input },
@@ -55,7 +58,7 @@ export default {
       type: String
     },
     selected: {
-      type: Array,
+      type: Array as PropType<IItems[]>,
       default: () => { return [] }
     },
     loadData: {
@@ -76,7 +79,6 @@ export default {
     }
 
     const toggle = () => {
-      console.log('调用一次 toggle')
       if (popoverVisible.value === true) {
         close()
       } else {
@@ -132,13 +134,6 @@ export default {
     const result = computed(() => {
       return props.selected.map((item) => item.name).join('/')
     })
-
-    const onClickDocument = (e) => {
-      if (CascaderItemRef &&
-        (CascaderItemRef === e.target || CascaderItemRef.value.contains(e.target))
-      ) { return }
-      close()
-    }
 
     return {
       popoverVisible,

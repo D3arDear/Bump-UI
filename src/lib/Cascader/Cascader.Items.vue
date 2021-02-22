@@ -33,14 +33,17 @@
 </template>
 
 <script lang="ts">
-import { computed } from 'vue'
+import { computed, PropType, ref } from 'vue'
 import Icon from '../Icon.vue'
+interface IItems {
+  name: string
+}
 export default {
   name: "BUI-CascaderItems",
   components: { Icon },
   props: {
     items: {
-      type: Array
+      type: Array as PropType<IItems[]>
     },
     height: {
       type: String
@@ -50,7 +53,7 @@ export default {
       default: () => ({})
     },
     selected: {
-      type: Array,
+      type: Array as PropType<IItems[]>,
       default: () => []
     },
     loadData: {
@@ -62,12 +65,14 @@ export default {
     }
   },
   setup(props, context) {
-    console.log('items', props.items)
-    console.log('selected', props.selected)
+    const right = ref<HTMLDivElement>(null)
+
     const rightItems = computed(() => {
       if (props.selected[props.level]) {
         let selected = props.items.filter((item) => item.name === props.selected[props.level].name)
+        // @ts-ignore
         if (selected && selected[0].children && selected[0].children.length > 0) {
+          // @ts-ignore
           return selected[0].children
         }
       }
@@ -92,7 +97,8 @@ export default {
       rightItems,
       rightArrowVisible,
       onClickLabel,
-      onUpdateSelected
+      onUpdateSelected,
+      right
     }
   }
 }

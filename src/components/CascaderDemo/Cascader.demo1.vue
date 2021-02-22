@@ -19,7 +19,7 @@ import Button from "../../lib/Button/Button.vue";
 import Cascader from "../../lib/Cascader/Cascader.vue";
 import db from './db.js'
 import Popover from '../../lib/Popover/Popover.vue'
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 function ajax(parentId = 0) {
   return new Promise((success, fail) => {
     setTimeout(() => {
@@ -45,8 +45,10 @@ export default {
   setup() {
     const selected = ref([])
     const source = ref([])
-    ajax(0).then(result => {
-      source.value = result
+    onMounted(() => {
+      ajax(0).then(result => {
+        source.value = result
+      })
     })
     const loadData = ({ id }, updateSource) => {
       ajax(id).then(result => {

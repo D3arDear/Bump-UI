@@ -8,7 +8,7 @@
         @click="toggle"
       />
     </div>
-    <div class="popover-wrapper" v-if="popoverVisible">
+    <div class="popover-wrapper" v-if="popoverVisible" ref="CascaderItemRef">
       <cascader-items
         :items="source"
         class="popover"
@@ -24,13 +24,26 @@
 
 <script lang="ts">
 import CascaderItems from './Cascader.Items.vue'
-import ClickOutside from '../common/click-outside.js'
-import { computed, ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 import Input from '../Input/Input.vue'
 export default {
   name: 'BUI-Cascader',
   components: { CascaderItems, Input },
-  directives: { ClickOutside },
+  directives: {
+    clickOutside: {
+      beforeMount(el, binding, vnode) {
+        el.clickOutsideEvent = function (event) {
+          if (!(el === event.target || el.contains(event.target))) {
+            binding.value(event, el);
+          }
+        };
+        document.body.addEventListener("click", el.clickOutsideEvent);
+      },
+      unmounted(el) {
+        document.body.removeEventListener("click", el.clickOutsideEvent);
+      },
+    }
+  },
   props: {
     source: {
       type: Array
@@ -53,15 +66,17 @@ export default {
     const popoverVisible = ref(false)
     const loadingItem = ref({})
     const cascader = ref<HTMLDivElement>(null)
+    const CascaderItemRef = ref<HTMLDivElement>(null)
 
-    const open = () => {
+    const open = async () => {
       popoverVisible.value = true
     }
-    const close = () => {
+    const close = async () => {
       popoverVisible.value = false
     }
 
     const toggle = () => {
+      console.log('调用一次 toggle')
       if (popoverVisible.value === true) {
         close()
       } else {
@@ -118,10 +133,17 @@ export default {
       return props.selected.map((item) => item.name).join('/')
     })
 
+    const onClickDocument = (e) => {
+      if (CascaderItemRef &&
+        (CascaderItemRef === e.target || CascaderItemRef.value.contains(e.target))
+      ) { return }
+      close()
+    }
+
     return {
       popoverVisible,
       loadingItem,
-      cascader,
+      cascader, CascaderItemRef,
       open, close, toggle, onUpdateSelected,
       result
     }

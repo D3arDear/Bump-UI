@@ -16,12 +16,20 @@ document.addEventListener("click", onClickDocument);
 // 记录点击了哪一个元素,以及他的callback
 let callbacks = [];
 
-export default function (el, binding, vnode) {
-  callbacks.push({ el, callback: binding.value });
-  // 点击一个元素,就保存这个元素以及它传入的close()回调
-}
-
 let removeListener = () => {
   document.removeEventListener("click", onClickDocument);
 };
-export { removeListener };
+
+export default {
+  beforeMount(el, binding, vnode) {
+    el.clickOutsideEvent = function (event) {
+      if (!(el === event.target || el.contains(event.target))) {
+        binding.value(event, el);
+      }
+    };
+    document.body.addEventListener("click", el.clickOutsideEvent);
+  },
+  unmounted(el) {
+    document.body.removeEventListener("click", el.clickOutsideEvent);
+  },
+};

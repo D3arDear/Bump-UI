@@ -314,7 +314,6 @@ export default {
       table2.classList.add("BUI-table-copy");
       let tHead = table.value.children[0];
       let headHeight = tHead.getBoundingClientRect().height;
-      console.log(headHeight)
       wrapper.value.style.paddingTop = props.height ? headHeight + "px" : headHeight * (props.compact ? 3 : 2) + "px";
       tableWrapper.value.style.height = props.height - headHeight + "px";
       table2.appendChild(tHead);

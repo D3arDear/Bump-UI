@@ -70,7 +70,7 @@
               <router-link to="/doc/pager"> Pager </router-link>
             </li>
             <li>
-              <router-link to="/doc/table"> Table × </router-link>
+              <router-link to="/doc/table"> Table </router-link>
             </li>
             <li>
               <router-link to="/doc/cascader"> Cascader × </router-link>

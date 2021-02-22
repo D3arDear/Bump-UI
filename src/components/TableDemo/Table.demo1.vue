@@ -4,16 +4,13 @@
       :data-source="sourceData"
       bordered
       v-model:selected-items="selected"
-      v-model:orderBy="orderBy"
-      :loading="loading"
+      @update:orderBy="changeOrderBy"
+      :orderBy="orderBy"
+      v-model:loading="loading"
       expend-field="description"
     >
       <TableColumn text="id" field="id" :width="50"></TableColumn>
-      <TableColumn text="姓名" field="name" :width="100">
-        <template v-slot:default>
-          <a>{{ "test" }}</a>
-        </template>
-      </TableColumn>
+      <TableColumn text="姓名" field="name" :width="100"> </TableColumn>
       <TableColumn text="分数" field="score" :width="100"></TableColumn>
       <TableColumn text="排名" field="rank" :width="100"></TableColumn>
     </Table>
@@ -32,7 +29,7 @@ export default {
     const error = ref('')
     const selected = ref([])
     const loading = ref(false)
-    const orderBy = ref({
+    const orderBy = reactive({
       score: "desc",
       rank: "desc"
     })
@@ -80,8 +77,26 @@ export default {
     const view = (item) => {
       alert(`开始查看${item.id}`);
     }
+    const changeOrderBy = (event) => {
+      loading.value = true
+      setTimeout(() => {
+        let changedField = ''
+        Object.keys(orderBy).forEach(field => {
+          if (orderBy[field] !== event[field]) {
+            changedField = field
+          }
+        })
+        if (event[changedField] === 'desc') {
+          sourceData.value = sourceData.value.sort((a, b) => a[changedField] - b[changedField])
+        } else if (event[changedField] === 'asc') {
+          sourceData.value = sourceData.value.sort((a, b) => b[changedField] - a[changedField])
+        }
+        orderBy[changedField] = event[changedField]
+        loading.value = false
+      }, 3000)
+    }
     return {
-      edit, view, orderBy, sourceData, error, selected, loading
+      edit, view, orderBy, sourceData, error, selected, loading, changeOrderBy
     }
   }
 

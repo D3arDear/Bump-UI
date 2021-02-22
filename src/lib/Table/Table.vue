@@ -65,7 +65,7 @@
                   :class="{ active: inExpendedIds(item.id) }"
                   class="BUI-table-expendIcon"
                   name="right"
-                  @click="expendItem(item.id)"
+                  v-on:click="expendItem(item.id)"
                 />
               </td>
               <td
@@ -198,17 +198,27 @@ export default {
     const table = ref<HTMLTableElement>(null)
     const wrapper = ref<HTMLDivElement>(null)
     const tableWrapper = ref<HTMLDivElement>(null)
-    const actions = reactive<HTMLDivElement[]>([])
+    const actions = ref<HTMLDivElement[]>([])
     const actionsHeader = ref<HTMLDivElement>(null)
     const allChecked = ref<HTMLInputElement>(null)
 
+    onBeforeUpdate(() => {
+      actions.value = []
+    })
 
     const expendItem = (id) => {
+      console.log('进来之前他是个什么状态', expendedIDs)
+      console.log(id)
       if (inExpendedIds(id)) {
-        console.log(id)
-        expendedIDs.value = expendedIDs.value.splice(expendedIDs.value.indexOf(id), 1);
+        // console.log('有了')
+        expendedIDs.value.splice(expendedIDs.value.indexOf(id), 1)
+        // console.log('这里有没有', expendedIDs)
+        // console.log('从这里删', expendedIDs.value.indexOf(id))
+        console.log(expendedIDs.value)
       } else {
+        // console.log('没有')
         expendedIDs.value.push(id);
+        // console.log(expendedIDs)
       }
     }
     const inExpendedIds = (id) => {
@@ -295,7 +305,7 @@ export default {
       table2.appendChild(tHead);
       wrapper.value.appendChild(table2);
       if (context.slots.default()) {
-        let div = actions[0];
+        let div = actions.value[0];
         let { width } = div.getBoundingClientRect();
         let parent = div.parentElement;
         let style = getComputedStyle(parent);
@@ -311,7 +321,7 @@ export default {
           parseInt(borderRight) +
           "px";
         actionsHeader.value.style.width = width2;
-        actions.map(div => {
+        actions.value.map(div => {
           div.parentElement.style.width = width2;
         });
       }

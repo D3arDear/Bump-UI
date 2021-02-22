@@ -1,4 +1,4 @@
-@keyframes BUI-animation__pop {
+@keyframes BUI-animation__spin {
   from {
     transform: rotate(0deg);
   }
@@ -7,14 +7,6 @@
   }
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 @mixin spin {
   animation: spin 2s infinite linear;
 }

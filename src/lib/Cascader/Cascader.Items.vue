@@ -1,9 +1,13 @@
 <template>
-  <div class="cascaderItem" :style="{ height: height }">
-    <div class="left">
-      <div class="label" v-for="item in items" @click="onClickLabel(item)">
-        <span class="name">{{ item.name }}</span>
-        <span class="icons">
+  <div :class="classes('', '', '')" :style="{ height: height }">
+    <div :class="classes('', 'left', '')">
+      <div
+        v-for="item in items"
+        :class="[classes('', 'label', ''), { active: labelActive(item.name) }]"
+        @click="onClickLabel(item)"
+      >
+        <span :class="classes('', 'name', '')">{{ item.name }}</span>
+        <span :class="classes('', 'icon', '')">
           <template v-if="item.name === loadingItem.name">
             <Icon class="loading" name="loading"></Icon>
           </template>
@@ -17,7 +21,7 @@
         </span>
       </div>
     </div>
-    <div class="right" v-if="rightItems">
+    <div :class="classes('', 'right', '')" v-if="rightItems">
       <BUI-CascaderItems
         ref="right"
         :items="rightItems"
@@ -35,6 +39,7 @@
 <script lang="ts">
 import { computed, PropType, ref } from 'vue'
 import Icon from '../Icon.vue'
+import { classMaker } from '../common/classMaker'
 interface IItems {
   name: string
 }
@@ -66,7 +71,9 @@ export default {
   },
   setup(props, context) {
     const right = ref<HTMLDivElement>(null)
+    const classes = classMaker('BUI-Cascader-Items')
 
+    console.log(props.selected)
     const rightItems = computed(() => {
       if (props.selected[props.level]) {
         let selected = props.items.filter((item) => item.name === props.selected[props.level].name)
@@ -82,6 +89,10 @@ export default {
       return props.loadData ? !item.isLeaf : item.children
     }
 
+
+    const labelActive = (item) => props.selected.map(selectedItem => selectedItem.name).indexOf(item) >= 0;
+
+
     const onClickLabel = (item) => {
       let copy = JSON.parse(JSON.stringify(props.selected))
       copy[props.level] = item
@@ -94,6 +105,8 @@ export default {
     }
 
     return {
+      classes,
+      labelActive,
       rightItems,
       rightArrowVisible,
       onClickLabel,
@@ -106,9 +119,17 @@ export default {
 
 <style scoped lang="scss">
 @import "../style/theme.scss";
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 $border-color-light: #aaa;
 $grey: grey;
-.cascaderItem {
+.BUI-Cascader-Items {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -139,7 +160,7 @@ $grey: grey;
   ::-webkit-scrollbar-corner {
     background: $--color--background;
   }
-  .left {
+  &__left {
     width: auto;
     padding: 0.3em 0;
     overflow: auto;
@@ -153,7 +174,7 @@ $grey: grey;
       false
     );
   }
-  .right {
+  &__right {
     width: auto;
     overflow: auto;
     border-radius: $--border-radius--default;
@@ -167,21 +188,26 @@ $grey: grey;
       false
     );
   }
-  .label {
+  &__label {
     padding: 0.5em 1em;
     display: flex;
     align-items: center;
     cursor: pointer;
     white-space: nowrap;
-    &:hover {
-      background: $grey;
+    transition: color 300ms;
+    &.active {
+      color: $--color--primary;
     }
-    > .name {
+    &:hover {
+      background: darken($--color--background, 5%);
+    }
+    > .BUI-Cascader-Items__name {
       margin-right: 1em;
       user-select: none;
     }
-    .icons {
+    .BUI-Cascader-Items__icon {
       margin-left: auto;
+      color: ContrastText($--color--background);
       .next {
         transform: scale(0.5);
       }

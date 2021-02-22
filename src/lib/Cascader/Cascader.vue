@@ -1,6 +1,6 @@
 <template>
-  <div class="cascader" ref="cascader" v-click-outside="close">
-    <div class="trigger">
+  <div :class="classes('', '', '')" ref="cascader" v-click-outside="close">
+    <div :class="classes('', 'trigger', '')">
       <Input
         v-model:value="result"
         readonly
@@ -8,10 +8,14 @@
         @click="toggle"
       />
     </div>
-    <div class="popover-wrapper" v-if="popoverVisible" ref="CascaderItemRef">
+    <div
+      :class="classes('', 'popover-wrapper', '')"
+      v-if="popoverVisible"
+      ref="CascaderItemRef"
+    >
       <cascader-items
         :items="source"
-        class="popover"
+        :class="classes('', 'popover', '')"
         :loadData="loadData"
         :loading-item="loadingItem"
         :height="popoverHeight"
@@ -26,6 +30,7 @@
 import CascaderItems from './Cascader.Items.vue'
 import { computed, nextTick, PropType, ref } from 'vue'
 import Input from '../Input/Input.vue'
+import { classMaker } from '../common/classMaker'
 interface IItems {
   name: string
 }
@@ -66,6 +71,7 @@ export default {
     }
   },
   setup(props, context) {
+    const classes = classMaker('BUI-Cascader')
     const popoverVisible = ref(false)
     const loadingItem = ref({})
     const cascader = ref<HTMLDivElement>(null)
@@ -136,6 +142,7 @@ export default {
     })
 
     return {
+      classes,
       popoverVisible,
       loadingItem,
       cascader, CascaderItemRef,
@@ -146,21 +153,21 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import "../style/theme.scss";
 $input-height: 32px;
 $border-color: #999;
 $border-radius: 8px;
-.cascader {
+.BUI-Cascader {
   display: inline-block;
   position: relative;
-  .trigger {
+  &__trigger {
     height: $input-height;
     display: inline-flex;
     align-items: center;
     min-width: 10em;
   }
-  .popover-wrapper {
+  &__popover-wrapper {
     position: absolute;
     top: 100%;
     left: 0;

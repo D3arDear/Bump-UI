@@ -8,21 +8,23 @@
         @click="toggle"
       />
     </div>
-    <div
-      :class="classes('', 'popover-wrapper', '')"
-      v-if="popoverVisible"
-      ref="CascaderItemRef"
-    >
-      <cascader-items
-        :items="source"
-        :class="classes('', 'popover', '')"
-        :loadData="loadData"
-        :loading-item="loadingItem"
-        :height="popoverHeight"
-        :selected="selected"
-        @update:selected="onUpdateSelected"
-      ></cascader-items>
-    </div>
+    <transition name="BUI-animation--slide-bottom" mode="out-in">
+      <div
+        :class="classes('', 'popover-wrapper', '')"
+        v-if="popoverVisible"
+        ref="CascaderItemRef"
+      >
+        <CascaderItems
+          :items="source"
+          :class="classes('', 'popover', '')"
+          :loadData="loadData"
+          :loading-item="loadingItem"
+          :height="popoverHeight"
+          :selected="selected"
+          @update:selected="onUpdateSelected"
+        ></CascaderItems>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -155,14 +157,24 @@ export default {
 
 <style lang="scss">
 @import "../style/theme.scss";
-$input-height: 32px;
 $border-color: #999;
-$border-radius: 8px;
+$border-radius: $--border-radius--default;
+.BUI-animation--slide-bottom {
+  &-enter-active,
+  &-leave-active {
+    opacity: 1;
+    transition: all 300ms ease-in-out;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+}
 .BUI-Cascader {
   display: inline-block;
   position: relative;
   &__trigger {
-    height: $input-height;
     display: inline-flex;
     align-items: center;
     min-width: 10em;

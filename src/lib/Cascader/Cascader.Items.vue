@@ -8,31 +8,35 @@
       >
         <span :class="classes('', 'name', '')">{{ item.name }}</span>
         <span :class="classes('', 'icon', '')">
-          <template v-if="item.name === loadingItem.name">
-            <Icon class="loading" name="loading"></Icon>
-          </template>
-          <template v-else>
-            <Icon
-              class="next"
-              v-if="rightArrowVisible(item)"
-              name="right"
-            ></Icon>
-          </template>
+          <transition name="BUI-animation--fade" mode="out-in">
+            <template v-if="item.name === loadingItem.name">
+              <Icon class="loading" name="loading"></Icon>
+            </template>
+            <template v-else>
+              <Icon
+                class="next"
+                v-if="rightArrowVisible(item)"
+                name="right"
+              ></Icon>
+            </template>
+          </transition>
         </span>
       </div>
     </div>
-    <div :class="classes('', 'right', '')" v-if="rightItems">
-      <BUI-CascaderItems
-        ref="right"
-        :items="rightItems"
-        :height="height"
-        :loading-item="loadingItem"
-        :load-data="loadData"
-        :level="level + 1"
-        :selected="selected"
-        @update:selected="onUpdateSelected"
-      ></BUI-CascaderItems>
-    </div>
+    <transition name="BUI-animation--slide-bottom" mode="out-in">
+      <div :class="classes('', 'right', '')" v-if="rightItems">
+        <BUI-CascaderItems
+          ref="right"
+          :items="rightItems"
+          :height="height"
+          :loading-item="loadingItem"
+          :load-data="loadData"
+          :level="level + 1"
+          :selected="selected"
+          @update:selected="onUpdateSelected"
+        ></BUI-CascaderItems>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -127,8 +131,29 @@ export default {
     transform: rotate(360deg);
   }
 }
-$border-color-light: #aaa;
-$grey: grey;
+.BUI-animation--slide-bottom {
+  &-enter-active,
+  &-leave-active {
+    opacity: 1;
+    transition: all 300ms ease-in-out;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+}
+.BUI-animation--fade {
+  &-enter-active,
+  &-leave-active {
+    opacity: 1;
+    transition: all 300ms ease-in-out;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
+}
 .BUI-Cascader-Items {
   display: flex;
   align-items: flex-start;
@@ -194,7 +219,8 @@ $grey: grey;
     align-items: center;
     cursor: pointer;
     white-space: nowrap;
-    transition: color 300ms;
+    transition: all 300ms;
+    color: ContrastText($--color--background);
     &.active {
       color: $--color--primary;
     }
@@ -207,7 +233,6 @@ $grey: grey;
     }
     .BUI-Cascader-Items__icon {
       margin-left: auto;
-      color: ContrastText($--color--background);
       .next {
         transform: scale(0.5);
       }

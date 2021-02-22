@@ -96,14 +96,27 @@
 <script lang="ts">
 import Input from "../Input/Input.vue";
 import Icon from "../Icon.vue";
-import ClickOutside from "../common/click-outside.js";
 import Popover from "../Popover/Popover.vue";
 import helper from "./DatePickerHelper.js";
 import Scroll from "../Scroll/Scroll.vue";
 import Button from "../Button/Button.vue";
 export default {
   components: { Input, Icon, Popover, Scroll, Button },
-  directives: { ClickOutside },
+  directives: {
+    clickOutside: {
+      beforeMount(el, binding, vnode) {
+        el.clickOutsideEvent = function (event) {
+          if (!(el === event.target || el.contains(event.target))) {
+            binding.value(event, el);
+          }
+        };
+        document.body.addEventListener("click", el.clickOutsideEvent);
+      },
+      unmounted(el) {
+        document.body.removeEventListener("click", el.clickOutsideEvent);
+      },
+    }
+  },
   name: "ZealotDatePicker",
   props: {
     firstDayOfWeek: {

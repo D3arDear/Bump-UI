@@ -50,6 +50,21 @@ interface IItems {
 export default {
   name: "BUI-CascaderItems",
   components: { Icon },
+  directives: {
+    clickOutside: {
+      beforeMount(el, binding, vnode) {
+        el.clickOutsideEvent = function (event) {
+          if (!(el === event.target || el.contains(event.target))) {
+            binding.value(event, el);
+          }
+        };
+        document.body.addEventListener("click", el.clickOutsideEvent);
+      },
+      unmounted(el) {
+        document.body.removeEventListener("click", el.clickOutsideEvent);
+      },
+    }
+  },
   props: {
     items: {
       type: Array as PropType<IItems[]>

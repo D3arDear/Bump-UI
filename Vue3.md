@@ -97,9 +97,6 @@ setup(props, context) {
 </script>
 ```
 
-- 效果等同于 `<Switch :value="bool" @update:value="bool=$event"></Switch>`
-- 这么看来现在已经不需要 2.0 的 `.sync` 了
-
 要使用 `v-model` 有几点要求
 
 - 属性名任意，假定为 `something`

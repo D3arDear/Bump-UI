@@ -52,6 +52,9 @@
               <router-link to="/doc/sticky"> Sticky </router-link>
             </li>
             <li>
+              <router-link to="/doc/nav"> Nav </router-link>
+            </li>
+            <li>
               <router-link to="/doc/dialog"> Dialog </router-link>
             </li>
             <li>
@@ -74,6 +77,9 @@
             </li>
             <li>
               <router-link to="/doc/cascader"> Cascader </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/datepicker"> DatePicker </router-link>
             </li>
           </ul>
         </aside>

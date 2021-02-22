@@ -1,6 +1,6 @@
 <template>
   <div ref="wrapper" class="zealot-date-picker">
-    <z-popover
+    <Popover
       ref="zealotPopover"
       position="bottom"
       :container="popoverContainer"
@@ -85,12 +85,12 @@
             </div>
           </div>
           <div class="zealot-date-picker-actions">
-            <z-button @click="onClickToday">今天</z-button>
-            <z-button @click="onClickClear">清除</z-button>
+            <Button @click="onClickToday">今天</Button>
+            <Button @click="onClickClear">清除</Button>
           </div>
         </div>
       </template>
-    </z-popover>
+    </Popover>
   </div>
 </template>
 <script lang="ts">
@@ -277,7 +277,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "var";
+@import "../style/theme.scss";
+$border-radius: $--border-radius--default;
 .zealot-date-picker {
   &-nav {
     display: flex;
@@ -310,15 +311,15 @@ export default {
       transition: all 0.3s;
       border-radius: $border-radius;
       &:hover {
-        background: $blue;
+        background: blue;
         cursor: pointer;
       }
     }
     &.today {
-      background: $grey;
+      background: grey;
     }
     &.selected {
-      border: 1px solid $blue;
+      border: 1px solid blue;
     }
   }
   &-yearAndMonth {
@@ -337,7 +338,7 @@ export default {
   &-returnToDayMode {
     margin-top: 8px;
   }
-  /deep/.zealot-popover-content-wrapper {
+  .zealot-popover-content-wrapper {
     padding: 0;
   }
   &-actions {

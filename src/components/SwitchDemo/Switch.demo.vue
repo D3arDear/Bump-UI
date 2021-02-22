@@ -16,6 +16,7 @@
 <script lang="ts" scoped>
 import Demo from "../Demo.vue";
 import SwitchDemo1 from './Switch.demo1.vue'
+// @ts-ignore
 import SwitchDemo2 from './Switch.demo2.vue'
 import SwitchDemo3 from './Switch.demo3.vue'
 export default {

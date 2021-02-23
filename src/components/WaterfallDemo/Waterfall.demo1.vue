@@ -1,7 +1,7 @@
 <demo> waterfall 基本用法 </demo> 
 
 <template>
-  <div class="waterfallContainer" ref="waterfallcontaienr">
+  <div ref="waterfallcontaienr" class="waterfallContainer">
     <Waterfall
       :width="150"
       :source="source"
@@ -28,8 +28,7 @@ export default {
     Waterfall
   },
   setup() {
-    const waterfallContainer = ref(null)
-    // const source = ref([].fill({ size: '宽度 100 像素' }, 0, 10))
+    const waterfallContainer = ref<HTMLDivElement>(null)
     const source = reactive([
       { height: 100 },
       { height: 200 },
@@ -53,11 +52,7 @@ export default {
           { height: 50 },
           { height: 200 },
           { height: 150 },
-          { height: 250 },
-          { height: 120 },
-          { height: 30 },
-          { height: 80 },
-          { height: 120 })
+          { height: 250 })
       }, 1000);
     }
 

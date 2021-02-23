@@ -1,8 +1,12 @@
 <demo> waterfall 基本用法 </demo> 
 
 <template>
-  <div ref="waterfallContainer" class="waterfallContainer">
-    <Waterfall :width="150" :source="source" @scroll-to-bottom="loadNewData">
+  <div id="waterfallContainer" class="waterfallContainer">
+    <Waterfall
+      :width="120"
+      :sourceData="source"
+      v-on:scroll-to-bottom="loadNewData"
+    >
       <template v-slot="slotProps">
         <div
           class="waterfallItem"
@@ -38,7 +42,6 @@ export default {
       { height: 120 },
     ])
 
-    const waterfallContainer = ref<HTMLDivElement>(null)
 
     const loadNewData = () => {
       // 模拟请求

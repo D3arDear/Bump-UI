@@ -1,8 +1,9 @@
 <template>
   <div :class="classes('', '', '')" ref="rootElement">
-    <template v-if="col && source && source.length">
+    <template v-if="col && sourceData && sourceData.length">
       <div
         :class="classes('', 'colItem', '')"
+        :style="{ width: width }"
         v-for="(n, index) in col"
         :key="index"
         :ref="
@@ -13,7 +14,7 @@
       ></div>
       <div
         :class="classes('', 'item', '')"
-        v-for="(item, index) in source"
+        v-for="(item, index) in sourceData"
         :key="`item-${index}`"
         :ref="
           (el) => {
@@ -36,9 +37,12 @@ export default {
       type: Number,
       default: 200
     },
-    source: { type: Array, required: true },
+    sourceData: { type: Array, required: true },
     container: {
       type: Object as PropType<HTMLDivElement>
+    },
+    containerId: {
+      type: String
     }
   },
   setup(props, context) {
@@ -51,7 +55,7 @@ export default {
     const rootElement = ref<HTMLDivElement>(null)
     const colItemRef = ref<HTMLDivElement[]>([])
     const itemRef = ref<HTMLDivElement[]>([])
-
+    const containerRef = ref<HTMLElement>(null)
 
 
     onBeforeUpdate(() => {
@@ -60,8 +64,16 @@ export default {
     })
 
 
-    const container = computed(() => props.container).value
-    const source = props.source
+    const getContainer = () => {
+      if (props.container) {
+        containerRef.value = props.container
+      } else if (props.containerId) {
+        containerRef.value = document.getElementById(`${props.containerId}`)
+      } else {
+        containerRef.value = document.documentElement || document.body
+      }
+    }
+    const sourceData = computed(() => props.sourceData).value
     const parent = getCurrentInstance().parent;
 
     const getPositionData = (container) => {
@@ -72,19 +84,15 @@ export default {
     }
 
     const scrollListener = () => {
-      const { scrollHeight, scrollTop, clientHeight } = container ? getPositionData(container) : (getPositionData(document.documentElement) || getPositionData(document.body))
+      const { scrollHeight, scrollTop, clientHeight } = getPositionData(containerRef.value);
       if (scrollHeight - scrollTop < clientHeight + 10) {
         context.emit('scroll-to-bottom')
-        container ? container.removeEventListener('scroll', scrollListener) :
-          window.removeEventListener('scroll', scrollListener)
+        containerRef.value.removeEventListener('scroll', scrollListener)
       }
     }
 
-    const updateEachHeight = async () => {
+    const updateEachCol = async () => {
       await nextTick(() => {
-        colItemRef.value.forEach(element => {
-          element.style.width = props.width + 'px' //设置每一列的宽度
-        });
         itemRef.value.forEach(item => {
           item.style.width = props.width + 'px'
           let minHeight = Math.min.apply(undefined, heightArr.value)
@@ -100,62 +108,58 @@ export default {
           // this.$set(heightArr, index, minHeight + height)
           heightArr.value[index] = minHeight + height
         })
+        console.log(heightArr.value)
       })
     }
 
     const resize = () => {
       rootElement.value.style.width = 'auto'
       let { width: mainWidth } = rootElement.value.getBoundingClientRect()
+      console.log(mainWidth)
       rootElement.value.style.width = mainWidth + 'px'
-      col.value = Math.floor(mainWidth / props.width) //计算分多少列
+      col.value = Math.floor(mainWidth / props.width) // 计算能分多少列
       if (col.value === 1) {
         gutter.value = (mainWidth - props.width) / 2
       } else {
         gutter.value = (mainWidth - props.width * col.value) / (col.value - 1) //空隙
       }
       heightArr.value = Array(col.value).fill(0);
-      updateEachHeight()
+      console.log('重置', heightArr.value)
+      console.log(' 调用 updateEachHeight')
+      updateEachCol()
     }
 
     onMounted(async () => {
-      console.log(props.container)
+      getContainer()
       resize()
-      if (container) {
-        container.addEventListener('scroll', scrollListener)
-      } else {
-        window.addEventListener('scroll', scrollListener)
-      }
+      containerRef.value.addEventListener('scroll', scrollListener)
       await nextTick(() => {
         resize();
         window.addEventListener('resize', resize)
       })
     })
     onBeforeUnmount(() => {
-      container ? container.removeEventListener('scroll', scrollListener) :
-        window.removeEventListener('scroll', scrollListener)
+      containerRef.value.removeEventListener('scroll', scrollListener)
       window.removeEventListener('resize', resize)
     })
 
-    watch(() => [...source], () => {
+    watch(() => [...sourceData], () => {
       resize();
-      container ? container.removeEventListener('scroll', scrollListener) :
-        window.removeEventListener('scroll', scrollListener)
-      container ? container.addEventListener('scroll', scrollListener) :
-        window.addEventListener('scroll', scrollListener)
+      containerRef.value.removeEventListener('scroll', scrollListener)
+      containerRef.value.addEventListener('scroll', scrollListener)
     }, { deep: true })
 
 
     return {
       classes,
       col, gutter, heightArr,
-      rootElement, colItemRef, itemRef
+      rootElement, colItemRef, itemRef, resize
     }
   },
 }
 </script>
 <style scoped lang="scss">
 .BUI-Waterfall {
-  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;

@@ -4,19 +4,24 @@
     <Demo :component="WaterfallDemo1">
       <p>瀑布流布局的基本用法</p>
     </Demo>
+    <!-- <Demo :component="WaterfallDemo2">
+      <p>瀑布流布局的基本用法</p>
+    </Demo> -->
   </div>
 </template>
 
 <script lang="ts" scoped>
 import Demo from "../Demo.vue";
 import WaterfallDemo1 from './Waterfall.demo1.vue'
+import WaterfallDemo2 from './Waterfall.demo2.vue'
 // @ts-ignore
 export default {
   name: "SwitchDemo",
   components: { Demo },
   setup() {
     return {
-      WaterfallDemo1
+      WaterfallDemo1,
+      WaterfallDemo2
     };
   },
 }

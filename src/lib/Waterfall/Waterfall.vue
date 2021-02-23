@@ -55,7 +55,7 @@ export default {
     const rootElement = ref<HTMLDivElement>(null)
     const colItemRef = ref<HTMLDivElement[]>([])
     const itemRef = ref<HTMLDivElement[]>([])
-    const containerRef = ref<HTMLElement>(null)
+    const containerRef = ref(null)
 
 
     onBeforeUpdate(() => {
@@ -72,6 +72,11 @@ export default {
       } else {
         containerRef.value = document.documentElement || document.body
       }
+      if (containerRef.value !== (document.documentElement || document.body)) {
+        containerRef.value.addEventListener('scroll', scrollListener)
+      } else {
+        window.addEventListener('scroll', scrollListener)
+      }
     }
     const sourceData = computed(() => props.sourceData).value
     const parent = getCurrentInstance().parent;
@@ -87,7 +92,8 @@ export default {
       const { scrollHeight, scrollTop, clientHeight } = getPositionData(containerRef.value);
       if (scrollHeight - scrollTop < clientHeight + 10) {
         context.emit('scroll-to-bottom')
-        containerRef.value.removeEventListener('scroll', scrollListener)
+        containerRef.value ?
+          containerRef.value.removeEventListener('scroll', scrollListener) : window.removeEventListener('scroll', scrollListener)
       }
     }
 
@@ -108,38 +114,33 @@ export default {
           // this.$set(heightArr, index, minHeight + height)
           heightArr.value[index] = minHeight + height
         })
-        console.log(heightArr.value)
       })
     }
 
     const resize = () => {
       rootElement.value.style.width = 'auto'
-      let { width: mainWidth } = rootElement.value.getBoundingClientRect()
-      console.log(mainWidth)
-      rootElement.value.style.width = mainWidth + 'px'
-      col.value = Math.floor(mainWidth / props.width) // 计算能分多少列
+      let { width: maxWidth } = rootElement.value.getBoundingClientRect()
+      rootElement.value.style.width = maxWidth + 'px'
+      col.value = Math.floor(maxWidth / props.width) // 计算能分多少列
       if (col.value === 1) {
-        gutter.value = (mainWidth - props.width) / 2
+        gutter.value = (maxWidth - props.width) / 2
       } else {
-        gutter.value = (mainWidth - props.width * col.value) / (col.value - 1) //空隙
+        gutter.value = (maxWidth - props.width * col.value) / (col.value - 1) //空隙
       }
       heightArr.value = Array(col.value).fill(0);
-      console.log('重置', heightArr.value)
-      console.log(' 调用 updateEachHeight')
       updateEachCol()
     }
 
     onMounted(async () => {
       getContainer()
       resize()
-      containerRef.value.addEventListener('scroll', scrollListener)
       await nextTick(() => {
         resize();
         window.addEventListener('resize', resize)
       })
     })
     onBeforeUnmount(() => {
-      containerRef.value.removeEventListener('scroll', scrollListener)
+      containerRef.value ? removeEventListener('scroll', scrollListener) : window.removeEventListener('scorll', scrollListener)
       window.removeEventListener('resize', resize)
     })
 

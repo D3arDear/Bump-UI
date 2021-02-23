@@ -1,11 +1,16 @@
 <demo> waterfall 基本用法 </demo> 
 
 <template>
-  <div id="waterfallContainer" class="waterfallContainer">
+  <div
+    id="waterfallContainer"
+    class="waterfallContainer"
+    :style="{ height: '300px' }"
+  >
     <Waterfall
       :width="120"
       :sourceData="source"
-      v-on:scroll-to-bottom="loadNewData"
+      @scroll-to-bottom="loadNewData"
+      containerId="waterfallContainer"
     >
       <template v-slot="slotProps">
         <div
@@ -40,6 +45,17 @@ export default {
       { height: 30 },
       { height: 80 },
       { height: 120 },
+      { height: 100 },
+      { height: 200 },
+      { height: 400 },
+      { height: 50 },
+      { height: 200 },
+      { height: 150 },
+      { height: 250 },
+      { height: 120 },
+      { height: 30 },
+      { height: 80 },
+      { height: 120 },
     ])
 
 
@@ -63,6 +79,7 @@ export default {
 <style lang="scss">
 .waterfallContainer {
   width: 100%;
+  overflow: auto;
 }
 .waterfallItem {
   background: #aaa;

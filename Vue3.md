@@ -361,3 +361,45 @@ export default {
 没定义的 emits 会自动绑定到组件的 $attrs 上
 
 注：最好不要使用和原生事件名相同的自定义事件名，否则会调用两次，一次 $emit，另一次原生
+
+# 我在 setup 里获取不到 parent 了怎么办？
+
+```js
+const parent = getCurrentInstance().parent;
+```
+
+虽然这个 parent 是只读的
+
+# vue3 组件不一定只有一个根节点，所以 $el 访问不到了
+
+推荐使用 ref 指定一个标签当作根节点来访问
+
+# 如果我需要获取 v-for 循环中的所有 ref 怎吗做？
+
+```html
+<div
+  class="colItem"
+  v-for="(n, index) in col"
+  :key="index"
+  :ref="
+    (el) => {
+      colItemRef[index] = el;
+    }
+  "
+></div>
+
+<script lang="ts">
+  setup(){
+    const colItemRef = ref<HTMLDivElement[]>([])
+
+    onBeforeUpdate(() => {
+      // 更新前重置 ref 列表
+      colItemRef.value = []
+    })
+
+    return {
+      colItemRef
+    }
+  }
+</script>
+```

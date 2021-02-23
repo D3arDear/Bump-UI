@@ -31,6 +31,9 @@
               <router-link to="/doc/grid"> Grid </router-link>
             </li>
             <li>
+              <router-link to="/doc/waterfall"> Waterfall </router-link>
+            </li>
+            <li>
               <router-link to="/doc/switch"> Switch </router-link>
             </li>
             <li>

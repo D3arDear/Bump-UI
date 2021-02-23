@@ -316,7 +316,7 @@ $border-radius: $--border-radius--default;
       }
     }
     &.today {
-      background: grey;
+      background: $--color--background;
     }
     &.selected {
       border: 1px solid blue;

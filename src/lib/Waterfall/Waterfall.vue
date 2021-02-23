@@ -27,7 +27,7 @@
   </div>
 </template>
 <script lang="ts">
-import { getCurrentInstance, nextTick, onBeforeMount, onBeforeUnmount, onBeforeUpdate, onMounted, onUnmounted, PropType, ref, watch } from 'vue'
+import { computed, getCurrentInstance, nextTick, onBeforeMount, onBeforeUnmount, onBeforeUpdate, onMounted, onUnmounted, PropType, ref, watch } from 'vue'
 import { classMaker } from '../common/classMaker'
 export default {
   name: 'BUI-Waterfall',
@@ -38,7 +38,7 @@ export default {
     },
     source: { type: Array, required: true },
     container: {
-      type: Object as PropType<HTMLElement>
+      type: Object as PropType<HTMLDivElement>
     }
   },
   setup(props, context) {
@@ -53,13 +53,14 @@ export default {
     const itemRef = ref<HTMLDivElement[]>([])
 
 
+
     onBeforeUpdate(() => {
       colItemRef.value = []
       itemRef.value = []
     })
 
 
-    const container = props.container
+    const container = computed(() => props.container).value
     const source = props.source
     const parent = getCurrentInstance().parent;
 
@@ -117,6 +118,7 @@ export default {
     }
 
     onMounted(async () => {
+      console.log(props.container)
       resize()
       if (container) {
         container.addEventListener('scroll', scrollListener)

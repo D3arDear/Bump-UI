@@ -1,7 +1,7 @@
 <template>
   <div class="waterfall">
     <h1>WaterFall 组件</h1>
-    <Demo :component="WaterfallDemo1" defaultVisible>
+    <Demo :component="WaterfallDemo1">
       <p>瀑布流布局的基本用法</p>
     </Demo>
   </div>

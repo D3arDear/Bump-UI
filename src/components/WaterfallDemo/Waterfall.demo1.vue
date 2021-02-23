@@ -1,20 +1,16 @@
 <demo> waterfall 基本用法 </demo> 
 
 <template>
-  <div ref="waterfallcontaienr" class="waterfallContainer">
-    <Waterfall
-      :width="150"
-      :source="source"
-      @scroll-to-bottom="loadNewData"
-      :container="waterfallContainer"
-    >
+  <div ref="waterfallContainer" class="waterfallContainer">
+    <Waterfall :width="150" :source="source" @scroll-to-bottom="loadNewData">
       <template v-slot="slotProps">
         <div
           class="waterfallItem"
           :style="{ height: slotProps.props.height + 'px' }"
         >
-          <div>slot</div>
-          <div>{{ slotProps.props.height }}</div>
+          <div>
+            {{ "高度: " + slotProps.props.height + "px" }}
+          </div>
         </div>
       </template>
     </Waterfall>
@@ -22,13 +18,12 @@
 </template>
 <script lang="ts">
 import Waterfall from '../../lib/Waterfall/Waterfall.vue'
-import { onMounted, reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 export default {
   components: {
     Waterfall
   },
-  setup() {
-    const waterfallContainer = ref<HTMLDivElement>(null)
+  setup(props, context) {
     const source = reactive([
       { height: 100 },
       { height: 200 },
@@ -42,6 +37,9 @@ export default {
       { height: 80 },
       { height: 120 },
     ])
+
+    const waterfallContainer = ref<HTMLDivElement>(null)
+
     const loadNewData = () => {
       // 模拟请求
       setTimeout(() => {
@@ -55,16 +53,14 @@ export default {
           { height: 250 })
       }, 1000);
     }
-
-    onMounted(() => {
-      console.log(waterfallContainer)
-    })
-
-    return { source, loadNewData, waterfallContainer }
+    return { source, loadNewData }
   }
 }
 </script>
 <style lang="scss">
+.waterfallContainer {
+  width: 100%;
+}
 .waterfallItem {
   background: #aaa;
   border-radius: 8px;

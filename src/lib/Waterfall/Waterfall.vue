@@ -21,13 +21,13 @@
           }
         "
       >
-        <slot :prop="item"></slot>
+        <slot :props="item"></slot>
       </div>
     </template>
   </div>
 </template>
 <script lang="ts">
-import { getCurrentInstance, nextTick, onBeforeMount, onBeforeUpdate, onMounted, PropType, ref, watch } from 'vue'
+import { getCurrentInstance, nextTick, onBeforeMount, onBeforeUnmount, onBeforeUpdate, onMounted, onUnmounted, PropType, ref, watch } from 'vue'
 import { classMaker } from '../common/classMaker'
 export default {
   name: 'BUI-Waterfall',
@@ -51,6 +51,7 @@ export default {
     const rootElement = ref<HTMLDivElement>(null)
     const colItemRef = ref<HTMLDivElement[]>([])
     const itemRef = ref<HTMLDivElement[]>([])
+
 
     onBeforeUpdate(() => {
       colItemRef.value = []
@@ -78,18 +79,8 @@ export default {
       }
     }
 
-    const resize = () => {
-      rootElement.value.style.width = 'auto'
-      let { width: mainWidth } = rootElement.value.getBoundingClientRect()
-      rootElement.value.style.width = mainWidth + 'px'
-      col.value = Math.floor(mainWidth / props.width) //计算分多少列
-      if (col.value === 1) {
-        gutter.value = (mainWidth - props.width) / 2
-      } else {
-        gutter.value = (mainWidth - props.width * col.value) / (col.value - 1) //空隙
-      }
-      heightArr.value = Array(col.value).fill(0);
-      nextTick(() => {
+    const updateEachHeight = async () => {
+      await nextTick(() => {
         colItemRef.value.forEach(element => {
           element.style.width = props.width + 'px' //设置每一列的宽度
         });
@@ -110,19 +101,34 @@ export default {
         })
       })
     }
-    onMounted(() => {
+
+    const resize = () => {
+      rootElement.value.style.width = 'auto'
+      let { width: mainWidth } = rootElement.value.getBoundingClientRect()
+      rootElement.value.style.width = mainWidth + 'px'
+      col.value = Math.floor(mainWidth / props.width) //计算分多少列
+      if (col.value === 1) {
+        gutter.value = (mainWidth - props.width) / 2
+      } else {
+        gutter.value = (mainWidth - props.width * col.value) / (col.value - 1) //空隙
+      }
+      heightArr.value = Array(col.value).fill(0);
+      updateEachHeight()
+    }
+
+    onMounted(async () => {
       resize()
       if (container) {
         container.addEventListener('scroll', scrollListener)
       } else {
         window.addEventListener('scroll', scrollListener)
       }
-      nextTick(() => {
+      await nextTick(() => {
         resize();
         window.addEventListener('resize', resize)
       })
     })
-    onBeforeMount(() => {
+    onBeforeUnmount(() => {
       container ? container.removeEventListener('scroll', scrollListener) :
         window.removeEventListener('scroll', scrollListener)
       window.removeEventListener('resize', resize)

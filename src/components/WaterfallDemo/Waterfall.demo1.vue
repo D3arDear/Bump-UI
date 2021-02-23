@@ -1,43 +1,78 @@
-<demo>
-waterfall 基本用法
-</demo>
+<demo> waterfall 基本用法 </demo> 
+
 <template>
-  <Waterfall :width="150" :source="source" @scroll-to-bottom="loadNewData">
-    <template v-slot:default="slotProps">
-      <div class="waterfallItem">
-        <div>slot</div>
-        <div>{{ slotProps }}</div>
-      </div>
-    </template>
-  </Waterfall>
+  <div class="waterfallContainer" ref="waterfallcontaienr">
+    <Waterfall
+      :width="150"
+      :source="source"
+      @scroll-to-bottom="loadNewData"
+      :container="waterfallContainer"
+    >
+      <template v-slot="slotProps">
+        <div
+          class="waterfallItem"
+          :style="{ height: slotProps.props.height + 'px' }"
+        >
+          <div>slot</div>
+          <div>{{ slotProps.props.height }}</div>
+        </div>
+      </template>
+    </Waterfall>
+  </div>
 </template>
 <script lang="ts">
-import { ref } from 'vue'
+import Waterfall from '../../lib/Waterfall/Waterfall.vue'
+import { onMounted, reactive, ref } from 'vue'
 export default {
+  components: {
+    Waterfall
+  },
   setup() {
+    const waterfallContainer = ref(null)
     // const source = ref([].fill({ size: '宽度 100 像素' }, 0, 10))
-    const source = ref([
-      { size: '宽度 100 像素' },
-      { size: '宽度 100 像素' },
-      { size: '宽度 100 像素' },
-      { size: '宽度 100 像素' },
-      { size: '宽度 100 像素' },
-      { size: '宽度 100 像素' },
-      { size: '宽度 100 像素' },
-      { size: '宽度 100 像素' },
-      { size: '宽度 100 像素' },
-      { size: '宽度 100 像素' },
+    const source = reactive([
+      { height: 100 },
+      { height: 200 },
+      { height: 400 },
+      { height: 50 },
+      { height: 200 },
+      { height: 150 },
+      { height: 250 },
+      { height: 120 },
+      { height: 30 },
+      { height: 80 },
+      { height: 120 },
     ])
     const loadNewData = () => {
-      source.value.push({ size: '新-宽度 100 像素' })
+      // 模拟请求
+      setTimeout(() => {
+        source.push(
+          { height: 100 },
+          { height: 200 },
+          { height: 400 },
+          { height: 50 },
+          { height: 200 },
+          { height: 150 },
+          { height: 250 },
+          { height: 120 },
+          { height: 30 },
+          { height: 80 },
+          { height: 120 })
+      }, 1000);
     }
-    return { source, loadNewData }
+
+    onMounted(() => {
+      console.log(waterfallContainer)
+    })
+
+    return { source, loadNewData, waterfallContainer }
   }
 }
 </script>
 <style lang="scss">
 .waterfallItem {
-  background: #666;
-  border: 1px solid red;
+  background: #aaa;
+  border-radius: 8px;
+  margin: 8px;
 }
 </style>

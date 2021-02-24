@@ -3,7 +3,6 @@ DatePicker 基本用法
 </demo>
 <template>
   <DatePicker v-model:value="day" :scope="scope"></DatePicker>
-  {{ day }}
 </template>
 <script lang="ts">
 import { ref } from 'vue'

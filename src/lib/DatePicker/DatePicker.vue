@@ -1,5 +1,5 @@
 <template>
-  <div ref="popoverContainer" class="BUI-date-picker">
+  <div ref="popoverContainer" class="BUI-DatePicker">
     <Popover
       ref="BUIPopover"
       position="bottom"
@@ -69,7 +69,13 @@
               <template v-else>
                 <div :class="classes('panel', 'content-week', '')">
                   <span
-                    :class="classes('panel', 'content-weekday', '')"
+                    :class="
+                      classes(
+                        'panel',
+                        'content-weekday',
+                        `${i === 6 || i === 0 ? 'active' : ''}`
+                      )
+                    "
                     v-for="i in [1, 2, 3, 4, 5, 6, 0]"
                     :key="i"
                   >
@@ -349,78 +355,6 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-@import "../style/theme.scss";
-$border-radius: $--border-radius--default;
-.BUI-date-picker {
-  &-nav {
-  }
-  &-popWrapper {
-    padding: 0;
-  }
-  &-navItem,
-  &-cell,
-  &-weekday {
-    width: 32px;
-    height: 32px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-  }
-  &-cell {
-    color: #ddd;
-    cursor: not-allowed;
-    border-radius: $border-radius;
-    &.currentMonth {
-      color: black;
-      &:hover {
-        background: $--color--primary;
-        cursor: pointer;
-        color: white;
-      }
-    }
-    &.today {
-      background: $--color--background;
-    }
-    &.selected {
-      border: 1px solid $--color--primary;
-    }
-  }
-  &-nav {
-    display: flex;
-  }
-  &-yearAndMonth {
-    margin: auto;
-  }
-  &-selectMonth {
-    width: 224px;
-    height: 224px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  &-selects {
-  }
-  &-returnToDayMode {
-    margin-top: 8px;
-  }
-  .BUI-popover-content-wrapper {
-    padding: 0;
-  }
-  &-actions {
-    padding: 8px;
-    text-align: right;
-  }
-  &-pickers {
-    display: flex;
-  }
-  &-pickers &-picker1,
-  &-pickers &-picker2 {
-    flex-shrink: 0;
-  }
-  &-picker2 {
-    margin-left: 16px;
-  }
-}
+<style lang="scss">
+@import "./DatePicker.scss";
 </style>

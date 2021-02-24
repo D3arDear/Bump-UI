@@ -1,0 +1,129 @@
+@import "../style/theme.scss";
+$border-radius: $--border-radius--default;
+.BUI-DatePicker {
+  &-nav {
+  }
+  &-popWrapper {
+    padding: 0;
+  }
+  &-nav {
+    &__prevYear-icon,
+    &__prevMonth-icon,
+    &__nextYear-icon,
+    &__nextMonth-icon,
+    &__yearAndMonth {
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      color: $--color--primary;
+    }
+    &__yearAndMonth {
+      flex: 1;
+      width: auto;
+      color: ContrastText($--color--background);
+    }
+  }
+  &-panel {
+    &__content {
+      padding: 8px;
+      &-weekday,
+      &-cell {
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+      }
+      &-week {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &day {
+          color: ContrastText($--color--background);
+        }
+        &day--active {
+          @extend .BUI-DatePicker-panel__content-weekday;
+          color: $--color--primary;
+        }
+      }
+      &-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      &-cell {
+        color: mix($--color--disabled, grey, 20%);
+        cursor: not-allowed;
+        border-radius: $border-radius;
+        transition: all 300ms;
+        &.currentMonth {
+          color: ContrastText($--color--background);
+          &:hover {
+            background: $--color--primary;
+            box-shadow: surface-shadow-generator(
+                $light-direction,
+                $--color--primary,
+                $--blur-range-3
+              ),
+              shadow-generator($light-direction, $--color--background, $--blur-range-3, false);
+            cursor: pointer;
+            color: white;
+          }
+        }
+        &.today {
+          background: $--color--background;
+          box-shadow: shadow-generator(
+            $light-direction,
+            $--color--background,
+            $--blur-range-0,
+            true
+          );
+        }
+        &.selected {
+          color: ContrastText(mix($--color--primary, $--color--background, 70%));
+          border: 1px solid $--color--primary;
+          background: mix($--color--primary, $--color--background, 70%);
+          box-shadow: shadow-generator($light-direction, $--color--primary, $--blur-range-3, true);
+        }
+      }
+    }
+  }
+  &-nav {
+    display: flex;
+  }
+  &-yearAndMonth {
+    margin: auto;
+  }
+  &-selectMonth {
+    width: 224px;
+    height: 224px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  &-selects {
+  }
+  &-returnToDayMode {
+    margin-top: 8px;
+  }
+  .BUI-popover-content-wrapper {
+    padding: 0;
+  }
+  &-actions {
+    padding: 8px;
+    text-align: right;
+  }
+  &-pickers {
+    display: flex;
+  }
+  &-pickers &-picker1,
+  &-pickers &-picker2 {
+    flex-shrink: 0;
+  }
+  &-picker2 {
+    margin-left: 16px;
+  }
+}

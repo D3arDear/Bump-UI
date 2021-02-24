@@ -47,86 +47,72 @@
           </div>
           <div :class="classes('panel', '', '')">
             <div :class="classes('panel', 'content', '')">
-              <template v-if="mode === 'month'">
-                <div :class="classes('panel', 'content-selectMonth', '')">
-                  <div :class="classes('panel', 'content-selects', '')">
-                    <Selector
-                      :sourceData="years"
-                      @update:value="onSelectYear"
-                      :value="display.year"
-                      width="6em"
-                    ></Selector
-                    >年
-                    <!-- <select
-                      @change="(e) => onSelectYear(e.target.value)"
-                      :value="display.year"
-                    >
-                      <option v-for="year in years" :key="year" :value="year">
-                        {{ year }}
-                      </option></select
-                    >年 -->
-                    <Selector
-                      :sourceData="
-                        [...new Array(13).keys()].filter((item) => item !== 0)
-                      "
-                      @update:value="onSelectMonth"
-                      width="4em"
-                      :value="display.month"
-                    ></Selector
-                    >月
-                    <!-- <select
-                      @change="(e) => onSelectMonth(e.target.value)"
-                      :value="display.month"
-                    >
-                      <option v-for="month in 12" :value="month - 1">
-                        {{ String(month) }}
-                      </option></select
-                    >月 -->
+              <transition name="BUI-animation--fade" mode="out-in">
+                <div v-if="mode === 'month'">
+                  <div :class="classes('panel', 'content-selectMonth', '')">
+                    <div :class="classes('panel', 'content-selects', '')">
+                      <Selector
+                        :sourceData="years"
+                        @update:value="onSelectYear"
+                        :value="display.year"
+                        width="6em"
+                      ></Selector>
+                      <span>年</span>
+                      <Selector
+                        :sourceData="
+                          [...new Array(13).keys()].filter((item) => item !== 0)
+                        "
+                        @update:value="onSelectMonth"
+                        width="4em"
+                        :value="display.month"
+                      ></Selector>
+                      <span>月</span>
+                    </div>
                   </div>
                 </div>
-              </template>
-              <template v-else>
-                <div :class="classes('panel', 'content-week', '')">
-                  <span
-                    :class="
-                      classes(
-                        'panel',
-                        'content-weekday',
-                        `${i === 6 || i === 0 ? 'active' : ''}`
-                      )
-                    "
-                    v-for="i in [1, 2, 3, 4, 5, 6, 0]"
+                <div v-else>
+                  <div :class="classes('panel', 'content-week', '')">
+                    <span
+                      :class="
+                        classes(
+                          'panel',
+                          'content-weekday',
+                          `${i === 6 || i === 0 ? 'active' : ''}`
+                        )
+                      "
+                      v-for="i in [1, 2, 3, 4, 5, 6, 0]"
+                      :key="i"
+                    >
+                      {{ weekdays[i] }}
+                    </span>
+                  </div>
+                  <div
+                    :class="classes('panel', 'content-row', '')"
+                    v-for="i in helper.range(1, 7)"
                     :key="i"
                   >
-                    {{ weekdays[i] }}
-                  </span>
+                    <span
+                      :class="[
+                        classes('panel', 'content-cell', ''),
+                        {
+                          currentMonth: isCurrentMonth(getVisibleDay(i, j)),
+                          selected: isSelected(getVisibleDay(i, j)),
+                          today: isToday(getVisibleDay(i, j)),
+                        },
+                      ]"
+                      v-for="j in helper.range(1, 8)"
+                      @click="onClickCell(getVisibleDay(i, j))"
+                      :key="j"
+                    >
+                      {{ getVisibleDay(i, j).getDate() }}
+                    </span>
+                  </div>
+                  <div :class="classes('actions', '', '')">
+                    <Button @click="onClickToday" textButton>今天</Button>
+                    <Button @click="onClickClear" textButton>清除</Button>
+                  </div>
                 </div>
-                <div
-                  :class="classes('panel', 'content-row', '')"
-                  v-for="i in helper.range(1, 7)"
-                  :key="i"
-                >
-                  <span
-                    :class="[
-                      classes('panel', 'content-cell', ''),
-                      {
-                        currentMonth: isCurrentMonth(getVisibleDay(i, j)),
-                        selected: isSelected(getVisibleDay(i, j)),
-                        today: isToday(getVisibleDay(i, j)),
-                      },
-                    ]"
-                    v-for="j in helper.range(1, 8)"
-                    @click="onClickCell(getVisibleDay(i, j))"
-                    :key="j"
-                  >
-                    {{ getVisibleDay(i, j).getDate() }}
-                  </span>
-                </div>
-                <div :class="classes('actions', '', '')">
-                  <Button @click="onClickToday" textButton>今天</Button>
-                  <Button @click="onClickClear" textButton>清除</Button>
-                </div>
-              </template>
+              </transition>
             </div>
           </div>
         </div>
@@ -381,4 +367,15 @@ export default {
 </script>
 <style lang="scss">
 @import "./DatePicker.scss";
+.BUI-animation--fade {
+  &-enter-active,
+  &-leave-active {
+    opacity: 1;
+    transition: all 300ms ease-in-out;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
+}
 </style>

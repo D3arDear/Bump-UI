@@ -37,6 +37,10 @@ $border-radius: $--border-radius--default;
           justify-content: space-between;
           align-items: center;
           height: 10em;
+          span {
+            color: ContrastText($--color--background);
+            margin: 1em;
+          }
         }
       }
       &-weekday,

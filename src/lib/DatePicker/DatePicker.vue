@@ -256,10 +256,12 @@ export default {
       const [year, month, day] = helper.getYearMonthDate(now);
       display.year = year
       display.month = month
-      context.emit("input", [new Date(year, month, day)]);
+      context.emit("update:value", new Date(year, month, day));
+      updateInputValue()
     }
     const onClickClear = () => {
-      context.emit("input", []);
+      context.emit("update:value", null);
+      updateInputValue()
       BUIPopover.value.close();
     }
 

@@ -1,7 +1,11 @@
 @import "../style/theme.scss";
 $border-radius: $--border-radius--default;
 .BUI-DatePicker {
+  &-pop {
+    padding: 16px 16px 0 16px;
+  }
   &-nav {
+    display: flex;
   }
   &-popWrapper {
     padding: 0;
@@ -27,7 +31,6 @@ $border-radius: $--border-radius--default;
   }
   &-panel {
     &__content {
-      padding: 8px;
       &-weekday,
       &-cell {
         width: 32px;
@@ -90,9 +93,6 @@ $border-radius: $--border-radius--default;
       }
     }
   }
-  &-nav {
-    display: flex;
-  }
   &-yearAndMonth {
     margin: auto;
   }
@@ -108,9 +108,6 @@ $border-radius: $--border-radius--default;
   }
   &-returnToDayMode {
     margin-top: 8px;
-  }
-  .BUI-popover-content-wrapper {
-    padding: 0;
   }
   &-actions {
     padding: 8px;

@@ -42,10 +42,12 @@
     <Demo :component="ButtonDemo8">
       <p>接受 loading 属性，展示加载动画</p>
     </Demo>
+    <AttrTable :sourceData="ButtonAttr" title="Button Attributes" />
   </div>
 </template>
 
 <script lang="ts">
+import AttrTable from '../AttrTable.vue'
 import Demo from "../Demo.vue";
 import ButtonDemo1 from "./Button.demo1.vue";
 import ButtonDemo2 from "./Button.demo2.vue";
@@ -60,7 +62,62 @@ export default {
   name: "ButtonDemo",
   components: { Demo },
   setup() {
+    const ButtonAttr = [
+      {
+        id: 0,
+        attr: 'surfaceStyle',
+        content: '表面样式',
+        type: 'string',
+        option: "flat / concave / convex",
+        default: 'flat',
+        required: 'false',
+        description: ''
+      },
+      {
+        id: 1,
+        attr: 'bodyStyle',
+        content: '按钮卡片样式',
+        type: 'string',
+        option: "concave / convex",
+        default: 'convex',
+        required: 'false',
+        description: ''
+      },
+      {
+        id: 2,
+        attr: 'rounded',
+        content: '圆角按钮样式',
+        type: 'boolean',
+        option: "",
+        default: 'false',
+        required: 'false',
+        description: ''
+      },
+      {
+        id: 3,
+        attr: 'textButton',
+        content: '开启文字按钮样式',
+        type: 'boolean',
+        option: "",
+        default: 'false',
+        required: 'false',
+        description: ''
+      },
+      {
+        id: 4,
+        attr: 'loading',
+        content: '开启加载图标',
+        type: 'boolean',
+        option: "",
+        default: 'false',
+        required: 'false',
+        description: ''
+      },
+    ]
+
     return {
+      ButtonAttr,
+      AttrTable,
       ButtonDemo1,
       ButtonDemo2,
       ButtonDemo2_1,

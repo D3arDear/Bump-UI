@@ -1,11 +1,6 @@
 @mixin BUI-ButtonNeoTheme--clicked($color, $blur: $--blur-range) {
   &.body-convex {
-    box-shadow: shadow-generator(
-        $light-direction,
-        $--color--background,
-        $blur,
-        false
-      ),
+    box-shadow: shadow-generator($light-direction, $--color--background, $blur, false),
       shadow-generator($light-direction, $color, $blur, true);
   }
   &.body-concave {
@@ -25,11 +20,7 @@
   }
 }
 @mixin BUI-ButtonTextTheme--clicked($color) {
-  background-image: surface-generator(
-    $light-direction,
-    rgba(lighten($color, 10%), 0.3),
-    concave
-  );
+  background-image: surface-generator($light-direction, rgba(lighten($color, 10%), 0.3), concave);
   box-shadow: shadow-generator($light-direction, $color, $--blur-range-2, true);
 }
 .BUI-Button-Neo {

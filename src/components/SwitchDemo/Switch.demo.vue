@@ -37,7 +37,7 @@ export default {
         description: ''
       },
       {
-        id: 0,
+        id: 1,
         attr: 'flat',
         content: '应用开关扁平样式',
         type: 'boolean',
@@ -47,7 +47,7 @@ export default {
         description: ''
       },
       {
-        id: 0,
+        id: 2,
         attr: 'retro',
         content: '应用开关复古样式',
         type: 'boolean',

@@ -2,14 +2,23 @@
 $grey: darken($--color--background, 10%);
 
 .BUI-table-wrapper {
-  box-shadow: shadow-Generator($light-direction, $--color--background, $--blur-range-0);
+  box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-0);
+  border-radius: $--border-radius--default;
+  .BUI-table-wrapper-inner {
+    border-radius: $--border-radius--default;
+    overflow: hidden;
+  }
 }
 .BUI-table {
   border-collapse: collapse;
   width: 100%;
-  border-radius: $--border-radius--default;
   border-spacing: 0;
   border-bottom: 1px solid $grey;
+  border-radius: $--border-radius--default;
+  box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-0);
+  thead {
+    border-radius: $--border-radius--default;
+  }
   tr.descriptionTr {
     transition: all 0.3s;
     td.descriptionHolder {
@@ -20,10 +29,12 @@ $grey: darken($--color--background, 10%);
     }
   }
   &.bordered {
-    border: 1px solid $grey;
+    border-top: 1px solid $grey;
+    border-bottom: 1px solid $grey;
     td,
     th {
-      border: 1px solid $grey;
+      border-top: 1px solid $grey;
+      border-bottom: 1px solid $grey;
     }
   }
   &.compact {

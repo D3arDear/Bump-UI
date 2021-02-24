@@ -10,6 +10,8 @@
     <Demo :component="GridDemo3">
       <p>offset设置空隙</p>
     </Demo>
+    <h2>Col Attributes</h2>
+    <h2>Row Attributes</h2>
   </div>
 </template>
 

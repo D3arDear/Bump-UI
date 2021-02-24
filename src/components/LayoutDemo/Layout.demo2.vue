@@ -1,5 +1,5 @@
 <demo>
-没有Sider的布局
+没有 Aside 的布局
 </demo>
 <template>
   <Layout class="layout" :style="{ height: 'calc( 100vh - 50px )' }">

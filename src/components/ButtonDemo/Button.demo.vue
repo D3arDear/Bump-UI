@@ -113,6 +113,26 @@ export default {
         required: 'false',
         description: ''
       },
+      {
+        id: 5,
+        attr: 'icon',
+        content: '图标组合按钮，也可单独使用成为单图标按钮',
+        type: ' { name: string; right: boolean; }',
+        option: "",
+        default: 'false',
+        required: 'false',
+        description: 'name:图标名称 right: 图标是否在文字右边'
+      },
+      {
+        id: 6,
+        attr: 'linearColor',
+        content: "自定义表面渐变色，多用于需要非常强调的按钮",
+        type: ' { colors: string[]; angle: number; }',
+        option: "",
+        default: 'false',
+        required: 'false',
+        description: 'colors:最多接受两个颜色，格式 rgb/hex。 angle：渐变角度'
+      },
     ]
 
     return {

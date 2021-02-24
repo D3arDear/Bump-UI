@@ -12,7 +12,6 @@ export default {
   setup() {
     const value = ref('')
     const sourceData = [...new Array(12).keys()];
-    console.log(sourceData)
     return { sourceData, value }
   }
 }

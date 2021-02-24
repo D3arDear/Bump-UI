@@ -57,8 +57,8 @@ interface ILinearColor {
   angle: number;
 }
 interface IIcon {
-  name: String;
-  right: Boolean;
+  name: string;
+  right: boolean;
 }
 
 export default {

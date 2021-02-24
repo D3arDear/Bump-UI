@@ -12,6 +12,7 @@
       :loading="loading"
       :height="300"
       expend-field=""
+      :striped="false"
       checkable
       compact
     >

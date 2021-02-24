@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, provide } from 'vue';
 export default {
   name: "BUI-Row",
   props: {
@@ -19,6 +19,7 @@ export default {
     }
   },
   setup(props, context) {
+    provide<number | string>('gutter', props.gutter)
     const rowStyle = computed(() => {
       return {
         marginLeft: -props.gutter / 2 + "px",

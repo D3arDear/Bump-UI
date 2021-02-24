@@ -16,8 +16,14 @@ $grey: darken($--color--background, 10%);
   border-bottom: 1px solid $grey;
   border-radius: $--border-radius--default;
   box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-0);
+  &-copy {
+    @extend .BUI-table;
+    box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-3);
+  }
   thead {
     border-radius: $--border-radius--default;
+    background-color: lighten($--color--background, 5%);
+    color: ContrastText($--color--background);
   }
   tr.descriptionTr {
     transition: all 0.3s;

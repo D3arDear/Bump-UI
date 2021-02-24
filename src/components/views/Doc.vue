@@ -218,6 +218,7 @@ export default {
         width: 100%;
         margin: 8px 0px;
         section {
+          color: rgba(ContrastText($--color--background), 0.5);
           font-size: 12px;
           padding: 8px 14px 4px 14px;
           border-bottom: 1px solid rgba(grey, 0.2);

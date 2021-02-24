@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { computed, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 const validator = value => {
   let keys = Object.keys(value);
   let valid = true;
@@ -43,7 +43,7 @@ export default {
     }
   },
   setup(props, context) {
-    const gutter = ref(0)
+    const gutter = inject<string | number>('gutter')
 
 
     const selectClass = (spanAndOffSet, string = "") => {
@@ -73,10 +73,18 @@ export default {
       ];
     })
 
+    const gutterToNumber = (gutter: string | number) => {
+      if (typeof gutter === 'string') {
+        return parseInt(gutter)
+      } else {
+        return gutter
+      }
+    }
+
     const colStyle = computed(() => {
       return {
-        paddingLeft: gutter.value / 2 + "px",
-        paddingRight: gutter.value / 2 + "px"
+        paddingLeft: gutterToNumber(gutter) / 2 + "px",
+        paddingRight: gutterToNumber(gutter) / 2 + "px"
       };
     })
 

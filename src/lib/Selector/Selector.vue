@@ -72,9 +72,7 @@ export default {
     const onClickItem = async (item) => {
       context.emit('update:value', item)
       await nextTick(() => {
-        console.log('刚要关')
         closeList()
-        console.log('关了')
       })
     }
 

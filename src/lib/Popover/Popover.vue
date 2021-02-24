@@ -122,7 +122,6 @@ export default {
     }
 
     const onClickDocument = (e) => {
-      console.log(contentWrapper.value.contains(e.target))
       if (popover.value &&
         (popover.value === e.target || popover.value.contains(e.target))
       ) { return }

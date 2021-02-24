@@ -24,6 +24,7 @@
           </ul>
           <h2>组件列表</h2>
           <ul>
+            <li><section>Layout 布局</section></li>
             <li>
               <router-link to="/doc/layout"> Layout </router-link>
             </li>
@@ -33,6 +34,7 @@
             <li>
               <router-link to="/doc/waterfall"> Waterfall </router-link>
             </li>
+            <li><section>Basic 基础</section></li>
             <li>
               <router-link to="/doc/switch"> Switch </router-link>
             </li>
@@ -46,8 +48,15 @@
               <router-link to="/doc/Input"> Input </router-link>
             </li>
             <li>
+              <router-link to="/doc/nav"> Nav </router-link>
+            </li>
+            <li>
+              <router-link to="/doc/scroll"> Scroll </router-link>
+            </li>
+            <li>
               <router-link to="/doc/icon"> Icon </router-link>
             </li>
+            <li><section>Notice 提示</section></li>
             <li>
               <router-link to="/doc/Popover"> Popover </router-link>
             </li>
@@ -58,19 +67,14 @@
               <router-link to="/doc/sticky"> Sticky </router-link>
             </li>
             <li>
-              <router-link to="/doc/nav"> Nav </router-link>
-            </li>
-            <li>
               <router-link to="/doc/dialog"> Dialog </router-link>
             </li>
+            <li><section>Data</section></li>
             <li>
               <router-link to="/doc/tabs"> Tabs </router-link>
             </li>
             <li>
               <router-link to="/doc/collapse"> Collapse </router-link>
-            </li>
-            <li>
-              <router-link to="/doc/scroll"> Scroll </router-link>
             </li>
             <li>
               <router-link to="/doc/slide"> Slide </router-link>
@@ -212,7 +216,12 @@ export default {
       width: 208px;
       li {
         width: 100%;
-        margin: 10px 0px;
+        margin: 8px 0px;
+        section {
+          font-size: 12px;
+          padding: 8px 14px 4px 14px;
+          border-bottom: 1px solid rgba(grey, 0.2);
+        }
         a {
           text-decoration: none;
           color: ContrastText($--color--background);
@@ -222,7 +231,7 @@ export default {
           display: flex;
           justify-content: flex-start;
           align-items: center;
-          padding: 0.5em 1em;
+          padding: 0.25em 1em;
           height: 3em;
           // border-top-right-radius: 1em;
           // border-bottom-right-radius: 1em;

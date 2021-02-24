@@ -37,7 +37,10 @@ export default {
       type: Number,
       default: 200
     },
-    sourceData: { type: Array, required: true },
+    sourceData: {
+      type: Array,
+      required: true
+    },
     container: {
       type: Object as PropType<HTMLDivElement>
     },

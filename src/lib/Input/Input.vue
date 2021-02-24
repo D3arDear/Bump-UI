@@ -92,7 +92,7 @@ export default {
     const classes = classMaker('BUI-Input')
 
     const setRawValue = (value) => {
-      input.value = value;
+      input.value.value = value;
     }
     const updateValue = (value) => {
       context.emit('update:value', value)

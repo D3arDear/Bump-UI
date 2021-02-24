@@ -1,23 +1,19 @@
 <template>
-  <div
-    class="BUI-date-range-picker"
-    style="border: 1px solid red"
-    ref="wrapper"
-  >
-    <g-popover
+  <div class="BUI-date-range-picker" ref="popoverContainer">
+    <Popover
       ref="popover"
       position="bottom"
       :container="popoverContainer"
       @open="onOpen"
     >
-      <g-input
+      <Input
         type="text"
-        :value="formattedValue"
+        v-model:value="formattedValue"
         @input="onInput"
         @change="onChange"
         ref="input"
       />
-      <template slot="content">
+      <template v-slot:content>
         <div :class="c('pop')" @selectstart.prevent>
           <div :class="c('pickers')">
             <div :class="c('picker1')">
@@ -26,13 +22,13 @@
                   :class="c('prevYear', 'navItem')"
                   @click="onClickPrevYear"
                 >
-                  <g-icon name="leftleft" />
+                  <Icon name="leftleft" />
                 </span>
                 <span
                   :class="c('prevMonth', 'navItem')"
                   @click="onClickPrevMonth"
                 >
-                  <g-icon name="left" />
+                  <Icon name="left" />
                 </span>
                 <span :class="c('yearAndMonth')" @click="onClickMonth">
                   <span>{{ display.year }}年</span>
@@ -42,13 +38,13 @@
                   :class="c('nextMonth', 'navItem')"
                   @click="onClickNextMonth"
                 >
-                  <g-icon name="right" />
+                  <Icon name="right" />
                 </span>
                 <span
                   :class="c('nextYear', 'navItem')"
                   @click="onClickNextYear"
                 >
-                  <g-icon name="rightright" />
+                  <Icon name="rightright" />
                 </span>
               </div>
               <div class="BUI-date-range-picker-panels">
@@ -119,13 +115,13 @@
                   :class="c('prevYear', 'navItem')"
                   @click="onClickPrevYear"
                 >
-                  <g-icon name="leftleft" />
+                  <Icon name="leftleft" />
                 </span>
                 <span
                   :class="c('prevMonth', 'navItem')"
                   @click="onClickPrevMonth"
                 >
-                  <g-icon name="left" />
+                  <Icon name="left" />
                 </span>
                 <span :class="c('yearAndMonth')" @click="onClickMonth">
                   <span>{{ display.year }}年</span>
@@ -135,13 +131,13 @@
                   :class="c('nextMonth', 'navItem')"
                   @click="onClickNextMonth"
                 >
-                  <g-icon name="right" />
+                  <Icon name="right" />
                 </span>
                 <span
                   :class="c('nextYear', 'navItem')"
                   @click="onClickNextYear"
                 >
-                  <g-icon name="rightright" />
+                  <Icon name="rightright" />
                 </span>
               </div>
               <div class="BUI-date-range-picker-panels">
@@ -209,25 +205,26 @@
           </div>
 
           <div class="BUI-date-range-picker-actions">
-            <g-button @click="onClickToday">今天</g-button>
-            <g-button @click="onClickClear">清除</g-button>
+            <Button @click="onClickToday">今天</Button>
+            <Button @click="onClickClear">清除</Button>
           </div>
         </div>
       </template>
-    </g-popover>
+    </Popover>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Input from "../Input/Input.vue";
 import Icon from "../Icon.vue";
 import Popover from "../Popover/Popover.vue";
-import helper from "./DatePickerHelper.js";
+import helper from "./DatePickerHelper";
 import Scroll from "../Scroll/Scroll.vue";
 import Button from "../Button/Button.vue";
+import { computed, onMounted, PropType, reactive, ref } from 'vue';
 
 export default {
-  components: {Input, Icon, Popover, Scroll, Button },
+  components: { Input, Icon, Popover, Scroll, Button },
   directives: {
     clickOutside: {
       beforeMount(el, binding, vnode) {
@@ -243,173 +240,207 @@ export default {
       },
     }
   },
-  name: "BUI-DateRangePicker", 
+  name: "BUI-DateRangePicker",
   props: {
     firstDayOfWeek: {
       type: Number,
       default: 1
     },
     value: {
-      type: Array
+      type: Array as PropType<Date[]>
     },
     scope: {
-      type: Array,
+      type: Array as PropType<Date[]>,
       default: () => [new Date(1900, 0, 1), helper.addYear(new Date(), 100)]
     }
   },
-  data() {
-    let [year, month] = helper.getYearMonthDate(this.value[0] || new Date());
-    return {
-      mode: "days",
-      helper: helper, // FIXME helper 放这里不好
-      popoverContainer: null,
-      weekdays: ["日", "一", "二", "三", "四", "五", "六"],
-      display: { year, month }
-    };
-  },
-  mounted() {
-    this.popoverContainer = this.$refs.wrapper;
-  },
-  methods: {
-    c(...classNames) {
+  setup(props, context) {
+    let [year, month] = helper.getYearMonthDate(props.value[0] || new Date());
+    const mode = ref<string>("days")
+    const popoverContainer = ref<HTMLDivElement>(null)
+    const popover = ref(null)
+    const input = ref(null)
+    const weekdays = ref<string[]>(["日", "一", "二", "三", "四", "五", "六"])
+    const display = reactive({ year, month })
+    const c = (...classNames) => {
       return classNames.map(className => `BUI-date-range-picker-${className}`);
-    },
-    onInput(value) {
-      var regex = /^\d{4}-\d{2}-\d{2}$/g;
+    }
+
+    const onInput = (value) => {
+      var regex = /^\d{4}-\d{2}-\d{2}~\d{4}-\d{2}-\d{2}$/g;
       if (value.match(regex)) {
-        let [year, month, day] = value.split("-");
-        month = month - 1;
+        let [date1, date2] = value.split('~')
+        let [year1, month1, day1] = date1.split('-');
+        let [year2, month2, day2] = date2.split('-');
         year = year - 0;
-        this.display = { year, month };
-        this.$emit("input", [new Date(year, month, day)]);
+        display.year = year1
+        display.month = month1
+        context.emit("input", [new Date(year, month, day1)]);
       }
-    },
-    onChange() {
-      this.$refs.input.setRawValue(this.formattedValue);
-    },
-    onClickMonth() {
-      if (this.mode !== "month") {
-        this.mode = "month";
+    }
+
+    const onChange = () => {
+      input.value.setRawValue(formattedValue);
+    }
+
+    const onClickMonth = () => {
+      if (mode.value !== "month") {
+        mode.value = "month";
       } else {
-        this.mode = "day";
+        mode.value = "day";
       }
-    },
-    onClickCell1(date) {
-      if (this.isCurrentMonth(date)) {
-        this.value1 = date
-      }
-    },
-    onClickCell2(date) {
-      if (this.isCurrentMonth(date)) {
-        this.value2 = date
-      }
-    },
-    getVisibleDay(row, col) {
-      return this.visibleDays[(row - 1) * 7 + col - 1];
-    },
-    isCurrentMonth(date) {
+    }
+
+    const isCurrentMonth = (date) => {
       let [year1, month1] = helper.getYearMonthDate(date);
-      return year1 === this.display.year && month1 === this.display.month;
-    },
-    isSelected(date) {
-      if (!this.value[0]) {
+      return year1 === display.year && month1 === display.month;
+    }
+
+    const getVisibleDay = (row, col) => {
+      return visibleDays.value[(row - 1) * 7 + col - 1];
+    }
+
+    const onClickCell1 = (date) => {
+      if (isCurrentMonth(date)) {
+        console.log(date)
+        context.emit('update:value', { start: true, date: date })
+      }
+    }
+
+    const onClickCell2 = (date) => {
+      if (isCurrentMonth(date)) {
+        console.log(date)
+        context.emit('update:value', { start: false, date: date })
+      }
+    }
+
+
+    const onClickPrevYear = () => {
+      const oldDate = new Date(display.year, display.month);
+      const newDate = helper.addYear(oldDate, -1);
+      const [year, month] = helper.getYearMonthDate(newDate);
+      display.year = year
+      display.month = month
+    }
+
+
+    const onClickNextYear = () => {
+      const oldDate = new Date(display.year, display.month);
+      const newDate = helper.addYear(oldDate, 1);
+      const [year, month] = helper.getYearMonthDate(newDate);
+      display.year = year
+      display.month = month
+    }
+
+
+    const onClickPrevMonth = () => {
+      const oldDate = new Date(display.year, display.month);
+      const newDate = helper.addMonth(oldDate, -1);
+      const [year, month] = helper.getYearMonthDate(newDate);
+      display.year = year
+      display.month = month
+    }
+    const onClickNextMonth = () => {
+      const oldDate = new Date(display.year, display.month);
+      const newDate = helper.addMonth(oldDate, 1);
+      const [year, month] = helper.getYearMonthDate(newDate);
+      display.year = year
+      display.month = month
+    }
+
+
+    const onClickToday = () => {
+      const now = new Date();
+      const [year, month, day] = helper.getYearMonthDate(now);
+      display.year = year
+      display.month = month
+      context.emit("input", [new Date(year, month, day)]);
+    }
+    const onClickClear = () => {
+      context.emit("input", []);
+      popover.value.close();
+    }
+
+
+    const onSelectYear = (e) => {
+      const year = e.target.value - 0;
+      const d = new Date(year, display.month);
+      if (d >= props.scope[0] && d <= props.scope[1]) {
+        display.year = year;
+      } else {
+        alert("no");
+        e.target.value = display.year;
+      }
+    }
+
+    const onSelectMonth = (e) => {
+      const month = e.target.value - 0;
+      const d = new Date(display.year, month);
+      if (d >= props.scope[0] && d <= props.scope[1]) {
+        display.month = month;
+      } else {
+        alert("no");
+        e.target.value = display.month;
+      }
+    }
+
+    const onOpen = () => {
+      mode.value = "day";
+    }
+
+    const isSelected = (date) => {
+      if (!props.value[0]) {
         return false;
       }
       let [y, m, d] = helper.getYearMonthDate(date);
-      let [y2, m2, d2] = helper.getYearMonthDate(this.value[0]);
+      let [y2, m2, d2] = helper.getYearMonthDate(props.value[0]);
       return y === y2 && m === m2 && d === d2;
-    },
-    isToday(date) {
+    }
+
+    const isToday = (date) => {
       let [y, m, d] = helper.getYearMonthDate(date);
       let [y2, m2, d2] = helper.getYearMonthDate(new Date());
       return y === y2 && m === m2 && d === d2;
-    },
-    onClickPrevYear() {
-      const oldDate = new Date(this.display.year, this.display.month);
-      const newDate = helper.addYear(oldDate, -1);
-      const [year, month] = helper.getYearMonthDate(newDate);
-      this.display = { year, month };
-    },
-    onClickPrevMonth() {
-      const oldDate = new Date(this.display.year, this.display.month);
-      const newDate = helper.addMonth(oldDate, -1);
-      const [year, month] = helper.getYearMonthDate(newDate);
-      this.display = { year, month };
-    },
-    onClickNextMonth() {
-      const oldDate = new Date(this.display.year, this.display.month);
-      const newDate = helper.addMonth(oldDate, 1);
-      const [year, month] = helper.getYearMonthDate(newDate);
-      this.display = { year, month };
-    },
-    onClickNextYear() {
-      const oldDate = new Date(this.display.year, this.display.month);
-      const newDate = helper.addYear(oldDate, 1);
-      const [year, month] = helper.getYearMonthDate(newDate);
-      this.display = { year, month };
-    },
-    onSelectYear(e) {
-      const year = e.target.value - 0;
-      const d = new Date(year, this.display.month);
-      if (d >= this.scope[0] && d <= this.scope[1]) {
-        this.display.year = year;
-      } else {
-        alert("no");
-        e.target.value = this.display.year;
-      }
-    },
-    onSelectMonth(e) {
-      const month = e.target.value - 0;
-      const d = new Date(this.display.year, month);
-      if (d >= this.scope[0] && d <= this.scope[1]) {
-        this.display.month = month;
-      } else {
-        alert("no");
-        e.target.value = this.display.month;
-      }
-    },
-    onClickToday() {
-      const now = new Date();
-      const [year, month, day] = helper.getYearMonthDate(now);
-      this.display = { year, month };
-      this.$emit("input", [new Date(year, month, day)]);
-    },
-    onClickClear() {
-      this.$emit("input", []);
-      this.$refs.popover.close();
-    },
-    onOpen() {
-      this.mode = "day";
     }
-  },
-  computed: {
-    visibleDays() {
-      let date = new Date(this.display.year, this.display.month, 1);
+
+    const formattedValue = computed(() => {
+      if (!props.value[0]) {
+        return "";
+      }
+      const [year, month, day] = helper.getYearMonthDate(props.value[0]);
+      return `${year}-${helper.pad2(month + 1)}-${helper.pad2(day)}`;
+    })
+
+    const years = computed(() => {
+      return helper.range(
+        props.scope[0].getFullYear(),
+        props.scope[1].getFullYear() + 1
+      );
+    })
+
+    const visibleDays = computed(() => {
+      let date = new Date(display.year, display.month, 1);
       let first = helper.firstDayOfMonth(date);
       let last = helper.lastDayOfMonth(date);
       let [year, month, day] = helper.getYearMonthDate(date);
       let n = first.getDay();
       let array = [];
-      let x = first - (n === 0 ? 6 : n - 1) * 3600 * 24 * 1000;
+      let x = first.getTime() - (n === 0 ? 6 : n - 1) * 3600 * 24 * 1000;
       for (let i = 0; i < 42; i++) {
         array.push(new Date(x + i * 3600 * 24 * 1000));
       }
       return array;
-    },
-    formattedValue() {
-      if (!this.value[0]) {
-        return "";
-      }
-      const [year, month, day] = helper.getYearMonthDate(this.value[0]);
-      return `${year}-${helper.pad2(month + 1)}-${helper.pad2(day)}`;
-    },
-    years() {
-      return helper.range(
-        this.scope[0].getFullYear(),
-        this.scope[1].getFullYear() + 1
-      );
-    }
-  }
+    })
+
+    return {
+      popoverContainer, input, popover,
+      mode, helper, weekdays, display, years,
+      c, onInput, onChange, onOpen,
+      onClickMonth, onClickClear, onClickToday, onClickCell1, onClickCell2, onClickPrevYear, onClickPrevMonth, onClickNextYear, onClickNextMonth,
+      onSelectYear, onSelectMonth,
+      getVisibleDay, isCurrentMonth, isSelected, isToday
+    };
+  },
 };
 </script>
 

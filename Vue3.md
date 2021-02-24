@@ -147,6 +147,16 @@ const defaults = context.slots.default();
 Object as PropType<InterfaceYouWant>;
 ```
 
+不过有时候为了通过类型检查会让你做些奇怪的事情，比如：
+
+```ts
+props: {
+  value: {
+    type: Date as PropType<Date>;
+  }
+}
+```
+
 # setup() 是蛮不错的，但是我居然要 return 那么多东西
 
 - 每次都得在`setup()`最后 `return` 一堆变量，不然外面访问不到

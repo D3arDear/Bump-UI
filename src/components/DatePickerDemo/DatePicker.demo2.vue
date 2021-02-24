@@ -2,18 +2,26 @@
 DateRangePicker 基本用法
 </demo>
 <template>
-  <DatePicker :value="days" @input="d = $event" :scope="scope"></DatePicker>
+  <DateRangePicker
+    :value="days"
+    @update:value="updateDays"
+    @input="days = $event"
+    :scope="scope"
+  ></DateRangePicker>
 </template>
 <script lang="ts">
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import DateRangePicker from '../../lib/DatePicker/DateRangePicker.vue'
 export default {
   setup() {
-    const days = ref([])
+    const days = reactive([new Date(), null])
     const scope = ref([new Date(1958, 1), new Date(2118, 5)])
+    const updateDays = (payload) => {
+      payload.start ? days[0] = payload.date : days[1] = payload.date
+    }
     return {
       DateRangePicker,
-      days, scope
+      days, scope, updateDays
     }
   }
 }

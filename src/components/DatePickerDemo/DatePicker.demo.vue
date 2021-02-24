@@ -1,12 +1,12 @@
 <template>
   <div class="DatePicker">
     <h1>DatePicker 组件</h1>
-    <!-- <Demo :component="DatePickerDemo1" defaultVisible>
+    <Demo :component="DatePickerDemo1" defaultVisible>
       <p>DatePicker 基本用法</p>
-    </Demo> -->
-    <Demo :component="DatePickerDemo2" defaultVisible>
-      <p>DateRangePicker 基本用法</p>
     </Demo>
+    <!-- <Demo :component="DatePickerDemo2" defaultVisible>
+      <p>DateRangePicker 基本用法</p>
+    </Demo> -->
   </div>
 </template>
 

@@ -1,9 +1,9 @@
 export default {
-  firstDayOfMonth(date) {
+  firstDayOfMonth(date: Date): Date {
     let [year, month, day] = getYearMonthDate(date);
     return new Date(year, month, 1);
   },
-  lastDayOfMonth(date) {
+  lastDayOfMonth(date: Date): Date {
     let [year, month, day] = getYearMonthDate(date);
     return new Date(year, month + 1, 0);
   },
@@ -36,7 +36,7 @@ export default {
     return (number >= 10 ? "" : "0") + number;
   },
 };
-function getYearMonthDate(date) {
+function getYearMonthDate(date: Date): number[] {
   let year = date.getFullYear();
   let month = date.getMonth();
   let day = date.getDate();

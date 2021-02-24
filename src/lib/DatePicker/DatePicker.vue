@@ -1,43 +1,54 @@
 <template>
-  <div ref="wrapper" class="zealot-date-picker">
+  <div ref="popoverContainer" class="BUI-date-picker">
     <Popover
-      ref="zealotPopover"
+      ref="BUIPopover"
       position="bottom"
       :container="popoverContainer"
       @open="onOpen"
     >
-      <z-input
+      <Input
         type="text"
         :value="formattedValue"
         @input="onInput"
         @change="onChange"
         ref="datePickerInput"
-      ></z-input>
-      <template slot="content">
-        <div class="zealot-date-picker-pop" @selectstart.prevent>
-          <div class="zealot-date-picker-nav">
-            <span :class="c('prevYear', 'navItem')" @click="onClickPrevYear"
-              ><z-icon name="doubleLeft"></z-icon
+      ></Input>
+      <template v-slot:content>
+        <div :class="classes('', 'pop', '')" @selectstart.prevent>
+          <div :class="classes('', 'nav', '')">
+            <span
+              :class="classes('', 'prevYear-navItem', '')"
+              @click="onClickPrevYear"
+              ><Icon name="doubleLeft"></Icon
             ></span>
-            <span :class="c('prevMonth', 'navItem')" @click="onClickPrevMonth"
-              ><z-icon name="left"></z-icon
+            <span
+              :class="classes('', 'prevMonth-navItem', '')"
+              @click="onClickPrevMonth"
+              ><Icon name="left"></Icon
             ></span>
-            <span :class="c('yearAndMonth')" @click="onClickMonth">
+            <span
+              :class="classes('', 'yearAndMonth', '')"
+              @click="onClickMonth"
+            >
               <span>{{ display.year }}年</span>
               <span>{{ display.month + 1 }}月</span>
             </span>
-            <span :class="c('nextMonth', 'navItem')" @click="onClickNextMonth"
-              ><z-icon name="right"></z-icon
+            <span
+              :class="classes('', 'nextMonth-navItem', '')"
+              @click="onClickNextMonth"
+              ><Icon name="right"></Icon
             ></span>
-            <span :class="c('nextYear', 'navItem')" @click="onClickNextYear"
-              ><z-icon name="doubleRight"></z-icon
+            <span
+              :class="classes('', 'nextYear-navItem', '')"
+              @click="onClickNextYear"
+              ><Icon name="doubleRight"></Icon
             ></span>
           </div>
-          <div class="zealot-date-picker-panels">
-            <div class="zealot-date-picker-content">
+          <div :class="classes('', 'panels', '')">
+            <div :class="classes('', 'content', '')">
               <template v-if="mode === 'month'">
-                <div :class="c('selectMonth')">
-                  <div :class="c('selects')">
+                <div :class="classes('', 'content-selectMonth', '')">
+                  <div :class="classes('', 'content-selects', '')">
                     <select @change="onSelectYear" :value="display.year">
                       <option v-for="year in years" :key="year" :value="year">
                         {{ year }}
@@ -49,7 +60,7 @@
                       </option></select
                     >月
                   </div>
-                  <div :class="c('returnToDayMode')">
+                  <div :class="classes('', 'content-returnToDayMode', '')">
                     <button @click="mode = 'day'">返回</button>
                   </div>
                 </div>
@@ -84,7 +95,7 @@
               </template>
             </div>
           </div>
-          <div class="zealot-date-picker-actions">
+          <div class="BUI-date-picker-actions">
             <Button @click="onClickToday">今天</Button>
             <Button @click="onClickClear">清除</Button>
           </div>
@@ -97,9 +108,12 @@
 import Input from "../Input/Input.vue";
 import Icon from "../Icon.vue";
 import Popover from "../Popover/Popover.vue";
-import helper from "./DatePickerHelper.js";
+import helper from "./DatePickerHelper";
 import Scroll from "../Scroll/Scroll.vue";
 import Button from "../Button/Button.vue";
+import { computed, onMounted, PropType, reactive, ref } from 'vue';
+import { classMaker } from '../common/classMaker';
+
 export default {
   components: { Input, Icon, Popover, Scroll, Button },
   directives: {
@@ -117,183 +131,209 @@ export default {
       },
     }
   },
-  name: "ZealotDatePicker",
+  name: "BUI-DateRangePicker",
   props: {
     firstDayOfWeek: {
       type: Number,
       default: 1
     },
     value: {
-      type: Date
+      type: Array as PropType<Date[]>
     },
     scope: {
-      type: Array,
+      type: Array as PropType<Date[]>,
       default: () => [new Date(1900, 0, 1), helper.addYear(new Date(), 100)]
     }
   },
-  data() {
-    let [year, month] = helper.getYearMonthDate(this.value || new Date());
-    return {
-      mode: "days",
-      helper: helper,
-      popoverContainer: null,
-      weekdays: ["日", "一", "二", "三", "四", "五", "六"],
-      display: { year, month }
-    };
-  },
-  mounted() {
-    this.popoverContainer = this.$refs.wrapper;
-  },
-  methods: {
-    onInput(value) {
-      var regex = /^\d{4}-\d{2}-\d{2}$/;
+  setup(props, context) {
+    let [year, month] = helper.getYearMonthDate(props.value[0] || new Date());
+    const mode = ref<string>("days")
+    const popoverContainer = ref<HTMLDivElement>(null)
+    const BUIPopover = ref(null)
+    const input = ref(null)
+    const weekdays = ref<string[]>(["日", "一", "二", "三", "四", "五", "六"])
+    const display = reactive({ year, month })
+    const classes = classMaker('BUI-DatePicker')
+    const onInput = (value) => {
+      var regex = /^\d{4}-\d{2}-\d{2}$/g;
       if (value.match(regex)) {
-        let [year, month, day] = value.split("-");
-        month = month - 1;
+        let [year1, month1, day1] = value.split('-');
         year = year - 0;
-        this.display = { year, month };
-        this.$emit("input", new Date(year, month, day));
+        display.year = year1
+        display.month = month1
+        context.emit("input", [new Date(year, month, day1)]);
       }
-    },
-    onChange() {
-      this.$refs.datePickerInput.setRawValue(this.formattedValue);
-    },
-    onOpen() {
-      this.mode = "day";
-    },
-    onClickToday() {
-      const now = new Date();
-      const [year, month, day] = helper.getYearMonthDate(now);
-      this.display = { year, month };
-      this.$emit("input", new Date(year, month, day));
-    },
-    onClickClear() {
-      this.$emit("input", undefined);
-      this.$refs.zealotPopover.close();
-    },
-    onSelectYear(e) {
-      const year = Number(e.target.value);
-      const d = new Date(year, this.display.month);
-      if (d > this.scope[0] && d <= this.scope[1]) {
-        this.display.year = Number(e.target.value);
+    }
+
+    const onChange = () => {
+      input.value.setRawValue(formattedValue);
+    }
+
+    const onClickMonth = () => {
+      if (mode.value !== "month") {
+        mode.value = "month";
       } else {
-        e.target.value = this.display.year;
+        mode.value = "day";
       }
-    },
-    onSelectMonth(e) {
-      const month = Number(e.target.value);
-      const d = new Date(this.display.year, month);
-      if (d > this.scope[0] && d <= this.scope[1]) {
-        this.display.month = Number(e.target.value);
-      } else {
-        e.target.value = this.display.month;
+    }
+
+    const isCurrentMonth = (date) => {
+      let [year1, month1] = helper.getYearMonthDate(date);
+      return year1 === display.year && month1 === display.month;
+    }
+
+    const getVisibleDay = (row, col) => {
+      return visibleDays.value[(row - 1) * 7 + col - 1];
+    }
+
+    const onClickCell = (date) => {
+      console.log(date)
+      if (isCurrentMonth(date)) {
+        context.emit("input", date);
+        BUIPopover.value.close();
       }
-    },
-    onClickNextMonth() {
-      const oldDate = new Date(this.display.year, this.display.month);
-      const newDate = helper.addMonth(oldDate, 1);
-      const [year, month] = helper.getYearMonthDate(newDate);
-      this.display = { year, month };
-    },
-    onClickNextYear() {
-      const oldDate = new Date(this.display.year, this.display.month);
-      const newDate = helper.addYear(oldDate, 1);
-      const [year, month] = helper.getYearMonthDate(newDate);
-      this.display = { year, month };
-    },
-    onClickPrevMonth() {
-      const oldDate = new Date(this.display.year, this.display.month);
-      const newDate = helper.addMonth(oldDate, -1);
-      const [year, month] = helper.getYearMonthDate(newDate);
-      this.display = { year, month };
-    },
-    onClickPrevYear() {
-      const oldDate = new Date(this.display.year, this.display.month);
+    }
+
+
+
+    const onClickPrevYear = () => {
+      const oldDate = new Date(display.year, display.month);
       const newDate = helper.addYear(oldDate, -1);
       const [year, month] = helper.getYearMonthDate(newDate);
-      this.display = { year, month };
-    },
-    isSelected(date) {
-      if (!this.value) {
+      display.year = year
+      display.month = month
+    }
+
+
+    const onClickNextYear = () => {
+      const oldDate = new Date(display.year, display.month);
+      const newDate = helper.addYear(oldDate, 1);
+      const [year, month] = helper.getYearMonthDate(newDate);
+      display.year = year
+      display.month = month
+    }
+
+
+    const onClickPrevMonth = () => {
+      const oldDate = new Date(display.year, display.month);
+      const newDate = helper.addMonth(oldDate, -1);
+      const [year, month] = helper.getYearMonthDate(newDate);
+      display.year = year
+      display.month = month
+    }
+    const onClickNextMonth = () => {
+      const oldDate = new Date(display.year, display.month);
+      const newDate = helper.addMonth(oldDate, 1);
+      const [year, month] = helper.getYearMonthDate(newDate);
+      display.year = year
+      display.month = month
+    }
+
+
+    const onClickToday = () => {
+      const now = new Date();
+      const [year, month, day] = helper.getYearMonthDate(now);
+      display.year = year
+      display.month = month
+      context.emit("input", [new Date(year, month, day)]);
+    }
+    const onClickClear = () => {
+      context.emit("input", []);
+      BUIPopover.value.close();
+    }
+
+
+    const onSelectYear = (e) => {
+      const year = e.target.value - 0;
+      const d = new Date(year, display.month);
+      if (d >= props.scope[0] && d <= props.scope[1]) {
+        display.year = year;
+      } else {
+        alert("no");
+        e.target.value = display.year;
+      }
+    }
+
+    const onSelectMonth = (e) => {
+      const month = e.target.value - 0;
+      const d = new Date(display.year, month);
+      if (d >= props.scope[0] && d <= props.scope[1]) {
+        display.month = month;
+      } else {
+        alert("no");
+        e.target.value = display.month;
+      }
+    }
+
+    const onOpen = () => {
+      mode.value = "day";
+    }
+
+    const isSelected = (date) => {
+      if (!props.value[0]) {
         return false;
       }
       let [y, m, d] = helper.getYearMonthDate(date);
-      let [y2, m2, d2] = helper.getYearMonthDate(this.value);
+      let [y2, m2, d2] = helper.getYearMonthDate(props.value[0]);
       return y === y2 && m === m2 && d === d2;
-    },
-    isToday(date) {
+    }
+
+    const isToday = (date) => {
       let [y, m, d] = helper.getYearMonthDate(date);
       let [y2, m2, d2] = helper.getYearMonthDate(new Date());
       return y === y2 && m === m2 && d === d2;
-    },
-    onClickMonth() {
-      this.mode !== "month" ? (this.mode = "month") : (this.mode = "days");
-    },
-    c(...classNames) {
-      return classNames.map(className => `zealot-date-picker-${className}`);
-    },
-    getVisibleDay(row, col) {
-      return this.visibleDays[(row - 1) * 7 + col - 1];
-    },
-    onClickCell(date) {
-      if (this.isCurrentMonth(date)) {
-        this.$emit("input", date);
-        this.$refs.zealotPopover.close();
-      }
-    },
-    isCurrentMonth(date) {
-      let [year1, month1] = helper.getYearMonthDate(date);
-      return year1 === this.display.year && month1 === this.display.month;
     }
-  },
-  computed: {
-    years() {
-      return helper.range(
-        this.scope[0].getFullYear(),
-        this.scope[1].getFullYear() + 1
-      );
-    },
-    formattedValue() {
-      if (!this.value) {
+
+    const formattedValue = computed(() => {
+      if (!props.value[0]) {
         return "";
       }
-      const [year, month, day] = helper.getYearMonthDate(this.value);
-      return `${year}-${month + 1}-${helper.pad2(day)}`;
-    },
-    visibleDays() {
-      let date = new Date(this.display.year, this.display.month, 1);
+      const [year, month, day] = helper.getYearMonthDate(props.value[0]);
+      return `${year}-${helper.pad2(month + 1)}-${helper.pad2(day)}`;
+    })
+
+    const years = computed(() => {
+      return helper.range(
+        props.scope[0].getFullYear(),
+        props.scope[1].getFullYear() + 1
+      );
+    })
+
+    const visibleDays = computed(() => {
+      let date = new Date(display.year, display.month, 1);
       let first = helper.firstDayOfMonth(date);
       let last = helper.lastDayOfMonth(date);
       let [year, month, day] = helper.getYearMonthDate(date);
       let n = first.getDay();
       let array = [];
-      let x = first - (n === 0 ? 6 : n - 1) * 3600 * 24 * 1000;
+      let x = first.getTime() - (n === 0 ? 6 : n - 1) * 3600 * 24 * 1000;
       for (let i = 0; i < 42; i++) {
         array.push(new Date(x + i * 3600 * 24 * 1000));
       }
       return array;
-    }
-  }
+    })
+
+    return {
+      popoverContainer, input, BUIPopover,
+      mode, helper, weekdays, display, years,
+      classes, onInput, onChange, onOpen,
+      onClickMonth, onClickClear, onClickToday, onClickCell, onClickPrevYear, onClickPrevMonth, onClickNextYear, onClickNextMonth,
+      onSelectYear, onSelectMonth,
+      getVisibleDay, isCurrentMonth, isSelected, isToday
+    };
+  },
 };
 </script>
 <style lang="scss" scoped>
 @import "../style/theme.scss";
 $border-radius: $--border-radius--default;
-.zealot-date-picker {
+.BUI-date-picker {
   &-nav {
-    display: flex;
-    background: #f8f8f8;
-  }
-  &-navItem {
-    width: 32px;
-    height: 32px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
   }
   &-popWrapper {
     padding: 0;
   }
+  &-navItem,
   &-cell,
   &-weekday {
     width: 32px;
@@ -301,26 +341,28 @@ $border-radius: $--border-radius--default;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
   }
   &-cell {
     color: #ddd;
     cursor: not-allowed;
+    border-radius: $border-radius;
     &.currentMonth {
-      color: #444;
-      transition: all 0.3s;
-      border-radius: $border-radius;
+      color: black;
       &:hover {
-        background: blue;
+        background: $--color--primary;
         cursor: pointer;
+        color: white;
       }
     }
     &.today {
       background: $--color--background;
     }
     &.selected {
-      border: 1px solid blue;
+      border: 1px solid $--color--primary;
     }
+  }
+  &-nav {
+    display: flex;
   }
   &-yearAndMonth {
     margin: auto;
@@ -338,12 +380,22 @@ $border-radius: $--border-radius--default;
   &-returnToDayMode {
     margin-top: 8px;
   }
-  .zealot-popover-content-wrapper {
+  .BUI-popover-content-wrapper {
     padding: 0;
   }
   &-actions {
     padding: 8px;
     text-align: right;
+  }
+  &-pickers {
+    display: flex;
+  }
+  &-pickers &-picker1,
+  &-pickers &-picker2 {
+    flex-shrink: 0;
+  }
+  &-picker2 {
+    margin-left: 16px;
   }
 }
 </style>

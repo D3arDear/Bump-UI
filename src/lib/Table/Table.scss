@@ -10,12 +10,20 @@ $grey: darken($--color--background, 10%);
   }
 }
 .BUI-table {
+  table-layout: fixed;
   border-collapse: collapse;
   width: 100%;
   border-spacing: 0;
   border-bottom: 1px solid $grey;
   border-radius: $--border-radius--default;
   box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-0);
+  th,
+  td {
+    word-break: break-all;
+  }
+  &-header {
+    margin: 0;
+  }
   &-copy {
     @extend .BUI-table;
     box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-3);

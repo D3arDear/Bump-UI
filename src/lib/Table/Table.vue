@@ -1,10 +1,6 @@
 <template>
   <div class="BUI-table-wrapper" ref="wrapper">
-    <div
-      :style="{ height, overflow: 'auto' }"
-      ref="tableWrapper"
-      class="BUI-table-wrapper-inner"
-    >
+    <div :style="{ height, overflow: 'auto' }" ref="tableWrapper">
       <table
         class="BUI-table"
         :class="{ bordered, compact, striped: striped }"

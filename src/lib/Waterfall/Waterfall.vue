@@ -35,7 +35,7 @@ export default {
   props: {
     width: {
       type: Number,
-      default: 200
+      default: 200,
     },
     sourceData: {
       type: Array,

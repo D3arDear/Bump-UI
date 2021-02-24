@@ -2,9 +2,7 @@
   <div :class="classes('', '', '')" :style="{ width: width }" ref="wrapper">
     <Input
       type="text"
-      v-on="{
-        click: openList,
-      }"
+      @click="openList"
       :value="value"
       :class="classes('input', '', '')"
       ref="selectorInput"
@@ -16,7 +14,7 @@
           <li
             v-for="(item, index) in sourceData"
             :key="index"
-            v-on:click="onClickItem(item)"
+            @click.stop="onClickItem(item)"
             raf="itemWrapper"
             :class="classes('list', 'item', '')"
           >
@@ -34,21 +32,6 @@ import Input from '../Input/Input.vue'
 import Scroll from '../Scroll/Scroll.vue'
 export default {
   components: { Input, Scroll },
-  directives: {
-    clickOutside: {
-      beforeMount(el, binding, vnode) {
-        el.clickOutsideEvent = function (event) {
-          if (!(el === event.target || el.contains(event.target))) {
-            binding.value(event, el);
-          }
-        };
-        document.body.addEventListener("click", el.clickOutsideEvent);
-      },
-      unmounted(el) {
-        document.body.removeEventListener("click", el.clickOutsideEvent);
-      },
-    }
-  },
   props: {
     sourceData: {
       type: Array,
@@ -72,16 +55,15 @@ export default {
     const scrollHeight = ref(0)
 
     const openList = async () => {
-      listVisible.value = true
+      document.addEventListener('click', selectorClickDocument)
       await nextTick(() => {
-        document.addEventListener('click', onClickDocument)
+        listVisible.value = true
       })
     }
     const closeList = async () => {
-      listVisible.value = false
+      document.removeEventListener('click', selectorClickDocument)
       await nextTick(() => {
-        document.removeEventListener('click', onClickDocument)
-
+        listVisible.value = false
       })
     }
 
@@ -90,11 +72,13 @@ export default {
     const onClickItem = async (item) => {
       context.emit('update:value', item)
       await nextTick(() => {
+        console.log('刚要关')
         closeList()
+        console.log('关了')
       })
     }
 
-    const onClickDocument = (e) => {
+    const selectorClickDocument = (e) => {
       if ((wrapper.value &&
         wrapper.value === e.target) || (wrapper.value && wrapper.value.contains(e.target))
       ) { return }
@@ -108,7 +92,7 @@ export default {
     })
 
     onBeforeUnmount(() => {
-      document.removeEventListener('click', onClickDocument)
+      document.removeEventListener('click', selectorClickDocument)
     })
     return {
       rest, classes, itemWrapper, wrapper, selectorInput, scrollHeight,

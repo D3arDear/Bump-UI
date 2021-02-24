@@ -4,23 +4,20 @@
       type="text"
       v-on="{
         click: openList,
-        blur: closeList,
       }"
       :value="value"
       :class="classes('input', '', '')"
       ref="selectorInput"
       standard
     />
-    <div
-      :class="classes('list-wrapper', '', '')"
-      raf="listWrapper"
-      v-if="listVisible"
-    >
+    <div :class="classes('list-wrapper', '', '')" v-if="listVisible">
       <ul :class="classes('list', '', '')">
         <Scroll :style="{ width: width, height: '9em' }">
           <li
             v-for="(item, index) in sourceData"
+            :key="index"
             v-on:click="onClickItem(item)"
+            raf="itemWrapper"
             :class="classes('list', 'item', '')"
           >
             {{ item }}
@@ -68,7 +65,7 @@ export default {
   setup(props, context) {
     const { ...rest } = context.attrs
     const listVisible = ref(false)
-    const listWrapper = ref<HTMLDivElement>(null)
+    const itemWrapper = ref<HTMLDivElement>(null)
     const selectorInput = ref<HTMLInputElement>(null)
     const wrapper = ref<HTMLInputElement>(null)
     const classes = classMaker('BUI-Selector')
@@ -76,23 +73,33 @@ export default {
 
     const openList = async () => {
       listVisible.value = true
-      document.addEventListener('click', onClickDocument)
+      await nextTick(() => {
+        document.addEventListener('click', onClickDocument)
+      })
     }
-    const closeList = () => {
+    const closeList = async () => {
       listVisible.value = false
-      document.removeEventListener('click', onClickDocument)
+      await nextTick(() => {
+        document.removeEventListener('click', onClickDocument)
+
+      })
     }
 
 
-    const onClickItem = (item) => {
+
+    const onClickItem = async (item) => {
       context.emit('update:value', item)
-      console.log(props.value)
-      closeList()
+      await nextTick(() => {
+        closeList()
+      })
     }
 
     const onClickDocument = (e) => {
       if ((wrapper.value &&
         wrapper.value === e.target) || (wrapper.value && wrapper.value.contains(e.target))
+      ) { return }
+      if (itemWrapper.value &&
+        (itemWrapper.value === e.target || itemWrapper.value.contains(e.target))
       ) { return }
       closeList()
     }
@@ -104,7 +111,7 @@ export default {
       document.removeEventListener('click', onClickDocument)
     })
     return {
-      rest, classes, listWrapper, wrapper, selectorInput, scrollHeight,
+      rest, classes, itemWrapper, wrapper, selectorInput, scrollHeight,
       openList, closeList, onClickItem,
       listVisible
     }
@@ -137,14 +144,14 @@ export default {
     border: 1px solid lighten($--color--background, 10%);
     box-shadow: shadowD-oneWay(
           top,
-          darken($--color--background, 5%),
-          ($--blur-range-0 + 14px)
+          darken($--color--background, 2%),
+          ($--blur-range-0 + 8px)
         )
         inset,
       shadowD-oneWay(
           bottom,
-          darken($--color--background, 10%),
-          ($--blur-range-0 + 8px)
+          darken($--color--background, 5%),
+          ($--blur-range-0 + 4px)
         )
         inset;
   }

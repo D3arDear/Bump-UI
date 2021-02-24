@@ -21,6 +21,7 @@ import InputDemo from "./components/InputDemo/Input.demo.vue";
 import DatePickerDemo from "./components/DatePickerDemo/DatePicker.demo.vue";
 import NavDemo from "./components/NavDemo/Nav.demo.vue";
 import WaterfallDemo from "./components/WaterfallDemo/Waterfall.demo.vue";
+import SelectorDemo from "./components/SelectorDemo/Selector.demo.vue";
 
 import { h } from "vue";
 import Markdown from "./components/Markdown.vue";
@@ -68,6 +69,7 @@ export const router = createRouter({
         { path: "datepicker", component: DatePickerDemo },
         { path: "nav", component: NavDemo },
         { path: "waterfall", component: WaterfallDemo },
+        { path: "selector", component: SelectorDemo },
       ],
     },
   ],

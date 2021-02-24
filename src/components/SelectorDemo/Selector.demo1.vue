@@ -3,7 +3,7 @@
   <Selector width="5em" v-model:value="value" :sourceData="sourceData" />
 </template>
 <script lang="ts">
-import Selector from '../../lib/Selector/SingleSelector.vue'
+import Selector from '../../lib/Selector/Selector.vue'
 import { ref } from 'vue'
 export default {
   components: {
@@ -11,7 +11,8 @@ export default {
   },
   setup() {
     const value = ref('')
-    const sourceData = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    const sourceData = [...new Array(12).keys()];
+    console.log(sourceData)
     return { sourceData, value }
   }
 }

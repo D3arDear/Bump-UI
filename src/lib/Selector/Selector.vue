@@ -124,7 +124,7 @@ export default {
   font-size: $--font--size--default;
   position: relative;
   order: 1px solid red;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   &-input {
@@ -138,21 +138,18 @@ export default {
     overflow: hidden;
     position: absolute;
     height: 9em;
+    z-index: 1;
     background: $--color--background;
     border-radius: $--border-radius--default;
     font-size: inherit;
     border: 1px solid lighten($--color--background, 10%);
     box-shadow: shadowD-oneWay(
           top,
-          darken($--color--background, 2%),
+          $--color--background,
           ($--blur-range-0 + 8px)
         )
         inset,
-      shadowD-oneWay(
-          bottom,
-          darken($--color--background, 5%),
-          ($--blur-range-0 + 4px)
-        )
+      shadowD-oneWay(bottom, $--color--background, ($--blur-range-0 + 4px))
         inset;
   }
   &-list {

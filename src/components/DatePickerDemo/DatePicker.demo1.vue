@@ -10,7 +10,7 @@ import DatePicker from '../../lib/DatePicker/DatePicker.vue'
 export default {
   setup() {
     const day = ref()
-    const scope = ref([new Date(1958, 1), new Date(2118, 5)])
+    const scope = ref([new Date(1990, 1), new Date(2118, 5)])
     return {
       DatePicker,
       day, scope

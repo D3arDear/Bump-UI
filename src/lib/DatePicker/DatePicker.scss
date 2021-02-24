@@ -31,6 +31,14 @@ $border-radius: $--border-radius--default;
   }
   &-panel {
     &__content {
+      &-selectMonth {
+        .BUI-DatePicker-panel__content-selects {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 10em;
+        }
+      }
       &-weekday,
       &-cell {
         width: 32px;

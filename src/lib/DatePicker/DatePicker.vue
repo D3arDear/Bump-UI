@@ -50,19 +50,38 @@
               <template v-if="mode === 'month'">
                 <div :class="classes('panel', 'content-selectMonth', '')">
                   <div :class="classes('panel', 'content-selects', '')">
-                    <select @change="onSelectYear" :value="display.year">
+                    <Selector
+                      :sourceData="years"
+                      @update:value="onSelectYear"
+                      :value="display.year"
+                      width="6em"
+                    ></Selector
+                    >年
+                    <!-- <select
+                      @change="(e) => onSelectYear(e.target.value)"
+                      :value="display.year"
+                    >
                       <option v-for="year in years" :key="year" :value="year">
                         {{ year }}
                       </option></select
-                    >年
-                    <select @change="onSelectMonth" :value="display.month">
+                    >年 -->
+                    <Selector
+                      :sourceData="
+                        [...new Array(13).keys()].filter((item) => item !== 0)
+                      "
+                      @update:value="onSelectMonth"
+                      width="4em"
+                      :value="display.month"
+                    ></Selector
+                    >月
+                    <!-- <select
+                      @change="(e) => onSelectMonth(e.target.value)"
+                      :value="display.month"
+                    >
                       <option v-for="month in 12" :value="month - 1">
                         {{ String(month) }}
                       </option></select
-                    >月
-                  </div>
-                  <div :class="classes('panel', 'content-returnToDayMode', '')">
-                    <button @click="mode = 'day'">返回</button>
+                    >月 -->
                   </div>
                 </div>
               </template>
@@ -103,12 +122,12 @@
                     {{ getVisibleDay(i, j).getDate() }}
                   </span>
                 </div>
+                <div :class="classes('actions', '', '')">
+                  <Button @click="onClickToday" textButton>今天</Button>
+                  <Button @click="onClickClear" textButton>清除</Button>
+                </div>
               </template>
             </div>
-          </div>
-          <div :class="classes('actions', '', '')">
-            <Button @click="onClickToday" textButton>今天</Button>
-            <Button @click="onClickClear" textButton>清除</Button>
           </div>
         </div>
       </template>
@@ -124,9 +143,10 @@ import Scroll from "../Scroll/Scroll.vue";
 import Button from "../Button/Button.vue";
 import { computed, nextTick, onMounted, PropType, reactive, ref, watch, watchEffect } from 'vue';
 import { classMaker } from '../common/classMaker';
+import Selector from '../Selector/Selector.vue';
 
 export default {
-  components: { Input, Icon, Popover, Scroll, Button },
+  components: { Input, Icon, Popover, Scroll, Button, Selector },
   directives: {
     clickOutside: {
       beforeMount(el, binding, vnode) {
@@ -158,7 +178,7 @@ export default {
   },
   setup(props, context) {
     let [year, month] = helper.getYearMonthDate(props.value || new Date());
-    const mode = ref<string>("days")
+    const mode = ref<string>("day")
     const popoverContainer = ref<HTMLDivElement>(null)
     const BUIPopover = ref(null)
     const input = ref(null)
@@ -166,6 +186,10 @@ export default {
     const display = reactive({ year, month })
     const classes = classMaker('BUI-DatePicker')
     const inputValue = ref<string>('')
+
+    const onClickDayMode = () => {
+      mode.value = 'day'
+    }
 
     const onInput = () => {
       const value = validateValue(inputValue.value);
@@ -267,24 +291,22 @@ export default {
 
 
     const onSelectYear = (e) => {
-      const year = e.target.value - 0;
+      const year = e - 0;
       const d = new Date(year, display.month);
       if (d >= props.scope[0] && d <= props.scope[1]) {
         display.year = year;
       } else {
-        alert("no");
-        e.target.value = display.year;
+        e = display.year;
       }
     }
 
     const onSelectMonth = (e) => {
-      const month = e.target.value - 0;
+      const month = e - 1;
       const d = new Date(display.year, month);
       if (d >= props.scope[0] && d <= props.scope[1]) {
         display.month = month;
       } else {
-        alert("no");
-        e.target.value = display.month;
+        e = display.month;
       }
     }
 
@@ -348,7 +370,7 @@ export default {
 
     return {
       popoverContainer, input, BUIPopover,
-      mode, helper, weekdays, display, years, inputValue, formattedValue,
+      mode, helper, weekdays, display, years, inputValue, formattedValue, onClickDayMode,
       classes, onInput, onChange, onOpen,
       onClickMonth, onClickClear, onClickToday, onClickCell, onClickPrevYear, onClickPrevMonth, onClickNextYear, onClickNextMonth,
       onSelectYear, onSelectMonth,

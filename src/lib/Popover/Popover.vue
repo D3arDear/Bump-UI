@@ -122,12 +122,15 @@ export default {
     }
 
     const onClickDocument = (e) => {
-      if (popover &&
-        (popover === e.target || popover.value.contains(e.target))
+      console.log(e.target)
+      if (popover.value &&
+        (popover.value === e.target || popover.value.contains(e.target))
       ) { return }
-      if (contentWrapper &&
-        (contentWrapper === e.target || contentWrapper.value.contains(e.target))
-      ) { return }
+      if (contentWrapper.value &&
+        (contentWrapper.value === e.target || contentWrapper.value.contains(e.target))
+      ) {
+        return
+      }
       close()
     }
 

@@ -98,7 +98,6 @@ export default {
       context.emit('update:value', value)
     }
     const onInput = ($event) => {
-      console.log('onInput')
       updateValue($event.target.value)
     }
     const onFocus = () => {

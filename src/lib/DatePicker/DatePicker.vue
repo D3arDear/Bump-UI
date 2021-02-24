@@ -8,47 +8,48 @@
     >
       <Input
         type="text"
-        :value="formattedValue"
+        v-model:value="inputValue"
+        :focused="inputValue.length > 0"
         @input="onInput"
         @change="onChange"
         ref="datePickerInput"
       ></Input>
       <template v-slot:content>
-        <div :class="classes('', 'pop', '')" @selectstart.prevent>
-          <div :class="classes('', 'nav', '')">
+        <div :class="classes('pop', '', '')" @selectstart.prevent>
+          <div :class="classes('nav', '', '')">
             <span
-              :class="classes('', 'prevYear-navItem', '')"
+              :class="classes('nav', 'prevYear-icon', '')"
               @click="onClickPrevYear"
               ><Icon name="doubleLeft"></Icon
             ></span>
             <span
-              :class="classes('', 'prevMonth-navItem', '')"
+              :class="classes('nav', 'prevMonth-icon', '')"
               @click="onClickPrevMonth"
               ><Icon name="left"></Icon
             ></span>
             <span
-              :class="classes('', 'yearAndMonth', '')"
+              :class="classes('nav', 'yearAndMonth', '')"
               @click="onClickMonth"
             >
               <span>{{ display.year }}年</span>
               <span>{{ display.month + 1 }}月</span>
             </span>
             <span
-              :class="classes('', 'nextMonth-navItem', '')"
+              :class="classes('nav', 'nextMonth-icon', '')"
               @click="onClickNextMonth"
               ><Icon name="right"></Icon
             ></span>
             <span
-              :class="classes('', 'nextYear-navItem', '')"
+              :class="classes('nav', 'nextYear-icon', '')"
               @click="onClickNextYear"
               ><Icon name="doubleRight"></Icon
             ></span>
           </div>
-          <div :class="classes('', 'panels', '')">
-            <div :class="classes('', 'content', '')">
+          <div :class="classes('panel', '', '')">
+            <div :class="classes('panel', 'content', '')">
               <template v-if="mode === 'month'">
-                <div :class="classes('', 'content-selectMonth', '')">
-                  <div :class="classes('', 'content-selects', '')">
+                <div :class="classes('panel', 'content-selectMonth', '')">
+                  <div :class="classes('panel', 'content-selects', '')">
                     <select @change="onSelectYear" :value="display.year">
                       <option v-for="year in years" :key="year" :value="year">
                         {{ year }}
@@ -60,25 +61,29 @@
                       </option></select
                     >月
                   </div>
-                  <div :class="classes('', 'content-returnToDayMode', '')">
+                  <div :class="classes('panel', 'content-returnToDayMode', '')">
                     <button @click="mode = 'day'">返回</button>
                   </div>
                 </div>
               </template>
               <template v-else>
-                <div :class="c('weekdays')">
+                <div :class="classes('panel', 'content-week', '')">
                   <span
-                    :class="c('weekday')"
+                    :class="classes('panel', 'content-weekday', '')"
                     v-for="i in [1, 2, 3, 4, 5, 6, 0]"
                     :key="i"
                   >
                     {{ weekdays[i] }}
                   </span>
                 </div>
-                <div :class="c('row')" v-for="i in helper.range(1, 7)" :key="i">
+                <div
+                  :class="classes('panel', 'content-row', '')"
+                  v-for="i in helper.range(1, 7)"
+                  :key="i"
+                >
                   <span
                     :class="[
-                      c('cell'),
+                      classes('panel', 'content-cell', ''),
                       {
                         currentMonth: isCurrentMonth(getVisibleDay(i, j)),
                         selected: isSelected(getVisibleDay(i, j)),
@@ -95,9 +100,9 @@
               </template>
             </div>
           </div>
-          <div class="BUI-date-picker-actions">
-            <Button @click="onClickToday">今天</Button>
-            <Button @click="onClickClear">清除</Button>
+          <div :class="classes('actions', '', '')">
+            <Button @click="onClickToday" textButton>今天</Button>
+            <Button @click="onClickClear" textButton>清除</Button>
           </div>
         </div>
       </template>
@@ -111,7 +116,7 @@ import Popover from "../Popover/Popover.vue";
 import helper from "./DatePickerHelper";
 import Scroll from "../Scroll/Scroll.vue";
 import Button from "../Button/Button.vue";
-import { computed, onMounted, PropType, reactive, ref } from 'vue';
+import { computed, nextTick, onMounted, PropType, reactive, ref, watch, watchEffect } from 'vue';
 import { classMaker } from '../common/classMaker';
 
 export default {
@@ -138,7 +143,7 @@ export default {
       default: 1
     },
     value: {
-      type: Array as PropType<Date[]>
+      type: Date as PropType<Date>
     },
     scope: {
       type: Array as PropType<Date[]>,
@@ -146,7 +151,7 @@ export default {
     }
   },
   setup(props, context) {
-    let [year, month] = helper.getYearMonthDate(props.value[0] || new Date());
+    let [year, month] = helper.getYearMonthDate(props.value || new Date());
     const mode = ref<string>("days")
     const popoverContainer = ref<HTMLDivElement>(null)
     const BUIPopover = ref(null)
@@ -154,19 +159,29 @@ export default {
     const weekdays = ref<string[]>(["日", "一", "二", "三", "四", "五", "六"])
     const display = reactive({ year, month })
     const classes = classMaker('BUI-DatePicker')
-    const onInput = (value) => {
-      var regex = /^\d{4}-\d{2}-\d{2}$/g;
+    const inputValue = ref<string>('')
+
+    const onInput = () => {
+      const value = validateValue(inputValue.value);
+      if (value) {
+        context.emit('update:value', value)
+        updateInputValue()
+      }
+    }
+    const onChange = () => {
+      updateInputValue()
+    }
+
+    const validateValue = (value) => {
+      let regex = /^\d{4}-\d{2}-\d{2}$/g;
       if (value.match(regex)) {
         let [year1, month1, day1] = value.split('-');
         year = year - 0;
         display.year = year1
         display.month = month1
-        context.emit("input", [new Date(year, month, day1)]);
+        return new Date(year, month, day1);
       }
-    }
-
-    const onChange = () => {
-      input.value.setRawValue(formattedValue);
+      return null
     }
 
     const onClickMonth = () => {
@@ -187,9 +202,9 @@ export default {
     }
 
     const onClickCell = (date) => {
-      console.log(date)
       if (isCurrentMonth(date)) {
-        context.emit("input", date);
+        context.emit("update:value", date);
+        updateInputValue()
         BUIPopover.value.close();
       }
     }
@@ -270,11 +285,11 @@ export default {
     }
 
     const isSelected = (date) => {
-      if (!props.value[0]) {
+      if (!props.value) {
         return false;
       }
       let [y, m, d] = helper.getYearMonthDate(date);
-      let [y2, m2, d2] = helper.getYearMonthDate(props.value[0]);
+      let [y2, m2, d2] = helper.getYearMonthDate(props.value);
       return y === y2 && m === m2 && d === d2;
     }
 
@@ -284,11 +299,21 @@ export default {
       return y === y2 && m === m2 && d === d2;
     }
 
+    const updateInputValue = async () => {
+      await nextTick(() => {
+        inputValue.value = formattedValue.value
+      })
+    }
+
+    onMounted(() => {
+      updateInputValue()
+    })
+
     const formattedValue = computed(() => {
-      if (!props.value[0]) {
+      if (!props.value) {
         return "";
       }
-      const [year, month, day] = helper.getYearMonthDate(props.value[0]);
+      const [year, month, day] = helper.getYearMonthDate(props.value);
       return `${year}-${helper.pad2(month + 1)}-${helper.pad2(day)}`;
     })
 
@@ -315,7 +340,7 @@ export default {
 
     return {
       popoverContainer, input, BUIPopover,
-      mode, helper, weekdays, display, years,
+      mode, helper, weekdays, display, years, inputValue, formattedValue,
       classes, onInput, onChange, onOpen,
       onClickMonth, onClickClear, onClickToday, onClickCell, onClickPrevYear, onClickPrevMonth, onClickNextYear, onClickNextMonth,
       onSelectYear, onSelectMonth,

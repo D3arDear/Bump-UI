@@ -3,6 +3,7 @@
     <div :class="classes('', 'trigger', '')">
       <Input
         v-model:value="result"
+        :label="inputLabel"
         readonly
         :focused="popoverVisible"
         @click="toggle"

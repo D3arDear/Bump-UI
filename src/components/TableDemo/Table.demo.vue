@@ -48,7 +48,7 @@ export default {
       {
         id: 2,
         attr: 'expendField',
-        content: "指定源数据中可以展开显示的项",
+        content: "指定源数据中可以展开显示的项(sourceData.someKeyUWannaExpend)",
         type: 'string',
         option: '',
         default: '',

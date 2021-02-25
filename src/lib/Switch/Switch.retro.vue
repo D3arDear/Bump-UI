@@ -23,6 +23,3 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import "./Switch.retro.scss";
-</style>

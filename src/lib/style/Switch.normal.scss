@@ -1,5 +1,3 @@
-@import "../style/theme.scss";
-
 $h: 22px;
 $h2: $h - 4px;
 
@@ -13,18 +11,8 @@ $h2: $h - 4px;
   border-radius: $h/2;
   position: relative;
   z-index: -1;
-  box-shadow: shadow-generator(
-      $light-direction,
-      $--color--background,
-      $--blur-range-3,
-      true
-    ),
-    shadow-generator(
-      $light-direction,
-      $--color--background,
-      $--blur-range-3,
-      false
-    );
+  box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-3, true),
+    shadow-generator($light-direction, $--color--background, $--blur-range-3, false);
   transition: background 250ms;
   @include surface($light-direction, $--color--background, concave);
   &:after {
@@ -51,19 +39,10 @@ $h2: $h - 4px;
     left: 2px;
     height: $h2;
     width: $h2;
-    background: surface-generator(
-      $light-direction,
-      lighten($--color--background, 10%),
-      concave
-    );
+    background: surface-generator($light-direction, lighten($--color--background, 10%), concave);
     border-radius: $h2/2;
     transition: left 250ms;
-    @include shadow(
-      $light-direction,
-      $--color--background,
-      $--blur-range-4,
-      false
-    );
+    @include shadow($light-direction, $--color--background, $--blur-range-4, false);
   }
   &.checked {
     &:after {
@@ -76,10 +55,5 @@ $h2: $h - 4px;
 }
 .BUI-Switch--flat {
   @extend .BUI-Switch--normal;
-  @include shadow(
-    $light-direction,
-    $--color--background,
-    $--blur-range-4,
-    true
-  );
+  @include shadow($light-direction, $--color--background, $--blur-range-4, true);
 }

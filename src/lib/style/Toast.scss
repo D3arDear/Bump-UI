@@ -1,0 +1,96 @@
+$font-size: $--font--size--default;
+$toast-min-height: 40px;
+$toast-bg: rgba($--color--background, 0.95);
+$box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-1);
+
+@keyframes slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.BUI-Toast {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  $animation-duration: 300ms;
+  z-index: 31;
+  &__close {
+    display: inline-flex;
+    min-height: $toast-min-height;
+    min-width: $toast-min-height;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    color: $--color--primary;
+    cursor: pointer;
+  }
+  &__line {
+    width: 1px;
+    margin-left: 1em;
+    @include shadow($light-direction, darken($--color--background, 5%), $--blur-range-5, true);
+  }
+  &.position-top {
+    top: 0;
+    .BUI-Toast__toast {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      animation: slide-down $animation-duration;
+    }
+  }
+  &.position-bottom {
+    bottom: 0;
+    .BUI-Toast__toast {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      animation: slide-up $animation-duration;
+    }
+  }
+  &.position-middle {
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    .BUI-Toast__toast {
+      animation: fade-in $animation-duration;
+    }
+  }
+}
+.BUI-Toast__toast {
+  animation: fadeIn 1s;
+  &-message {
+    padding: 8px 0 8px 1em;
+  }
+  line-height: 1.8;
+  border-radius: 8px;
+  color: ContrastText($--color--background);
+  padding: 0;
+  font-size: $font-size;
+  line-height: 1.8;
+  min-height: $toast-min-height;
+  display: flex;
+  align-items: center;
+  background: $toast-bg;
+  box-shadow: $box-shadow;
+}

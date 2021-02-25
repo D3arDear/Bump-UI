@@ -162,20 +162,3 @@ export default {
   },
 }
 </script>
-<style scoped lang="scss">
-.BUI-Waterfall {
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  position: relative;
-  &__colItem {
-    flex-shrink: 0;
-  }
-  &__item {
-    width: 200px;
-    position: absolute;
-  }
-}
-</style>

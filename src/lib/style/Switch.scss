@@ -1,0 +1,7 @@
+.BUI-Switch {
+  z-index: 0;
+  display: inline-flex;
+}
+
+@import "./Switch.normal.scss";
+@import "./Switch.retro.scss";

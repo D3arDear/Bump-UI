@@ -4,7 +4,7 @@
     <Demo :component="WaterfallDemo1">
       <p>瀑布流布局的基本用法</p>
     </Demo>
-    <AttrTable :sourceData="waterfallData" title="Waterfall Attributes" />
+    <AttrTable title="Waterfall Attributes" :sourceData="waterfallData" />
   </div>
 </template>
 

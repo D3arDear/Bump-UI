@@ -27,9 +27,9 @@
             </th>
             <th :style="{ width: '50px' }" v-if="numberVisible">#</th>
             <th
-              :style="{ width: column.width + 'px' }"
-              :key="column.field"
               v-for="column in columns"
+              :style="{ width: `${column.width}px` }"
+              :key="column.field"
             >
               <div class="BUI-table-header">
                 {{ column.text }}
@@ -83,7 +83,7 @@
                 {{ index + 1 }}
               </td>
               <template v-for="(column, index) in columns" :key="column.field">
-                <td :style="{ width: column.width + 'px' }">
+                <td :style="{ width: `${column.width}px` }">
                   <template
                     v-if="column.render"
                     :ref="
@@ -139,7 +139,7 @@
 </template>
 <script lang="ts">
 import Icon from "../Icon.vue";
-import { computed, createApp, h, onBeforeUpdate, onMounted, onUpdated, PropType, reactive, ref, watchEffect } from 'vue';
+import { computed, createApp, h, onBeforeUnmount, onBeforeUpdate, onMounted, onUpdated, PropType, reactive, ref, watchEffect } from 'vue';
 import TableColumn from './Table.Column.vue';
 interface IDataSource {
   id: number | string
@@ -306,7 +306,9 @@ export default {
 
     onMounted(() => {
       columns.value = context.slots.default().map((node, index) => {
-        let { text, field, width } = node.props;
+        let text = node.props.text;
+        let field = node.props.field;
+        let width = node.props.width
         // let render = node.children
         let render = node.slots
         // vnodeComponent({ ...node.props }, render, 'test', index)
@@ -363,6 +365,9 @@ export default {
           }
         }
       }, { flush: 'post' })
+    })
+    onBeforeUnmount(() => {
+      tableWrapper.value.removeEventListener('scroll', horizonScrollHeader)
     })
     return {
       context,

@@ -5,7 +5,6 @@
       :data-source="sourceData"
       :striped="false"
       expend-field="description"
-      bordered
     >
       <TableColumn text="参数" field="attr"></TableColumn>
       <TableColumn text="类型" field="type"> </TableColumn>

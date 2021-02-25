@@ -19,6 +19,7 @@ $grey: darken($--color--background, 10%);
   box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-0);
   th,
   td {
+    border: none;
     word-break: break-all;
   }
   &-header {
@@ -47,8 +48,7 @@ $grey: darken($--color--background, 10%);
     border-bottom: 1px solid $grey;
     td,
     th {
-      border-top: 1px solid $grey;
-      border-bottom: 1px solid $grey;
+      border: 1px solid $grey;
     }
   }
   &.compact {

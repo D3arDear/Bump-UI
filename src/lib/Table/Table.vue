@@ -142,7 +142,7 @@ import Icon from "../Icon.vue";
 import { computed, createApp, h, onBeforeUpdate, onMounted, onUpdated, PropType, reactive, ref, watchEffect } from 'vue';
 import TableColumn from './Table.Column.vue';
 interface IDataSource {
-  id: number
+  id: number | string
 }
 export default {
   name: "BUI-Table",

@@ -11,11 +11,14 @@
       <Demo :component="TabsDemo2">
         <p>Tab 组件接受 disabled 属性，使该 Tab 不可选</p>
       </Demo>
+      <AttrTable title="Tabs Attributes" :sourceData="tabsAttr" />
+      <AttrTable title="Tab Attributes" :sourceData="tabAttr" />
     </div>
   </div>
 </template>
 
-<script>
+<script lang='ts'>
+import AttrTable from '../AttrTable.vue';
 
 import Demo from '../Demo.vue'
 import TabsDemo1 from './Tabs.demo1.vue'
@@ -23,13 +26,41 @@ import TabsDemo2 from './Tabs.demo2.vue'
 
 export default {
   name: "TabsDemo",
-  components:{
-    Demo
+  components: {
+    Demo,
+    AttrTable
   },
-  setup(){
+  setup() {
+    const tabsAttr = [
+      {
+        id: 0,
+        attr: 'selected',
+        content: "Tabs 的绑定值，决定子组件的 tab 的显示",
+        type: 'string',
+        option: '',
+        default: '',
+        required: 'true',
+        description: ''
+      }
+    ]
+    const tabAttr = [
+      {
+        id: 1,
+        attr: 'title',
+        content: 'Tab 的对应的 title，父组件以该值判断是否该子组件被选中',
+        type: 'string',
+        option: '',
+        default: '',
+        required: 'true',
+        description: ''
+      }
+    ]
+
     return {
       TabsDemo1,
-      TabsDemo2
+      TabsDemo2,
+      tabsAttr,
+      tabAttr
     }
   }
 };

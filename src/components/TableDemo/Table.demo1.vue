@@ -5,7 +5,6 @@
   <div>
     <Table
       :data-source="sourceData"
-      bordered
       v-model:selected-items="selected"
       @update:orderBy="changeOrderBy"
       :orderBy="orderBy"

@@ -6,12 +6,12 @@
       :striped="false"
       expend-field="description"
     >
-      <TableColumn text="参数" field="attr"></TableColumn>
-      <TableColumn text="类型" field="type"> </TableColumn>
-      <TableColumn text="说明" field="content"> </TableColumn>
-      <TableColumn text="可选值" field="option"></TableColumn>
-      <TableColumn text="默认值" field="default"></TableColumn>
-      <TableColumn text="必填" field="required"></TableColumn>
+      <TableColumn text="参数" field="attr" width="50"></TableColumn>
+      <TableColumn text="类型" field="type" width="50"> </TableColumn>
+      <TableColumn text="说明" field="content" widht="200"> </TableColumn>
+      <TableColumn text="可选值" field="option" width="100"></TableColumn>
+      <TableColumn text="默认值" field="default" width="50"></TableColumn>
+      <TableColumn text="必填" field="required" width="50"></TableColumn>
     </Table>
   </div>
 </template>
@@ -52,7 +52,7 @@ export default {
 .tableContainer {
   width: 100%;
   h2 {
-    margin: 40px 0 20px;
+    margin: 80px 0 40px;
     color: rgba(ContrastText($--color--background), 0.75);
   }
 }

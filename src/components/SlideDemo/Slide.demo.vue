@@ -1,6 +1,6 @@
 <template>
   <div class="slides">
-    <h1>Slider 组件</h1>
+    <h1>Slides 组件</h1>
     <Demo :component="SlideDemo1">
       <p>Slider 的基本用法。 selected = name 的内容会被显示</p>
     </Demo>
@@ -86,18 +86,11 @@ export default {
 </script>
 
 <style lang="scss">
-.slider {
+.slides {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  .sliderSection {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-  }
 }
 </style>

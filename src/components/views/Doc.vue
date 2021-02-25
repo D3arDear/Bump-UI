@@ -77,7 +77,7 @@
               <router-link to="/doc/collapse"> Collapse </router-link>
             </li>
             <li>
-              <router-link to="/doc/slide"> Slide </router-link>
+              <router-link to="/doc/slide"> Slides </router-link>
             </li>
             <li>
               <router-link to="/doc/pager"> Pager </router-link>

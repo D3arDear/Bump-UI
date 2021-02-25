@@ -3,7 +3,7 @@
 </demo>
 <template>
   <div>
-    <Slides class="wrapper" v-model:selected="selected" :autoPlay="false">
+    <Slides v-model:selected="selected" :autoPlay="false">
       <Slides-item name="1">
         <div class="box-1">1</div>
       </Slides-item>

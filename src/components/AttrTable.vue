@@ -7,7 +7,7 @@
       expend-field="description"
     >
       <TableColumn text="参数" field="attr" :width="100"></TableColumn>
-      <TableColumn text="说明" field="content" :width="200"> </TableColumn>
+      <TableColumn text="说明" field="content" :width="300"> </TableColumn>
       <TableColumn text="类型" field="type" :width="150"> </TableColumn>
       <TableColumn text="可选值" field="option" :width="100"></TableColumn>
       <TableColumn text="默认值" field="default" :width="100"></TableColumn>

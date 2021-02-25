@@ -3,7 +3,7 @@
 </demo>
 <template>
   <div>
-    <Slides class="wrapper" v-model:selected="selected">
+    <Slides v-model:selected="selected">
       <Slides-item name="1">
         <div class="box-1">1</div>
       </Slides-item>
@@ -38,7 +38,8 @@ export default {
   box-sizing: border-box;
 }
 .wrapper {
-  margin: 40px;
+  padding: 0;
+  margin: 0;
 }
 .box {
   width: 100%;

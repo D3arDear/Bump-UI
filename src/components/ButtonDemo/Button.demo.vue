@@ -163,6 +163,7 @@ p {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  width: 100%;
   &__section {
     display: flex;
     flex-direction: column;

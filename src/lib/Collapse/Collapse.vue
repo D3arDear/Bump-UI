@@ -55,13 +55,3 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-@import "../style/theme.scss";
-.BUI-Collapse {
-  width: 100%;
-  padding: 16px;
-  background: $--color--background;
-  border-radius: $--border-radius--default;
-  @include shadow($light-direction, $--color--background, $--blur-range-0);
-}
-</style>

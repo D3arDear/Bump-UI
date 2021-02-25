@@ -74,24 +74,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-@import "../style/theme.scss";
-.BUI-Nav {
-  color: ContrastText($--color--background);
-  display: flex;
-  border-radius: $--border-radius--default;
-  box-shadow: shadow-generator(
-    $light-direction,
-    $--color--background,
-    $--border-radius--default,
-    false
-  );
-  background: $--color--background;
-  cursor: pointer;
-  user-select: none;
-  &.vertical {
-    flex-direction: column;
-  }
-}
-</style>

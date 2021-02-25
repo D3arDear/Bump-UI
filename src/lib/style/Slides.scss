@@ -1,0 +1,68 @@
+.BUI-Slides {
+  @include shadow($light-direction, $--color--background, $--blur-range-0);
+  border-radius: $--border-radius--default;
+  &__wrapper {
+    position: relative;
+  }
+  &__window {
+    border-radius: $--border-radius--default;
+    overflow: hidden;
+  }
+  &__dots {
+    padding: 8px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > span {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+      background: #ddd;
+      margin: 0 8px;
+      font-size: 12px;
+      &:hover {
+        cursor: pointer;
+      }
+      &.active {
+        background: #1b1b1b;
+        color: #ddd;
+        &:hover {
+          cursor: default;
+        }
+      }
+    }
+  }
+}
+
+.BUI-Slides-item {
+  width: 100%;
+  height: 100%;
+}
+.BUI-Slides-animation {
+  &-leave-active {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  &-enter-active,
+  &-leave-active {
+    transition: all 0.5s;
+  }
+  &-enter {
+    transform: translateX(100%);
+  }
+  &-enter.reverse {
+    transform: translateX(-100%);
+  }
+  &-leave-to {
+    transform: translateX(-100%);
+  }
+  &-leave-to.reverse {
+    transform: translateX(100%);
+  }
+}

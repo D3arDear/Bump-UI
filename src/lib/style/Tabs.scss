@@ -1,5 +1,3 @@
-@import "../style/theme.scss";
-
 @function navOneSideShadow($color) {
   @if $light-direction == topLeft {
     @return shadowD-oneWay(right, $--color--background, $--blur-range-2);
@@ -74,5 +72,18 @@
       @extend .BUI-Tabs-content__item;
       display: flex;
     }
+  }
+}
+
+.BUI-Tabs-animation--slide-fade {
+  &-enter-active,
+  &-leave-active {
+    transition: all 300ms ease;
+    transform: translateY(0);
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(-5%);
   }
 }

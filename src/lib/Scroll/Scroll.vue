@@ -244,6 +244,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-@import "./Scroll.scss";
-</style>

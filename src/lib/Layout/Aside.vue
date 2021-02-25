@@ -33,30 +33,3 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import "../style/theme.scss";
-.BUI-Layout-Aside {
-  position: relative;
-  &__actions {
-    background: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    outline: none;
-    padding: 5px;
-    border: none;
-    cursor: pointer;
-    color: ContrastText($--color--background);
-  }
-}
-.slide-enter-active,
-.slide-leave-active {
-  transition: all 0.5s;
-}
-.slide-enter,
-.slide-leave-to {
-  margin-left: -200px;
-}
-</style>
-
-

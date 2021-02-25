@@ -93,19 +93,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-@import "./Tabs.scss";
-.BUI-Tabs-animation--slide-fade {
-  &-enter-active,
-  &-leave-active {
-    transition: all 300ms ease;
-    transform: translateY(0);
-  }
-  &-enter-from,
-  &-leave-to {
-    opacity: 0;
-    transform: translateY(-5%);
-  }
-}
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="BUI-Content">
     <slot></slot>
   </div>
 </template>
@@ -9,9 +9,4 @@ export default{
 }
 </script>
 
-<style lang="scss" scoped>
-.content {
-  flex: 1;
-}
-</style>
 

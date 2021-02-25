@@ -1,4 +1,3 @@
-@import "../style/theme.scss";
 @function confirmTextColorByBG($textColor, $default) {
   @if lightness($--color--background) >= 50% {
     @if $default == true {

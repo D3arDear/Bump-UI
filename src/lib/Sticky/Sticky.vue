@@ -80,11 +80,3 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-.BUI-Sticky {
-  &--sticky {
-    position: fixed;
-    z-index: 1;
-  }
-}
-</style>

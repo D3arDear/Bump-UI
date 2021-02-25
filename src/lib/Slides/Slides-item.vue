@@ -44,34 +44,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.BUI-Slides-item {
-  width: 100%;
-  height: 100%;
-}
-.BUI-Slides-animation {
-  &-leave-active {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-  }
-  &-enter-active,
-  &-leave-active {
-    transition: all 0.5s;
-  }
-  &-enter {
-    transform: translateX(100%);
-  }
-  &-enter.reverse {
-    transform: translateX(-100%);
-  }
-  &-leave-to {
-    transform: translateX(-100%);
-  }
-  &-leave-to.reverse {
-    transform: translateX(100%);
-  }
-}
-</style>

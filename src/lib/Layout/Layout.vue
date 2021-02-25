@@ -29,24 +29,3 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.BUI-Layout {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  &.hasSider {
-    flex-direction: row;
-  }
-}
-
-.sider.slide-enter,
-.sider.slide-leave-to {
-  margin-left: -200px;
-}
-.header {
-  height: 50px;
-}
-.footer {
-  height: 100px;
-}
-</style>

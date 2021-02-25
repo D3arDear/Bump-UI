@@ -109,31 +109,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-@import "./Dialog.scss";
-
-.BUI-Dialog-animation--fade {
-  &-enter-active,
-  &-leave-active {
-    transition: all 300ms ease;
-  }
-  &-enter-from,
-  &-leave-to {
-    opacity: 0;
-  }
-}
-
-.BUI-Dialog-animation--slide-fade {
-  &-enter-active,
-  &-leave-active {
-    transition: all 300ms ease;
-    transform: translateY(0);
-  }
-  &-enter-from,
-  &-leave-to {
-    opacity: 0;
-    transform: translateY(-20%);
-  }
-}
-</style>

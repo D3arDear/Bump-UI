@@ -365,17 +365,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-@import "./DatePicker.scss";
-.BUI-animation--fade {
-  &-enter-active,
-  &-leave-active {
-    opacity: 1;
-    transition: all 300ms ease-in-out;
-  }
-  &-enter-from,
-  &-leave-to {
-    opacity: 0;
-  }
-}
-</style>

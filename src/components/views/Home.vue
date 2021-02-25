@@ -5,6 +5,7 @@
       <h1>Bump UI</h1>
       <h2>一个表达凹凸的 UI</h2>
       <p class="actions">
+        <div class="textDiv"></div>
         <a href="">GitHub</a>
         <router-link to="doc">开始</router-link>
       </p>
@@ -21,7 +22,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import "../../lib/style/theme.scss";
+.textDiv {
+  width: 100px;
+  height: 100px;
+}
 .banner {
   background: #f2f2f2;
   padding: 80px 20px;

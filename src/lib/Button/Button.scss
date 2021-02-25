@@ -1,4 +1,6 @@
-@import "../style/theme.scss";
+@import "../style/_variables.scss";
+@import "../style/helper.scss";
+@import "../style/animation.scss";
 
 @mixin loadingIndicator($color, $blur: $--blur-range-4, $textTheme: false) {
   .BUI-Button-Neo,

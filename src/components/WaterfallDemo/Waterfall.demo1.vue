@@ -82,7 +82,8 @@ export default {
   overflow: auto;
 }
 .waterfallItem {
-  background: #aaa;
+  background: #ddd;
+  padding: 4px;
   border-radius: 8px;
   margin: 8px;
 }

@@ -207,6 +207,9 @@ export default {
     const actionsHeader = ref<HTMLDivElement>(null)
     const allChecked = ref<HTMLInputElement>(null)
     const columnRef = ref<HTMLTemplateElement[]>([])
+    const headScrollDistance = ref(0)
+    const tableCopy = ref<Node>(null)
+
 
     onBeforeUpdate(() => {
       actions.value = []
@@ -294,6 +297,13 @@ export default {
       column.mount(columnRef.value[index])
     }
 
+    const horizonScrollHeader = (e) => {
+      const scrollDistance = tableWrapper.value.scrollLeft
+      headScrollDistance.value = scrollDistance
+      tableCopy.value.style = `transform:translateX(${-headScrollDistance.value}px)`
+    }
+
+
     onMounted(() => {
       columns.value = context.slots.default().map((node, index) => {
         let { text, field, width } = node.props;
@@ -318,6 +328,7 @@ export default {
       tableWrapper.value.style.height = props.height - headHeight + "px";
       table2.appendChild(tHead);
       wrapper.value.appendChild(table2);
+      tableCopy.value = table2
       if (context.slots.actions) {
         let div = actions.value[0];
         let { width } = div.getBoundingClientRect();
@@ -339,6 +350,8 @@ export default {
           div.parentElement.style.width = width2;
         });
       }
+      tableWrapper.value.addEventListener('scroll', horizonScrollHeader)
+
       watchEffect(() => {
         if (props.checkable) {
           if (props.selectedItems.length === props.dataSource.length) {

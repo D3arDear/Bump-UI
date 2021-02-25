@@ -4,6 +4,7 @@ $grey: darken($--color--background, 10%);
 .BUI-table-wrapper {
   box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-0);
   border-radius: $--border-radius--default;
+  overflow: hidden;
   .BUI-table-wrapper-inner {
     border-radius: $--border-radius--default;
     overflow: hidden;

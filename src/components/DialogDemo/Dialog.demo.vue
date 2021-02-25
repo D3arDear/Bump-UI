@@ -13,23 +13,79 @@
       <Demo :component="DialogDemo2">
         <p>调用 openDialog 函数，构造并挂载 Dialog 组件</p>
       </Demo>
+      <AttrTable title="Dialog Attributes" :sourceData="dialogAttr" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import AttrTable from '../AttrTable.vue';
 import Demo from '../Demo.vue'
 import DialogDemo1 from './Dialog.demo1.vue'
 import DialogDemo2 from './Dialog.demo2.vue'
 export default {
   name: "DialogDemo",
   components: {
-    Demo
+    Demo,
+    AttrTable
   },
   setup() {
+    const dialogAttr = [
+      {
+        id: 0,
+        attr: 'title',
+        content: "dialog 的标题",
+        type: 'string',
+        option: "",
+        default: '"提示"',
+        required: 'true',
+        description: ''
+      },
+      {
+        id: 1,
+        attr: 'visible',
+        content: "dialog 的绑定值，决定 dialog 是否开启",
+        type: 'boolean',
+        option: "",
+        default: 'false',
+        required: 'true',
+        description: ''
+      },
+      {
+        id: 2,
+        attr: 'closeOnClickOverlay',
+        content: "决定是否点击浮层关闭 dialog",
+        type: 'boolean',
+        option: "",
+        default: 'false',
+        required: 'true',
+        description: ''
+      },
+      {
+        id: 3,
+        attr: 'ok',
+        content: "text 决定按钮内容，callback 传入点击 确认键 后执行回调",
+        type: '{text: string; callback: ()=> void | false | true;}',
+        option: "",
+        default: '{text: ok, callback: undefined}',
+        required: 'false',
+        description: '如果函数有返回值且返回值为 false ，那么不会关闭 dialog'
+      },
+      {
+        id: 4,
+        attr: 'cancel',
+        content: "text 决定按钮内容，callback 传入点击 取消键 后执行回调",
+        type: '{text: string; callback: ()=> void | false | true;}',
+        option: "",
+        default: '{text: cancel, callback: undefined}',
+        required: 'false',
+        description: ''
+      }
+    ]
     return {
       DialogDemo1,
-      DialogDemo2
+      DialogDemo2,
+      dialogAttr
     };
   },
 };

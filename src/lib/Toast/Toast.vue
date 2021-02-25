@@ -3,7 +3,7 @@
     <div :class="classes('', 'toast', '')" :ref="toastRef">
       <div :class="classes('', 'toast-message', '')">
         <slot v-if="!enableHTML"></slot>
-        <div v-else v-html="$slots.default[0]"></div>
+        <div v-else v-html="context.slots.default()[0]"></div>
       </div>
       <div :class="classes('', 'line', '')" :ref="lineRef"></div>
       <div
@@ -79,7 +79,8 @@ export default {
       toastRef,
       lineRef,
       classes,
-      autoClose
+      autoClose,
+      context
     }
   },
   mounted() {
@@ -90,7 +91,7 @@ export default {
       if (this.autoClose) {
         setTimeout(() => {
           this.onClickClose();
-        }, this.autoClose * 1000);
+        }, (typeof this.autoClose === 'number' ? this.autoClose : 3) * 1000);
       }
     },
     close() {

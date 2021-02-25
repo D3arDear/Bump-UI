@@ -7,15 +7,28 @@
     <Demo :component="ScrollDemo2">
       <p>barColor 属性接受一个类型为 string 的颜色值</p>
     </Demo>
+    <AttrTable title="Scroll Attributes" :sourceData="scrollAttr" />
   </div>
 </template>
 
 <script lang="ts" setup>
+import AttrTable from '../AttrTable.vue';
 import Demo from "../Demo.vue";
 import ScrollDemo1 from './Scroll.demo1.vue'
 import ScrollDemo2 from './Scroll.demo2.vue'
 
-const name = "SwitchDemo"
+const scrollAttr = [
+  {
+    id: 0,
+    attr: 'barColor',
+    content: "barColor 属性接受一个类型为 string 的颜色值，决定滚动条颜色",
+    type: 'string',
+    option: "",
+    default: '',
+    required: 'false',
+    description: ''
+  },
+]
 </script>
 
 <style lang="scss">

@@ -22,13 +22,14 @@
                 <Button
                   :class="[classes('modal-content', 'footer-action', '')]"
                   level="primary"
-                  @click="ok"
-                  >OK</Button
+                  @click="okCallback"
                 >
+                  {{ ok.text ? `${ok.text}` : "ok" }}
+                </Button>
                 <Button
                   :class="[classes('modal-content', 'footer-action', '')]"
-                  @click="cancel"
-                  >Cancel</Button
+                  @click="cancelCallback"
+                  >{{ cancel.text ? `${cancel.text}` : "cancel" }}</Button
                 >
               </footer>
             </div>
@@ -47,6 +48,11 @@
 <script lang="ts">
 import { classMaker } from "../common/classMaker";
 import Button from "../Button/Button.vue";
+import { PropType } from 'vue';
+interface IokButton {
+  text: string;
+  callback: () => void | false | true
+}
 export default {
   name: "BUI-Dialog",
   components: {
@@ -66,10 +72,18 @@ export default {
       default: false,
     },
     ok: {
-      type: Function,
+      type: Object as PropType<IokButton>,
+      default: {
+        text: 'ok',
+        callback: undefined,
+      }
     },
     cancel: {
-      type: Function,
+      type: Object as PropType<IokButton>,
+      default: {
+        text: 'ok',
+        callback: undefined,
+      }
     },
   },
   setup(props, context) {
@@ -82,16 +96,16 @@ export default {
     const onClickOverlay = () => {
       closeOnClickOverlay && close();
     };
-    const ok = () => {
-      if (props.ok?.() !== false) {
+    const okCallback = () => {
+      if (props.ok.callback?.() !== false) {
         close();
       }
     };
-    const cancel = () => {
-      props.cancel?.();
+    const cancelCallback = () => {
+      props.cancel.callback?.();
       close();
     };
-    return { classes, close, onClickOverlay, cancel, ok };
+    return { classes, close, onClickOverlay, cancelCallback, okCallback };
   },
 };
 </script>

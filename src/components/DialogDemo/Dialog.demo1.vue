@@ -4,7 +4,12 @@
 <template>
   <section>
     <Button level="success" textButton @click="toggle">slot</Button>
-    <Dialog v-model:visible="v" closeOnClickOverlay :ok="f1" :cancel="f2">
+    <Dialog
+      v-model:visible="v"
+      closeOnClickOverlay
+      :ok="{ text: '确认', callback: f1 }"
+      :cancel="{ text: '取消', callback: f2 }"
+    >
       <template v-slot:title>
         <h1>这里是标题</h1>
       </template>
@@ -31,6 +36,7 @@ export default {
       v.value = !v.value;
     };
     const f1 = () => {
+      alert('由于 f1 的返回值是 false 那么 dialog 不会关闭')
       return false;
       // 这里是 ok 事件的回调
       // 如果返回值是 false 那么 Dialog 不会自动关闭

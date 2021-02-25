@@ -9,16 +9,30 @@
         </p>
       </Demo>
     </div>
+    <AttrTable title="Scroll Attributes" :sourceData="iconAttr" />
   </div>
 </template>
 
 <script lang="ts">
+import AttrTable from '../AttrTable.vue';
 import Demo from '../Demo.vue'
 import IconDemo1 from './Icon.demo1.vue'
 export default {
   name: 'IconDemo',
   setup() {
-    return { IconDemo1, Demo }
+    const iconAttr = [
+      {
+        id: 0,
+        attr: 'name',
+        content: "接受 name 属性决定使用什么图标",
+        type: 'string',
+        option: "github / exit / menu / doubleLeft / doubleRight / upload / dots / info / error / loading / setting / download / down / left / thumbs-up / right / up",
+        default: '',
+        required: 'true',
+        description: 'fill 属性默认和当前 color 或包含块的 color 一致'
+      },
+    ]
+    return { IconDemo1, Demo, AttrTable, iconAttr }
   }
 }
 </script>

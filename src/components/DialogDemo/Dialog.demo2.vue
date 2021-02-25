@@ -16,11 +16,17 @@ const showDialog = () => {
     title: "标题",
     content: "你好",
     closeOnClickOverlay: true,
-    ok: () => {
-      console.log("ok");
+    ok: {
+      text: '确认',
+      callback: () => {
+        console.log("ok");
+      }
     },
-    cancel: () => {
-      console.log("cancel");
+    cancel: {
+      text: '取消',
+      callback: () => {
+        console.log("cancel");
+      }
     },
   })
 }

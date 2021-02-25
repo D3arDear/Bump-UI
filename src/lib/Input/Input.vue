@@ -107,7 +107,6 @@ export default {
       focus.value = false
     }
     const onChange = () => {
-      console.log('onChange')
     }
     return {
       classes,

@@ -210,6 +210,8 @@ export default {
       );
     }
     h2 {
+      color: ContrastText($--color--background);
+      font-weight: normal;
       margin: 10px 25px;
     }
     ul {

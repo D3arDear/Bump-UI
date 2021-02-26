@@ -91,7 +91,9 @@
             <li>
               <router-link to="/doc/datepicker"> DatePicker </router-link>
             </li>
-            <li><section>后记</section></li>
+          </ul>
+          <h2>后记</h2>
+          <ul>
             <li>
               <router-link to="/doc/mynote"> vue3 笔记 </router-link>
             </li>
@@ -285,13 +287,13 @@ export default {
       @media (max-width: 1200px) {
         width: 800px;
       }
-      @media (max-width: 1024px) {
+      @media (max-width: 1100px) {
         width: 700px;
       }
       @media (max-width: 1024px) {
-        width: 500px;
+        width: 600px;
       }
-      @media (max-width: 768px) {
+      @media (max-width: 900px) {
         width: 100%;
       }
     }

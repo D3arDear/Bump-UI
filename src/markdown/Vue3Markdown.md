@@ -164,6 +164,8 @@ props: {
 - 每次都得在`setup()`最后 `return` 一堆变量，不然外面访问不到
 - 太痛苦了，能不能在定义的时候就导出
 
+## script setup
+
 ```html
 <script setup>
   import Foo from "./Foo.vue";
@@ -386,7 +388,7 @@ const parent = getCurrentInstance().parent;
 
 推荐使用 ref 指定一个标签当作根节点来访问
 
-# 如果我需要获取 v-for 循环中的所有 ref 怎吗做？
+# 如果我需要获取 v-for 循环中的所有 ref 怎么做？
 
 ```html
 <div

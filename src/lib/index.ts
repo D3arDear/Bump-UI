@@ -1,4 +1,3 @@
-import "./style/theme.scss";
 export { default as Layout } from "./Layout/Layout.vue";
 export { default as Header } from "./Layout/Header.vue";
 export { default as Aside } from "./Layout/Aside.vue";

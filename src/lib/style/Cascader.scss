@@ -73,21 +73,21 @@ $border-radius: $--border-radius--default;
   background: $--color--background;
   border-radius: $--border-radius--default;
   box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-1, false);
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 2px;
   }
-  ::-webkit-scrollbar-track {
+  &::-webkit-scrollbar-track {
     background: #f6f6f600;
     border-radius: 1px;
   }
-  ::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar-thumb {
     background: rgba($--color--background, 0.5);
     border-radius: 1px;
   }
-  ::-webkit-scrollbar-thumb:hover {
+  &::-webkit-scrollbar-thumb:hover {
     background: #747474;
   }
-  ::-webkit-scrollbar-corner {
+  &::-webkit-scrollbar-corner {
     background: $--color--background;
   }
   &__left {

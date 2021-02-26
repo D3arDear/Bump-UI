@@ -28,6 +28,7 @@ import Markdown from "./components/Markdown.vue";
 import intro from "./markdown/intro.md";
 import getStarted from "./markdown/get-started.md";
 import install from "./markdown/install.md";
+import vueMarkdown from "./markdown/Vue3Markdown.md";
 
 const history = createWebHashHistory();
 
@@ -49,6 +50,7 @@ export const router = createRouter({
         { path: "intro", component: md(intro) },
         { path: "get-started", component: md(getStarted) },
         { path: "install", component: md(install) },
+        { path: "mynote", component: md(vueMarkdown) },
         { path: "layout", component: LayoutDemo },
         { path: "switch", component: SwitchDemo },
         { path: "button", component: ButtonDemo },

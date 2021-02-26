@@ -4,9 +4,25 @@ $grey: darken($--color--background, 10%);
   box-shadow: shadow-generator($light-direction, $--color--background, $--blur-range-0);
   border-radius: $--border-radius--default;
   overflow: hidden;
+  ::-webkit-scrollbar {
+    width: 1px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f6f6f600;
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #747474;
+  }
+  ::-webkit-scrollbar-corner {
+    background: #f6f6f6;
+  }
   .BUI-table-wrapper-inner {
     border-radius: $--border-radius--default;
-    overflow: hidden;
   }
 }
 .BUI-table {
@@ -141,23 +157,6 @@ $grey: darken($--color--background, 10%);
   & &-center {
     text-align: center;
   }
-}
-::-webkit-scrollbar {
-  width: 1px;
-}
-::-webkit-scrollbar-track {
-  background: #f6f6f600;
-  border-radius: 2px;
-}
-::-webkit-scrollbar-thumb {
-  background: #aaa;
-  border-radius: 2px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #747474;
-}
-::-webkit-scrollbar-corner {
-  background: #f6f6f6;
 }
 * {
   -ms-overflow-style: -ms-autohiding-scrollbar;

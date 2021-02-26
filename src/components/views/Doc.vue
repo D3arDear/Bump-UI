@@ -8,7 +8,7 @@
         <div class="blackWrapper" v-if="asideVisible" @click="closeAside"></div>
       </transition>
       <transition name="BUI-animation--slide-left">
-        <aside v-if="asideVisible">
+        <aside class="layoutAside" v-if="asideVisible">
           <!-- <div class="handle"></div> -->
           <h2>文档</h2>
           <ul>
@@ -91,6 +91,10 @@
             <li>
               <router-link to="/doc/datepicker"> DatePicker </router-link>
             </li>
+            <li><section>后记</section></li>
+            <li>
+              <router-link to="/doc/mynote"> vue3 笔记 </router-link>
+            </li>
           </ul>
         </aside>
       </transition>
@@ -155,7 +159,7 @@ export default {
       display: none;
     }
   }
-  aside {
+  .layoutAside {
     position: fixed;
     top: 0;
     left: 0;
@@ -171,16 +175,16 @@ export default {
     width: 200px;
     padding: 60px 0 10px 0;
     border-right: 1px solid lighten($--color--background, 10%);
-    ::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
+    &::-webkit-scrollbar {
+      width: 2px;
+      height: 2px;
     }
-    ::-webkit-scrollbar-thumb {
-      border-radius: 1em;
+    &::-webkit-scrollbar-thumb {
+      border-radius: 1px;
       background-color: rgba(50, 50, 50, 0.3);
     }
-    ::-webkit-scrollbar-track {
-      border-radius: 1em;
+    &::-webkit-scrollbar-track {
+      border-radius: 2px;
       background-color: rgba(50, 50, 50, 0.1);
     }
     /* box-shadow: shadowD-oneWay(

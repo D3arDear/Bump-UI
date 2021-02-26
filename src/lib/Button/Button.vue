@@ -13,6 +13,7 @@
       { rounded: rounded },
       size && classes(buttonTheme, '', size),
       themeClasses,
+      rest.class,
     ]"
     :style="linearColor && linearBG"
     v-bind="rest"

@@ -14,6 +14,10 @@ Neumorphism(新拟物风) 的飞机图曾在 dribbble 上掀起一阵复古思�
 
 Bump UI 组件库是我对这种风格的尝试和思考，也是我学习 Vue 3 新特性的过程。整个项目基于 Vue 3 和 Typescript，通过 SCSS 文件控制主题样式（用户可覆盖），大部分阴影由 `@function @minxin` 生成（阴影深度依赖于背景色）。
 
+由于还没有找到易用性和美观的最佳实践，不建议将此 UI 库用于生产环境。但如果可以讨论该风格的可行性。那么这个库还是值得一看的。
+
+[Preview Page](https://brendanzhang.github.io/Bump-UI/#/)
+
 # 安装
 
 打开终端运行下列命令：

@@ -1,10 +1,10 @@
 {
   "name": "bump-ui",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "file": [
-    "dist.lib/*"
+    "./dist.lib/*"
   ],
-  "main": "dist.lib/bump.js",
+  "main": "./dist.lib/bump.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -7,7 +7,7 @@ export { default as Col } from "./Grid/Col.vue";
 export { default as Row } from "./Grid/Row.vue";
 export { default as Waterfall } from "./Waterfall/Waterfall.vue";
 
-export { default as Icon } from "/Icon.vue";
+export { default as Icon } from "./Icon.vue";
 export { default as Switch } from "./Switch/Switch.vue";
 export { default as Button } from "./Button/Button.vue";
 export { default as Selector } from "./Selector/Selector.vue";

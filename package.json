@@ -1,17 +1,22 @@
 {
   "name": "bump-ui",
-  "version": "0.0.0",
+  "version": "0.0.2",
+  "file": [
+    "dist.lib/*"
+  ],
+  "main": "dist.lib/bump.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "build:lib": "scss-bundle -c './scss-bundle.config.json' && rollup -c"
   },
   "dependencies": {
     "github-markdown-css": "^4.0.0",
     "highlight.js": "^10.6.0",
+    "marked": "^2.0.0",
     "vue": "^3.0.2",
     "vue-router": "4.0.0-rc.5",
-    "vue3-highlightjs": "^1.0.5",
-    "marked": "^2.0.0"
+    "vue3-highlightjs": "^1.0.5"
   },
   "devDependencies": {
     "@types/highlight.js": "^10.1.0",

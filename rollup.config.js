@@ -18,7 +18,7 @@ export default {
     },
     {
       name: "Bump",
-      file: "dist/lib/bump.esm.js",
+      file: "dist/lib/Bump.esm.js",
       format: "es",
       plugins: [terser()],
     },

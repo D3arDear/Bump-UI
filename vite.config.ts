@@ -24,10 +24,10 @@ export default {
     },
   },
   css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@import "./src/components/lib/style/theme";`,
-      },
-    },
+    // preprocessorOptions: {
+    //   scss: {
+    //     additionalData: `@import "./src/lib/style/theme.scs";`,
+    //   },
+    // },
   },
 };

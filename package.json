@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "rollup": "rollup -c"
+    "build": "vite build"
   },
   "dependencies": {
     "github-markdown-css": "^4.0.0",

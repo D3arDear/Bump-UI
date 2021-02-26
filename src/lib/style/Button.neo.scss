@@ -3,11 +3,11 @@
     background-color: $color;
   }
   &.surface-convex {
-    border: 1px solid surface-generator($light-direction, $color, concave);
+    // border: 1px solid surface-generator($light-direction, $color, concave);
     background-image: surface-generator($light-direction, $color, convex);
   }
   &.surface-concave {
-    border: 1px solid surface-generator($light-direction, $color, convex);
+    // border: 1px solid surface-generator($light-direction, $color, convex);
     background-image: surface-generator($light-direction, $color, concave);
   }
   &.body-convex {

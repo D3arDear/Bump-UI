@@ -1,6 +1,6 @@
 <template>
   <header class="Topnav" :class="{ asideVisible: asideVisible }">
-    <div class="logo"></div>
+    <SvgIcon class="logo" />
     <ul class="menu">
       <li>
         <Button
@@ -93,8 +93,6 @@ export default {
     margin-left: 10px;
     width: 50px;
     height: 50px;
-    background: url("./logo.png") no-repeat;
-    background-size: 100% 100%;
   }
   .menu {
     display: flex;

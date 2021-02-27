@@ -4,6 +4,7 @@
   "files": [
     "dist/lib/*"
   ],
+  "description": "Bump-UI for Vue 3+",
   "main": "dist/lib/bump.js",
   "scripts": {
     "dev": "vite",
@@ -11,6 +12,10 @@
     "build:lib": "scss-bundle -c './scss-bundle.config.json' && rollup -c",
     "deploy": "sh ./deploy.sh"
   },
+  "keywords": [
+    "Vue 3",
+    "UI"
+  ],
   "dependencies": {
     "github-markdown-css": "^4.0.0",
     "highlight.js": "^10.6.0",

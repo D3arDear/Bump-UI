@@ -1,5 +1,5 @@
 <template>
-  <transition name="slide">
+  <transition name="BUI-animation--slide-left">
     <div :class="classes('Aside', '', '')" v-if="visible">
       <slot></slot>
       <button

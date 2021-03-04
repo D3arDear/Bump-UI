@@ -3,7 +3,6 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
 export default {
   name: "Markdown",
   props: {
@@ -15,8 +14,13 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scope>
 @import "highlight.js/styles/atom-one-dark-reasonable.css";
+h1,
+h2,
+h3 {
+  font-weight: normal;
+}
 pre {
   max-width: calc(100vw - 40px);
 }

@@ -95,7 +95,6 @@ $--blur-range-3: 6px !default;
 $--blur-range-4: 4px !default;
 $--blur-range-5: 2px !default;
 
-$--color--background: darken(#eef1f3, 0%) !default;
 $--font--size--big: 16px !default;
 $--font--size--default: 14px !default;
 $--font--size--medium: 13px !default;
@@ -108,8 +107,8 @@ $--color--text--black-1: #363636 !default;
 $--color--text--black-2: #464646 !default;
 $--color--text--white: #eee !default;
 
+$--color--background: #f0f1f3 !default;
 $--color--default: $--color--background !default;
-// $--color--primary: #5e5e5e !default;
 $--color--primary: #ff9e5d !default;
 $--color--secondary: #ffd6f3 !default;
 $--color--danger: #f56c6c !default;

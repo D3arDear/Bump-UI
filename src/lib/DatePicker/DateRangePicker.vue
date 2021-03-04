@@ -302,14 +302,12 @@ export default {
 
     const onClickCell1 = (date) => {
       if (isCurrentMonth(date)) {
-        console.log(date)
         context.emit('update:value', { start: true, date: date })
       }
     }
 
     const onClickCell2 = (date) => {
       if (isCurrentMonth(date)) {
-        console.log(date)
         context.emit('update:value', { start: false, date: date })
       }
     }

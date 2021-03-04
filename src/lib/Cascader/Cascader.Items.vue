@@ -92,7 +92,6 @@ export default {
     const right = ref<HTMLDivElement>(null)
     const classes = classMaker('BUI-Cascader-Items')
 
-    console.log(props.selected)
     const rightItems = computed(() => {
       if (props.selected[props.level]) {
         let selected = props.items.filter((item) => item.name === props.selected[props.level].name)

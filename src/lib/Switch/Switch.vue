@@ -36,7 +36,6 @@ export default {
   },
   setup(props, context) {
     const toggle = () => {
-      console.log("点击了");
       context.emit("update:value", !props.value);
     };
     const classes = classMaker("BUI-Switch");

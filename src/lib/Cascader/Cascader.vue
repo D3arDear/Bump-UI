@@ -138,6 +138,8 @@ export default {
         props.loadData(lastItem, updateSource) // 回调:把别人传给我的函数调用一下
         // 调回调的时候传一个函数,这个函数理论应该被调用
         loadingItem.value = lastItem
+      } else if (lastItem.isLeaf) {
+        close()
       }
     }
     const result = computed(() => {

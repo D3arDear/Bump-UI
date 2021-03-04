@@ -10,7 +10,7 @@
     />
     <div :class="classes('list-wrapper', '', '')" v-if="listVisible">
       <ul :class="classes('list', '', '')">
-        <Scroll :style="{ width: width, height: '9em' }">
+        <Scroll :style="{ width: width, height: '9em' }" :initY="initScroll">
           <li
             v-for="(item, index) in sourceData"
             :key="index"
@@ -26,7 +26,7 @@
   </div>
 </template>
 <script lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { classMaker } from '../common/classMaker'
 import Input from '../Input/Input.vue'
 import Scroll from '../Scroll/Scroll.vue'
@@ -54,10 +54,18 @@ export default {
     const classes = classMaker('BUI-Selector')
     const scrollHeight = ref(0)
 
+    const initScroll = computed(() => {
+      const itemIndex = (props.sourceData.indexOf(props.value) - 1)
+      const itemHeight = 14 * 3
+      return itemIndex < 0 ? 0 : -(itemHeight * itemIndex)
+    })
+
+
     const openList = async () => {
       document.addEventListener('click', selectorClickDocument)
       await nextTick(() => {
         listVisible.value = true
+        console.log(initScroll.value)
       })
     }
     const closeList = async () => {
@@ -95,7 +103,7 @@ export default {
     return {
       rest, classes, itemWrapper, wrapper, selectorInput, scrollHeight,
       openList, closeList, onClickItem,
-      listVisible
+      listVisible, initScroll
     }
   }
 }

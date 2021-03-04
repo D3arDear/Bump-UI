@@ -41,7 +41,8 @@ import { classMaker } from '../common/classMaker';
 export default {
   name: "BUI-Scroll",
   props: {
-    barColor: String
+    barColor: String,
+    initY: Number
   },
   setup(props, context) {
     const scrollBarVisible = ref(false)
@@ -49,7 +50,7 @@ export default {
     let startPosition = reactive({ x: 0, y: 0 })
     let endPosition = reactive({ x: 0, y: 0 })
     const scrollBarY = ref(0)
-    const contentY = ref(0)
+    const contentY = ref(props.initY ? props.initY : 0)
     const barHeight = ref(undefined)
     const parentHeight = ref(undefined)
     const mouseIn = ref(false)

@@ -5,11 +5,24 @@ $border-radius: $--border-radius--default;
   }
   &-nav {
     display: flex;
+    cursor: pointer;
   }
   &-popWrapper {
     padding: 0;
   }
   &-nav {
+    &__prevYear-icon,
+    &__prevMonth-icon,
+    &__nextYear-icon,
+    &__nextMonth-icon {
+      border-radius: 50%;
+      margin: 0 0.1em;
+      transition: background 300ms;
+      background: none;
+      &:hover {
+        background: rgba($color: $--color--primary, $alpha: 0.1);
+      }
+    }
     &__prevYear-icon,
     &__prevMonth-icon,
     &__nextYear-icon,
@@ -26,6 +39,10 @@ $border-radius: $--border-radius--default;
       flex: 1;
       width: auto;
       color: ContrastText($--color--background);
+      transition: color 300ms;
+      &:hover {
+        color: $--color--primary;
+      }
     }
   }
   &-panel {

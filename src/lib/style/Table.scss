@@ -37,6 +37,10 @@ $grey: darken($--color--background, 10%);
   td {
     border: none;
     word-break: break-all;
+    color: ContrastText($--color--background);
+  }
+  td {
+    color: rgba(ContrastText($--color--background), 0.8);
   }
   &-header {
     margin: 0;

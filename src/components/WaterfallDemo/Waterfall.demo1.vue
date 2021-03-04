@@ -7,7 +7,7 @@
     :style="{ height: '300px' }"
   >
     <Waterfall
-      :width="120"
+      :width="80"
       :sourceData="source"
       @scroll-to-bottom="loadNewData"
       containerId="waterfallContainer"
@@ -17,7 +17,7 @@
           class="waterfallItem"
           :style="{ height: slotProps.props.height + 'px' }"
         >
-          <div>
+          <div :style="{ color: '#777' }">
             {{ "高度: " + slotProps.props.height + "px" }}
           </div>
         </div>

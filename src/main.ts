@@ -6,7 +6,7 @@ import Markdown from "./components/Markdown.vue";
 import "github-markdown-css";
 import VueHighlightJS from "vue3-highlightjs";
 import "highlight.js/styles/atom-one-dark-reasonable.css";
-import "./lib/style/theme.scss";
+import "./main.scss";
 
 const app = createApp(App);
 

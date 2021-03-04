@@ -79,6 +79,7 @@ export default {
     transform: translateY(-50%);
     display: none;
     svg {
+      color: $--color--primary;
       height: 30px;
       width: 30px;
     }

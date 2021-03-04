@@ -130,7 +130,7 @@
   @if (((lightness($originColor) >= 60%)) and saturation($originColor) <= 70%) or
     (lightness(grayscale($originColor)) >= 85%)
   {
-    @return #333;
+    @return #444;
   } @else {
     @return #eee;
   }

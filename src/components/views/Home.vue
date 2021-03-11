@@ -48,7 +48,10 @@ export default {
   }
 }
 .banner {
-  background: #f2f2f2;
+  background: url("../../assets/BumpVue-banner.png") no-repeat center;
+  background-size: cover;
+
+  height: calc(100vh - 50px);
   padding: 80px 20px;
   display: flex;
   justify-content: center;

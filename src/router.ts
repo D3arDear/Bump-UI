@@ -1,4 +1,4 @@
-import { createWebHashHistory, createRouter } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import Home from "./components/views/Home.vue";
 import Doc from "./components/views/Doc.vue";
 import SwitchDemo from "./components/SwitchDemo/Switch.demo.vue";
@@ -30,7 +30,7 @@ import getStarted from "./markdown/get-started.md";
 import install from "./markdown/install.md";
 import vueMarkdown from "./markdown/Vue3Markdown.md";
 
-const history = createWebHashHistory();
+const history = createWebHistory();
 
 const md = (string) => h(Markdown, { content: string, key: string });
 // 想了一个法子通过 h 函数渲染 Markdown.vue 传入相应路径调用相应 markdown

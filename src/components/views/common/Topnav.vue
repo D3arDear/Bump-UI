@@ -12,17 +12,18 @@
         ></Button>
       </li>
     </ul>
-    <span class="toggleAside" @click="toggleAside">
+    <span class="toggleAside" @click="toggleAside" v-if="menuVisible">
       <Icon name="menu" />
     </span>
   </header>
 </template>
 
 <script lang="ts">
-import { inject, Ref } from "vue";
+import { inject, ref, Ref } from "vue";
 import SvgIcon from './logo.vue'
 import Icon from '../../../lib/Icon.vue';
 import Button from '../../../lib/Button/Button.vue';
+import { router } from '../../../router';
 export default {
   components: {
     SvgIcon,
@@ -32,13 +33,15 @@ export default {
   name: "Topnav",
   setup() {
     const asideVisible = inject<Ref<boolean>>("asideVisible");
+    const menuVisible = ref<boolean>(router.currentRoute.value.path === '/' ? false : true)
+
     const toggleAside = () => {
       asideVisible.value = !asideVisible.value;
     };
     const toGithub = () => {
       window.open('https://github.com/BrendanZhang/Bump-UI')
     }
-    return { toggleAside, asideVisible, toGithub };
+    return { toggleAside, asideVisible, toGithub, menuVisible };
   },
 };
 </script>

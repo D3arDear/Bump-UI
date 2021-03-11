@@ -97,6 +97,9 @@
             <li>
               <router-link to="/doc/mynote"> vue3 笔记 </router-link>
             </li>
+            <li>
+              <a href="https://github.com/BrendanZhang/Bump-UI">Github</a>
+            </li>
           </ul>
         </aside>
       </transition>

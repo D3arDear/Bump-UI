@@ -18,7 +18,7 @@ Bump UI 组件库是我对这种风格的尝试和思考，也是我学习 Vue 3
 
 由于还没有找到易用性和美观的最佳实践，不建议将此 UI 库用于生产环境。但如果可以讨论该风格的可行性，或是想学习讨论 vue3 的系特性。那么这个库还是值得一看的。
 
-[Preview Page](https://brendanzhang.github.io/Bump-UI/#/)
+[Preview Page](https://bumpvue.zealot.fun/)
 
 # 安装
 

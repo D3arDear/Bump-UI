@@ -1,5 +1,7 @@
 # Bump-UI
 
+![GitHub](https://github.com/BrendanZhang/Bump-UI) [![npm version](https://badge.fury.io/js/bump-ui.svg)](https://badge.fury.io/js/bump-ui)
+
 Neumorphism(新拟物风) 的飞机图曾在 dribbble 上掀起一阵复古思潮。
 时尚果然是轮回的，曾经的 UI 界面为了指导用户使用，尽可能的拟物。
 随后 UI 进入了扁平化时代，七个年头后，整体低饱和度以及柔和的阴影高光的拟物风又被拿出来讨论。

@@ -33,13 +33,7 @@
         >
           {{ n }}
         </Button>
-        <Button
-          :data-index="n - 1"
-          v-else
-          @click="select(n - 1)"
-          rounded
-          textButton
-        >
+        <Button :data-index="n - 1" v-else @click="select(n - 1)" rounded textButton>
           {{ n }}
         </Button>
       </template>
@@ -55,73 +49,84 @@
 </template>
 <script lang="ts">
 import Icon from "../Icon.vue";
-import { computed, isVNode, nextTick, onBeforeUnmount, onMounted, onUpdated, provide, reactive, ref, resolveDirective } from 'vue';
-import EventBus from '../common/eventBus';
-import { classMaker } from '../common/classMaker';
-import Button from '../Button/Button.vue'
+import {
+  computed,
+  isVNode,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  onUpdated,
+  provide,
+  reactive,
+  ref,
+  resolveDirective,
+} from "vue";
+import EventBus from "../common/eventBus";
+import { classMaker } from "../common/classMaker";
+import Button from "../Button/Button.vue";
 export default {
   name: "BUI-Slides",
   components: {
     Icon,
-    Button
+    Button,
   },
   props: {
     selected: {
-      type: String
+      type: String,
     },
     autoPlay: {
       type: Boolean,
-      default: true
+      default: true,
     },
     autoPlayDelay: {
       type: Number,
-      default: 3000
-    }
+      default: 3000,
+    },
   },
   setup(props, context) {
-    const classes = classMaker('BUI-Slides')
+    const classes = classMaker("BUI-Slides");
 
-    const childrenLength = ref(0)
-    const lastSelectedIndex = ref(undefined)
-    const timerId = ref(undefined)
-    const startTouch = ref(undefined)
-    const wrapperRef = ref<HTMLDivElement>(null)
-    const eventBus = reactive(new EventBus())
+    const childrenLength = ref(0);
+    const lastSelectedIndex = ref(undefined);
+    const timerId = ref(undefined);
+    const startTouch = ref(undefined);
+    const wrapperRef = ref<HTMLDivElement>(null);
+    const eventBus = reactive(new EventBus());
     provide("EventBus", eventBus);
-
 
     const selectedIndex = computed(() => {
       let index = names.value.indexOf(props.selected);
       return index === -1 ? 0 : index;
-    })
+    });
     const names = computed(() => {
-      return items.value.map(vm => vm.props.name);
-    })
+      return items.value.map((vm) => vm.props.name);
+    });
     const items = computed(() => {
-      return context.slots.default().filter(vm => vm.type.name === "BUI-Slides-item")
-    })
-
+      return context.slots.default().filter((vm) => vm.type.name === "BUI-Slides-item");
+    });
 
     const onClickPrev = () => {
       select(selectedIndex.value - 1);
-    }
+    };
     const onClickNext = () => {
       select(selectedIndex.value + 1);
-    }
+    };
     const onMouseEnter = () => {
       pause();
-    }
+    };
     const onMouseLeave = () => {
-      toggleAutoPlay();
-    }
+      if (props.autoPlay) {
+        toggleAutoPlay();
+      }
+    };
     const onTouchStart = (e) => {
       pause();
       if (e.touches.length > 1) {
         return;
       }
       startTouch.value = e.touches[0];
-    }
-    const onTouchMove = () => { }
+    };
+    const onTouchMove = () => {};
 
     const onTouchEnd = async (e) => {
       let endTouch = e.changedTouches[0];
@@ -138,23 +143,24 @@ export default {
         }
       }
       await nextTick(() => {
-        toggleAutoPlay();
-      })
-    }
+        if (props.autoPlay) {
+          toggleAutoPlay();
+        }
+      });
+    };
 
     const getSelected = () => {
       let first = items.value[0];
       return props.selected || first.props.name;
-    }
+    };
     const pause = () => {
       window.clearTimeout(timerId.value);
       timerId.value = undefined;
-    }
+    };
     const updateChildren = () => {
       let selected = getSelected();
       items.value.forEach(async (vm) => {
-        let reverse =
-          selectedIndex.value > lastSelectedIndex.value ? false : true;
+        let reverse = selectedIndex.value > lastSelectedIndex.value ? false : true;
         if (
           lastSelectedIndex.value === items.value.length - 1 &&
           selectedIndex.value === 0
@@ -168,18 +174,18 @@ export default {
           reverse = true;
         }
         const itemName = vm.props.name;
-        eventBus.emit(`update:reverse-${itemName}`, reverse)
+        eventBus.emit(`update:reverse-${itemName}`, reverse);
         await nextTick(() => {
-          eventBus.emit(`update:selected-${itemName}`, selected)
+          eventBus.emit(`update:selected-${itemName}`, selected);
         });
       });
-    }
+    };
     onUpdated(() => {
       updateChildren();
-    })
+    });
     onBeforeUnmount(() => {
-      pause()
-    })
+      pause();
+    });
 
     const select = (newIndex) => {
       lastSelectedIndex.value = selectedIndex.value;
@@ -190,7 +196,7 @@ export default {
         newIndex = 0;
       }
       context.emit("update:selected", names.value[newIndex]);
-    }
+    };
 
     const toggleAutoPlay = () => {
       if (timerId.value) {
@@ -203,14 +209,15 @@ export default {
         timerId.value = setTimeout(run, props.autoPlayDelay);
       };
       timerId.value = setTimeout(run, props.autoPlayDelay);
-    }
+    };
     onMounted(() => {
       updateChildren();
+      console.log("props.autoplay", props.autoPlay);
       if (props.autoPlay) {
         toggleAutoPlay();
       }
       childrenLength.value = items.value.length;
-    })
+    });
 
     return {
       childrenLength,
@@ -226,8 +233,8 @@ export default {
       onClickNext,
       onClickPrev,
       selectedIndex,
-      classes
-    }
+      classes,
+    };
   },
 };
 </script>

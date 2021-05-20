@@ -17,11 +17,11 @@
   </div>
 </template>
 <script lang="ts" setup>
-import Slides from '../../lib/Slides/Slides.vue'
-import SlidesItem from '../../lib/Slides/Slides-item.vue'
-import { ref } from 'vue';
-const name = "demo"
-const selected = ref("2")
+import Slides from "../../lib/Slides/Slides.vue";
+import SlidesItem from "../../lib/Slides/Slides-item.vue";
+import { ref } from "vue";
+const name = "demo";
+const selected = ref("2");
 </script>
 <style lang="scss">
 * {
@@ -42,14 +42,17 @@ const selected = ref("2")
   &-1 {
     @extend .box;
     background: white;
+    color: black;
   }
   &-2 {
     @extend .box;
     background: grey;
+    color: black;
   }
   &-3 {
     @extend .box;
     background: black;
+    color: white;
   }
 }
 </style>

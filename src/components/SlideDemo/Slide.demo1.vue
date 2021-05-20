@@ -17,17 +17,17 @@
   </div>
 </template>
 <script lang="ts">
-import Slides from '../../lib/Slides/Slides.vue'
-import SlidesItem from '../../lib/Slides/Slides-item.vue'
-import { ref } from 'vue';
+import Slides from "../../lib/Slides/Slides.vue";
+import SlidesItem from "../../lib/Slides/Slides-item.vue";
+import { ref } from "vue";
 export default {
   name: "demo",
   components: { Slides, SlidesItem },
   setup() {
-    const selected = ref("2")
+    const selected = ref("2");
     return {
-      selected
-    }
+      selected,
+    };
   },
 };
 </script>
@@ -51,14 +51,17 @@ export default {
   &-1 {
     @extend .box;
     background: white;
+    color: black;
   }
   &-2 {
     @extend .box;
     background: grey;
+    color: black;
   }
   &-3 {
     @extend .box;
     background: black;
+    color: white;
   }
 }
 </style>

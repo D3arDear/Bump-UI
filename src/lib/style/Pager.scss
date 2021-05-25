@@ -56,7 +56,7 @@ $--color--default-pager-color: #009688;
     }
   }
   &-separator {
-    width: $width;
+    min-width: $width;
     font-size: $font-size;
     fill: $--color--pager;
   }

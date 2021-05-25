@@ -78,7 +78,7 @@ export default {
                 props.currentPage + 1,
                 props.currentPage + 2,
               ]
-          : props.currentPage >= props.totalPage - 6
+          : props.currentPage >= props.totalPage - 4
           ? [
               1,
               props.totalPage - 1,

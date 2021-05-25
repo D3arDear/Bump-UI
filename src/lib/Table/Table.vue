@@ -17,11 +17,7 @@
               :style="{ width: '36px' }"
               class="BUI-table-center"
             ></th>
-            <th
-              v-if="checkable"
-              :style="{ width: '50px' }"
-              class="BUI-table-center"
-            >
+            <th v-if="checkable" :style="{ width: '50px' }" class="BUI-table-center">
               <input
                 type="checkbox"
                 @change="onChangeAllItems"
@@ -59,11 +55,7 @@
         <tbody>
           <template v-for="(item, index) in dataSource" :key="item.id">
             <tr>
-              <td
-                v-if="expendField"
-                :style="{ width: '36px' }"
-                class="BUI-table-center"
-              >
+              <td v-if="expendField" :style="{ width: '36px' }" class="BUI-table-center">
                 <Icon
                   v-if="item.description"
                   :class="{ active: inExpendedIds(item.id) }"
@@ -72,11 +64,7 @@
                   v-on:click="expendItem(item.id)"
                 />
               </td>
-              <td
-                v-if="checkable"
-                :style="{ width: '50px' }"
-                class="BUI-table-center"
-              >
+              <td v-if="checkable" :style="{ width: '50px' }" class="BUI-table-center">
                 <input
                   type="checkbox"
                   @change="onChangeItem(item, index, $event)"
@@ -124,10 +112,7 @@
                 <td v-for="n in expendedCellColSpan" class="descriptionHolder">
                   {{ n }}
                 </td>
-                <td
-                  class="description"
-                  :colspan="columns.length + expendedCellColSpan"
-                >
+                <td class="description" :colspan="columns.length + expendedCellColSpan">
                   {{ item[expendField] }}
                 </td>
               </tr>
@@ -143,10 +128,22 @@
 </template>
 <script lang="ts">
 import Icon from "../Icon.vue";
-import { computed, createApp, h, onBeforeUnmount, onBeforeUpdate, onMounted, onUpdated, PropType, reactive, ref, watchEffect } from 'vue';
-import TableColumn from './Table.Column.vue';
+import {
+  computed,
+  createApp,
+  h,
+  onBeforeUnmount,
+  onBeforeUpdate,
+  onMounted,
+  onUpdated,
+  PropType,
+  reactive,
+  ref,
+  watchEffect,
+} from "vue";
+import TableColumn from "./Table.Column.vue";
 interface IDataSource {
-  id: number | string
+  id: number | string;
 }
 export default {
   name: "BUI-Table",
@@ -154,39 +151,39 @@ export default {
     Icon,
     vnodes: {
       functional: true,
-      render: (h, context) => context.props.vnodes
-    }
+      render: (h, context) => context.props.vnodes,
+    },
   },
   props: {
     checkable: {
       type: Boolean,
-      default: false
+      default: false,
     },
     striped: {
       type: Boolean,
-      default: true
+      default: true,
     },
     expendField: {
-      type: String
+      type: String,
     },
     height: {
-      type: Number
+      type: Number,
     },
     orderBy: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     selectedItems: {
       type: Array as PropType<IDataSource[]>,
-      default: () => []
+      default: () => [],
     },
     compact: {
       type: Boolean,
-      default: false
+      default: false,
     },
     dataSource: {
       type: Array as PropType<IDataSource[]>,
@@ -194,42 +191,41 @@ export default {
     },
     numberVisible: {
       type: Boolean,
-      default: false
+      default: false,
     },
     bordered: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   setup(props, context) {
-    const expendedIDs = ref([])
-    const columns = ref([])
-    const table = ref<HTMLTableElement>(null)
-    const wrapper = ref<HTMLDivElement>(null)
-    const tableWrapper = ref<HTMLDivElement>(null)
-    const actions = ref<HTMLDivElement[]>([])
-    const actionsHeader = ref<HTMLDivElement>(null)
-    const allChecked = ref<HTMLInputElement>(null)
-    const columnRef = ref<HTMLTemplateElement[]>([])
-    const headScrollDistance = ref(0)
-    const tableCopy = ref<Node>(null)
-
+    const expendedIDs = ref([]);
+    const columns = ref([]);
+    const table = ref<HTMLTableElement>(null);
+    const wrapper = ref<HTMLDivElement>(null);
+    const tableWrapper = ref<HTMLDivElement>(null);
+    const actions = ref<HTMLDivElement[]>([]);
+    const actionsHeader = ref<HTMLDivElement>(null);
+    const allChecked = ref<HTMLInputElement>(null);
+    const columnRef = ref<HTMLTemplateElement[]>([]);
+    const headScrollDistance = ref(0);
+    const tableCopy = ref<Node>(null);
 
     onBeforeUpdate(() => {
-      actions.value = []
-      columnRef.value = []
-    })
+      actions.value = [];
+      columnRef.value = [];
+    });
 
     const expendItem = (id) => {
       if (inExpendedIds(id)) {
-        expendedIDs.value.splice(expendedIDs.value.indexOf(id), 1)
+        expendedIDs.value.splice(expendedIDs.value.indexOf(id), 1);
       } else {
         expendedIDs.value.push(id);
       }
-    }
+    };
     const inExpendedIds = (id) => {
       return expendedIDs.value.indexOf(id) >= 0;
-    }
+    };
     const changeOrderBy = (key) => {
       const copy = JSON.parse(JSON.stringify(props.orderBy));
       let oldValue = copy[key];
@@ -241,28 +237,28 @@ export default {
         copy[key] = "asc";
       }
       context.emit("update:orderBy", copy);
-    }
+    };
     const inSelectedItems = (item) => {
-      return props.selectedItems.filter(i => i.id === item.id).length > 0;
-    }
+      return props.selectedItems.filter((i) => i.id === item.id).length > 0;
+    };
     const onChangeItem = (item, index, e) => {
       let selected = e.target.checked;
       let copy = JSON.parse(JSON.stringify(props.selectedItems));
       if (selected) {
         copy.push(item);
       } else {
-        copy = copy.filter(i => i.id !== item.id);
+        copy = copy.filter((i) => i.id !== item.id);
       }
       context.emit("update:selectedItems", copy);
-    }
+    };
     const onChangeAllItems = (e) => {
       let selected = e.target.checked;
       context.emit("update:selectedItems", selected ? props.dataSource : []);
-    }
+    };
 
     const areAllItemsSelected = computed(() => {
-      const a = props.dataSource.map(item => item.id).sort();
-      const b = props.selectedItems.map(item => item.id).sort();
+      const a = props.dataSource.map((item) => item.id).sort();
+      const b = props.selectedItems.map((item) => item.id).sort();
       if (a.length !== b.length) {
         return false;
       }
@@ -273,7 +269,7 @@ export default {
           break;
         }
       return equal;
-    })
+    });
 
     const expendedCellColSpan = () => {
       let result = 0;
@@ -284,7 +280,7 @@ export default {
         result += 1;
       }
       return result;
-    }
+    };
     // const columnsVnode = (column) => {
     //   h()
     // }
@@ -293,28 +289,30 @@ export default {
         render() {
           return h(TableColumn, props, {
             default() {
-              return h(vnode, 'Overwrite "header" slot with this content in PageComponent')
-            }
-          })
-        }
-      })
-      column.mount(columnRef.value[index])
-    }
+              return h(
+                vnode,
+                'Overwrite "header" slot with this content in PageComponent'
+              );
+            },
+          });
+        },
+      });
+      column.mount(columnRef.value[index]);
+    };
 
     const horizonScrollHeader = (e) => {
-      const scrollDistance = tableWrapper.value.scrollLeft
-      headScrollDistance.value = scrollDistance
-      tableCopy.value.style = `transform:translateX(${-headScrollDistance.value}px)`
-    }
-
+      const scrollDistance = tableWrapper.value.scrollLeft;
+      headScrollDistance.value = scrollDistance;
+      tableCopy.value.style = `transform:translateX(${-headScrollDistance.value}px)`;
+    };
 
     onMounted(() => {
       columns.value = context.slots.default().map((node, index) => {
         let text = node.props.text;
         let field = node.props.field;
-        let width = node.props.width
+        let width = node.props.width;
         // let render = node.children
-        let render = node.slots
+        let render = node.slots;
         // vnodeComponent({ ...node.props }, render, 'test', index)
         return {
           text,
@@ -330,11 +328,13 @@ export default {
       table2.classList.add("BUI-table-copy");
       let tHead = table.value.children[0];
       let headHeight = tHead.getBoundingClientRect().height;
-      wrapper.value.style.paddingTop = props.height ? headHeight + "px" : headHeight * (props.compact ? 3 : 2) + "px";
+      wrapper.value.style.paddingTop = props.height
+        ? headHeight + "px"
+        : headHeight * (props.compact ? 3 : 2) + "px";
       tableWrapper.value.style.height = props.height - headHeight + "px";
       table2.appendChild(tHead);
       wrapper.value.appendChild(table2);
-      tableCopy.value = table2
+      tableCopy.value = table2;
       if (context.slots.actions) {
         let div = actions.value[0];
         let { width } = div.getBoundingClientRect();
@@ -352,27 +352,30 @@ export default {
           parseInt(borderRight) +
           "px";
         actionsHeader.value.style.width = width2;
-        actions.value.map(div => {
+        actions.value.map((div) => {
           div.parentElement.style.width = width2;
         });
       }
-      tableWrapper.value.addEventListener('scroll', horizonScrollHeader)
+      tableWrapper.value.addEventListener("scroll", horizonScrollHeader);
 
-      watchEffect(() => {
-        if (props.checkable) {
-          if (props.selectedItems.length === props.dataSource.length) {
-            allChecked.value.indeterminate = false;
-          } else if (props.selectedItems.length === 0) {
-            allChecked.value.indeterminate = false;
-          } else {
-            allChecked.value.indeterminate = true;
+      watchEffect(
+        () => {
+          if (props.checkable) {
+            if (props.selectedItems.length === props.dataSource.length) {
+              allChecked.value.indeterminate = false;
+            } else if (props.selectedItems.length === 0) {
+              allChecked.value.indeterminate = false;
+            } else {
+              allChecked.value.indeterminate = true;
+            }
           }
-        }
-      }, { flush: 'post' })
-    })
+        },
+        { flush: "post" }
+      );
+    });
     onBeforeUnmount(() => {
-      tableWrapper.value.removeEventListener('scroll', horizonScrollHeader)
-    })
+      tableWrapper.value.removeEventListener("scroll", horizonScrollHeader);
+    });
     return {
       context,
       expendedIDs,
@@ -380,13 +383,19 @@ export default {
       inSelectedItems,
       inExpendedIds,
       expendItem,
-      wrapper, tableWrapper, table, actionsHeader, allChecked, actions, columnRef,
+      wrapper,
+      tableWrapper,
+      table,
+      actionsHeader,
+      allChecked,
+      actions,
+      columnRef,
       areAllItemsSelected,
       expendedCellColSpan,
       onChangeAllItems,
       changeOrderBy,
       onChangeItem,
-      vnodeComponent
+      vnodeComponent,
     };
   },
 };

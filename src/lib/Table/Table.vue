@@ -40,11 +40,11 @@
                 >
                   <Icon
                     name="up"
-                    :class="{ active: orderBy[column.field] === 'asc' }"
+                    :class="{ active: orderBy[column.field] === 'desc' }"
                   ></Icon>
                   <Icon
                     name="down"
-                    :class="{ active: orderBy[column.field] === 'desc' }"
+                    :class="{ active: orderBy[column.field] === 'asc' }"
                   ></Icon>
                 </span>
               </div>
@@ -103,7 +103,7 @@
                 </div>
               </td>
             </tr>
-            <transition name="scroll">
+            <transition name="BUI-animation--fade">
               <tr
                 class="descriptionTr"
                 v-if="inExpendedIds(item.id)"
@@ -321,16 +321,14 @@ export default {
           render,
         };
       });
-      // console.log(columns.value)
       // let result = columns.value[0].render({ value: "bren" });
       let table2 = table.value.cloneNode(false);
       // @ts-ignore
       table2.classList.add("BUI-table-copy");
       let tHead = table.value.children[0];
       let headHeight = tHead.getBoundingClientRect().height;
-      wrapper.value.style.paddingTop = props.height
-        ? headHeight + "px"
-        : headHeight * (props.compact ? 3 : 2) + "px";
+
+      wrapper.value.style.paddingTop = headHeight * (props.compact ? 1.2 : 2.4) + "px";
       tableWrapper.value.style.height = props.height - headHeight + "px";
       table2.appendChild(tHead);
       wrapper.value.appendChild(table2);

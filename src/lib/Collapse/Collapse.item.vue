@@ -1,6 +1,9 @@
 <template>
   <div :class="classes('Item', '', '')">
-    <div :class="classes('Item', 'title', `${open ? 'open' : ''}`)" @click="toggle">
+    <div
+      :class="classes('Item', 'title', `${open ? 'open' : ''}`)"
+      @click="toggle"
+    >
       <span>{{ title }}</span>
       <Icon :class="classes('Item', 'title-icon')" name="right" />
     </div>

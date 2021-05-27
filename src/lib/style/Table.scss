@@ -68,7 +68,8 @@ $grey: darken($--color--background, 10%);
     border-bottom: 1px solid $grey;
     td,
     th {
-      border: 1px solid $grey;
+      border-left: 1px solid $grey;
+      border-right: 1px solid $grey;
     }
   }
   &.compact {
@@ -165,11 +166,13 @@ $grey: darken($--color--background, 10%);
 * {
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
-.scroll-enter-active,
-.scroll-leave-active {
+.BUI-scroll-enter-active,
+.BUI-scroll-leave-active {
   transition: all 0.3s;
+  height: 100%;
 }
-.scroll-enter,
-.scroll-leave-to {
+.BUI-scroll-enter,
+.BUI-scroll-leave-to {
   opacity: 0;
+  height: 0;
 }

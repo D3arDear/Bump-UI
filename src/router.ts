@@ -69,7 +69,7 @@ export const router = createRouter({
         { path: "grid", component: GridDemo },
         { path: "input", component: InputDemo },
         { path: "datepicker", component: DatePickerDemo },
-        { path: "nav", component: NavDemo },
+        // { path: "nav", component: NavDemo },
         { path: "waterfall", component: WaterfallDemo },
         { path: "selector", component: SelectorDemo },
       ],

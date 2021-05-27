@@ -210,10 +210,11 @@ props: {
 
 ```html
 <script lang="ts" setup>
-  const props = defineProps<{
-    foo: string;
-    bar?: number;
-  }>();
+  const props =
+    defineProps<{
+      foo: string;
+      bar?: number;
+    }>();
 
   const emit = defineEmit<(e: "update" | "delete", id: number) => void>();
 </script>

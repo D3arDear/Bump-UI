@@ -1,6 +1,6 @@
 # 开始使用
 
-请先[安装](#/doc/install)本组件库。
+请先[安装](https://bumpvue.zealot.fun/doc/install)本组件库。
 
 在入口文件引入我的样式文件
 

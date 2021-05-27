@@ -20,4 +20,4 @@ Bump UI 组件库是我对这种风格的尝试和思考，也是我学习 Vue 3
 源代码放在了 [GitHub](https://github.com/BrendanZhang/Bump-UI)。
 你也可以直接查看每个组件的源代码和示例，运行方法见 README.md。
 
-下一节：[安装](#/doc/install)
+下一节：[安装](https://bumpvue.zealot.fun/doc/install)

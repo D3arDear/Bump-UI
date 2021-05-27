@@ -47,9 +47,9 @@
             <li>
               <router-link to="/doc/Input"> Input </router-link>
             </li>
-            <li>
+            <!-- <li>
               <router-link to="/doc/nav"> Nav </router-link>
-            </li>
+            </li> -->
             <li>
               <router-link to="/doc/scroll"> Scroll </router-link>
             </li>
@@ -119,8 +119,8 @@
 <script lang="ts">
 import { inject, Ref } from "vue";
 import Topnav from "./common/Topnav.vue";
-import Scroll from '../../lib/Scroll/Scroll.vue'
-import Sticky from '../../lib/Sticky/Sticky.vue';
+import Scroll from "../../lib/Scroll/Scroll.vue";
+import Sticky from "../../lib/Sticky/Sticky.vue";
 
 export default {
   components: { Topnav, Scroll, Sticky },
@@ -249,12 +249,7 @@ export default {
           // border-bottom-right-radius: 1em;
           transition: all 300ms;
           &:hover {
-            box-shadow: shadowD-oneWay(
-              bottom,
-              $--color--checked,
-              $--blur-range-0,
-              light
-            );
+            box-shadow: shadowD-oneWay(bottom, $--color--checked, $--blur-range-0, light);
           }
           &.active {
             box-shadow: 4px 5px 5px -5px rgba($color: #000, $alpha: 0.1);
@@ -262,12 +257,7 @@ export default {
         }
         a.router-link-active {
           color: $--color--checked;
-          box-shadow: shadowD-oneWay(
-            bottom,
-            $--color--checked,
-            $--blur-range-4,
-            light
-          );
+          box-shadow: shadowD-oneWay(bottom, $--color--checked, $--blur-range-4, light);
         }
       }
     }

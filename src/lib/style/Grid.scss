@@ -1,5 +1,3 @@
-@use "sass:math";
-
 .BUI-Col {
   $class-prefix: col-;
   @for $n from 1 through 24 {

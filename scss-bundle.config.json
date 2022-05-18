@@ -2,7 +2,6 @@
   "bundlerOptions": {
     "entryFile": "./src/lib/style/theme.scss",
     "rootDir": "./src/lib/style/",
-    "outFile": "./dist/lib/bump.scss",
-    "logLevel": "silent"
+    "outFile": "./dist/lib/bump.scss"
   }
 }

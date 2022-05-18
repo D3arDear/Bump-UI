@@ -33,7 +33,13 @@
         >
           {{ n }}
         </Button>
-        <Button :data-index="n - 1" v-else @click="select(n - 1)" rounded textButton>
+        <Button
+          :data-index="n - 1"
+          v-else
+          @click="select(n - 1)"
+          rounded
+          textButton
+        >
           {{ n }}
         </Button>
       </template>
@@ -126,7 +132,7 @@ export default {
       }
       startTouch.value = e.touches[0];
     };
-    const onTouchMove = () => {};
+    const onTouchMove = () => { };
 
     const onTouchEnd = async (e) => {
       let endTouch = e.changedTouches[0];
@@ -212,7 +218,6 @@ export default {
     };
     onMounted(() => {
       updateChildren();
-      console.log("props.autoplay", props.autoPlay);
       if (props.autoPlay) {
         toggleAutoPlay();
       }

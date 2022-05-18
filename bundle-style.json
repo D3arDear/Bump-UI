@@ -1,4 +1,0 @@
-{
-  "dest": "./dist/lib/bump.scss",
-  "mask": "./src/lib/style/*.scss"
-}

@@ -65,7 +65,6 @@ export default {
       document.addEventListener('click', selectorClickDocument)
       await nextTick(() => {
         listVisible.value = true
-        console.log(initScroll.value)
       })
     }
     const closeList = async () => {

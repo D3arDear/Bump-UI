@@ -48,25 +48,25 @@
 
 @function shadow-light($direction, $color, $blur) {
   @if $direction == topLeft {
-    @return (-$blur / 2) (-$blur / 2) $blur background2shadowL($color);
+    @return (-$blur * 0.5) (-$blur * 0.5) $blur background2shadowL($color);
   } @else if $direction == topRight {
-    @return ($blur / 2) (-$blur / 2) $blur background2shadowL($color);
+    @return ($blur * 0.5) (-$blur * 0.5) $blur background2shadowL($color);
   } @else if $direction == bottomLeft {
-    @return (-$blur / 2) ($blur / 2) $blur background2shadowL($color);
+    @return (-$blur * 0.5) ($blur * 0.5) $blur background2shadowL($color);
   } @else if $direction == bottomRight {
-    @return ($blur / 2) ($blur / 2) $blur background2shadowL($color);
+    @return ($blur * 0.5) ($blur * 0.5) $blur background2shadowL($color);
   }
 }
 
 @function shadow-dark($direction, $color, $blur) {
   @if $direction == topLeft {
-    @return ($blur / 2) ($blur / 2) $blur background2shadowD($color);
+    @return ($blur * 0.5) ($blur * 0.5) $blur background2shadowD($color);
   } @else if $direction == topRight {
-    @return (-$blur / 2) ($blur / 2) $blur background2shadowD($color);
+    @return (-$blur * 0.5) ($blur * 0.5) $blur background2shadowD($color);
   } @else if $direction == bottomLeft {
-    @return ($blur / 2) (-$blur / 2) $blur background2shadowD($color);
+    @return ($blur * 0.5) (-$blur * 0.5) $blur background2shadowD($color);
   } @else if $direction == bottomRight {
-    @return (-$blur / 2) (-$blur / 2) $blur background2shadowD($color);
+    @return (-$blur * 0.5) (-$blur * 0.5) $blur background2shadowD($color);
   }
 }
 

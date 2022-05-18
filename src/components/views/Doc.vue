@@ -111,6 +111,7 @@
             </transition>
           </router-view>
         </div>
+        <Footer />
       </main>
     </div>
   </div>
@@ -121,9 +122,10 @@ import { inject, Ref } from "vue";
 import Topnav from "./common/Topnav.vue";
 import Scroll from "../../lib/Scroll/Scroll.vue";
 import Sticky from "../../lib/Sticky/Sticky.vue";
+import Footer from './Footer.vue'
 
 export default {
-  components: { Topnav, Scroll, Sticky },
+  components: { Topnav, Scroll, Sticky, Footer },
   setup() {
     const asideVisible = inject<Ref<boolean>>("asideVisible");
     const closeAside = () => {
@@ -178,7 +180,7 @@ export default {
     justify-content: flex-start;
     align-items: flex-start;
     width: 200px;
-    padding: 60px 0 10px 0;
+    padding: 80px 0 10px 0;
     border-right: 1px solid lighten($--color--background, 10%);
     &::-webkit-scrollbar {
       width: 2px;
@@ -249,7 +251,12 @@ export default {
           // border-bottom-right-radius: 1em;
           transition: all 300ms;
           &:hover {
-            box-shadow: shadowD-oneWay(bottom, $--color--checked, $--blur-range-0, light);
+            box-shadow: shadowD-oneWay(
+              bottom,
+              $--color--checked,
+              $--blur-range-0,
+              light
+            );
           }
           &.active {
             box-shadow: 4px 5px 5px -5px rgba($color: #000, $alpha: 0.1);
@@ -257,7 +264,12 @@ export default {
         }
         a.router-link-active {
           color: $--color--checked;
-          box-shadow: shadowD-oneWay(bottom, $--color--checked, $--blur-range-4, light);
+          box-shadow: shadowD-oneWay(
+            bottom,
+            $--color--checked,
+            $--blur-range-4,
+            light
+          );
         }
       }
     }
@@ -275,6 +287,7 @@ export default {
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
+      padding: 50px 0 120px 0;
       flex: 1;
       @media (min-width: 1200px) {
         width: 900px;

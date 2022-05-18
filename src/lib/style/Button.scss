@@ -19,7 +19,7 @@
         lighten($color, 30%) 90%
       );
       animation: BUI-animation__spin 1000ms linear infinite;
-      box-shadow: 0 0 ($blur / 2) rgba(lighten($color, 30%), 0.3);
+      box-shadow: 0 0 ($blur * 0.5) rgba(lighten($color, 30%), 0.3);
       &-space {
         position: absolute;
         top: 2px;
@@ -28,7 +28,7 @@
         left: 2px;
         border-radius: 50%;
         z-index: 1;
-        box-shadow: 0 0 ($blur / 2) rgba(lighten($color, 30%), 0.3) inset;
+        box-shadow: 0 0 ($blur * 0.5) rgba(lighten($color, 30%), 0.3) inset;
         background: $color;
       }
     }

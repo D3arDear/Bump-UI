@@ -63,7 +63,7 @@ $--color--default-pager-color: #009688;
   }
   &-item {
     color: $--color--pager;
-    border-radius: $height / 4;
+    border-radius: $height * 0.25;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -83,7 +83,7 @@ $--color--default-pager-color: #009688;
     &.current {
       color: ContrastText($--color--pager);
       font-weight: bold;
-      border-radius: $height / 4;
+      border-radius: $height * 0.25;
       transition: all 300ms;
       @include surface($light-direction, $--color--pager, convex);
       @include shadow($light-direction, $--color--pager, $--blur-range-4);
